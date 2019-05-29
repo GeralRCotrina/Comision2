@@ -1,0 +1,547 @@
+{% load staticfiles i18n %} 
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block txt_titulo %} est_base {% endblock txt_titulo %}</title>
+
+
+    <!-- Bootstrap core CSS-->
+    {% block css %}
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"><!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet"><!-- Page level plugin CSS-->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet"><!-- Custom styles for this template-->
+    <link rel="icon" href="{% static 'img/icocrnh.ico' %}">
+    {% endblock css %}
+
+    
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand  static-top" style="background: #317631">
+
+      <a class="navbar-brand mr-1 text-white" href="index.html"> {% block txt_cabecera %} VOCAL {% endblock txt_cabecera %} </a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+         <h4 class="h5 text-white">{{ request.user.get_full_name }}</h4>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" style=" background: #48755B;">
+            <div class="card" style="height: 310px; width: 200px; margin: 3px;">
+                <div>
+                  <p><strong>VOCAL ({{ request.user }})</strong></p>
+                </div>
+                <img src="{% static 'img/perfil.png' %}" class="w-100 img-thumbnail" style="height: 150px; width: 150px;">
+
+                <div class="card-body">
+                  <h5 class="h5">{{ request.user.get_full_name }}</h5>
+                  <a href="{% url 'p_usuario_edi' request.user.id %}" class="btn btn-info">Ver perfil</a>
+                  <a href="{% url 'logout' %}" class="btn btn-danger">Salir</a>
+                </div>
+          </div>
+        </li>
+      </ul>
+
+    </nav>
+
+
+
+
+
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav text-black" style="background: #4B8549;">
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'vocal' %}">
+            <div class="border w-100 m-1" style="height:130px; border-radius: 5px;"></div>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'vocal' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>INICIO</span>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>USUARIOS</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_usuario_reg' %}">Registrar</a>
+            <a class="dropdown-item" href="{% url 'p_usuario_lis' %}">Listar</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>NOTICIA</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_noticia_lis' %}">Listar</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>PARCELA</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_parcela_reg' %}">Registrar</a>
+            <a class="dropdown-item" href="{% url 'p_parcela_lis' %}">Listar</a>
+          </div>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>CANAL</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_canal_lis' %}">Listar</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+        </li>
+      </ul>
+   
+
+
+
+
+      <div id="content-wrapper"> <!-- /.content-wrapper ****************************************************-->
+        {% block cuerpo %}
+          
+       
+         
+            
+            <div class="container-fluid m-2">
+              {% block noticias %}
+              <ol class="breadcrumb"><!-- Breadcrumbs-->
+                  <li class="breadcrumb-item">
+                    <a href="index.html">Tablero</a>
+                  </li>
+                  <li class="breadcrumb-item active">Pagina en blanco</li>
+                </ol>
+                <h1>Pagina en blanco</h1><!-- Page Content -->
+                <hr>
+                <p>Esta es la referencia para nuevas paginas</p>
+
+            {% endblock noticias %}
+
+
+
+
+
+<div class="row">
+    <div class="col-lg-8">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-chart-bar"></i>
+          Bar Chart Example</div>
+        <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+          <canvas id="myBarChart" width="933" height="466" class="chartjs-render-monitor" style="display: block; height: 373px; width: 747px;"></canvas>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-chart-pie"></i>
+          Pie Chart Example</div>
+        <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+          <canvas id="myPieChart" width="422" height="422" class="chartjs-render-monitor" style="display: block; height: 338px; width: 338px;"></canvas>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-chart-area"></i>
+    Area Chart Example</div>
+  <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+    <canvas id="myAreaChart" width="1446" height="433" class="chartjs-render-monitor" style="display: block; height: 347px; width: 1157px;"></canvas>
+  </div>
+  <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+ {% block tabla %}
+
+            <div class="card mb-3">
+              <div class="card-header"> {% block titulo_tabla %} listado {% endblock titulo_tabla %}</div>
+
+               <div class="row p-1">
+
+                  <div class="col-5"></div>
+
+                  <div class="col-2">
+                    {% if page_obj.has_previous %}
+                      <ul class="pagination pagination-sm" >
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+                      </ul> 
+                    {% endif %}
+                  </div>
+                
+                    <div class="col-3">
+                      <ul class="pagination pagination-sm" >
+                        {% if page_obj.has_previous %}
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+                        {% endif %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+                        {% if page_obj.has_next %}
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>  
+                        {% endif %} 
+                      </ul>
+                    </div>
+
+                    <div class="col-2">
+                      {% if page_obj.has_next %}
+                        <ul class="pagination pagination-sm" >
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+                        </ul> 
+                      {% endif %}
+                    </div>
+                </div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                   <tr style="background: #B3EBAC">
+
+                    {% block td1_tabla %}       
+                      <td>NOMBRES</td>
+                      <td>TAMAÑO</td>
+                      <td>UBICACIÓN</td>
+                      <td>ACCIONES</td>
+                    {% endblock td1_tabla %}
+
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr style="background: #B3EBAC">
+                     {% block td2_tabla %}       
+                      <td>NOMBRES</td>
+                      <td>TAMAÑO</td>
+                      <td>UBICACIÓN</td>
+                      <td>ACCIONES</td>
+                    {% endblock td2_tabla %}
+                  </tr>
+                </tfoot>
+              <tbody>
+                {% block body_tabla %}
+
+                 <tr>
+                    <td>NOMBRES</td><td>TAMAÑO</td><td>UBICACIÓN</td><td>ACCIONES</td>
+                  </tr>
+                  <tr>
+                    <td>NOMBRES</td><td>TAMAÑO</td><td>UBICACIÓN</td><td>ACCIONES</td>
+                  </tr>
+
+                {% endblock body_tabla %}
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+
+                  <div class="col-5"> <a class="btn btn-outline-success form-control" href="{% block btn_nuevo %} #                   
+                  {% endblock btn_nuevo %} ">+ NUEVO</a></div>
+
+                      <div class="col-2">
+                        {% if page_obj.has_previous %}
+                          <ul class="pagination pagination-sm" >
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+                          </ul> 
+                        {% endif %}
+                      </div>
+                      
+
+                      <div class="col-3">
+                        <ul class="pagination pagination-sm" >
+                          {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+                          {% endif %}
+                          <li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+                          {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>  
+                          {% endif %} 
+                        </ul>
+                      </div>
+
+                      <div class="col-2">
+                        {% if page_obj.has_next %}
+                          <ul class="pagination pagination-sm" >
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+                          </ul> 
+                        {% endif %}
+                      </div>
+                  </div>
+                  
+            </div>
+            <div class="card-footer small text-muted">__*</div>
+          </div>
+          {% endblock tabla %}
+
+
+
+
+
+
+
+
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-9 h-100 border"> a </div>
+                <div class="col-1"></div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+ 
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-9 h-100 border"> a </div>
+                <div class="col-1"></div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td >primary</td>
+                                <td>secondary</td>
+                                <td >dark</td>
+                                <td >light</td>
+                                <td >danger</td>
+                                <td >warning</td>
+                                <td >success</td>
+                                <td>info</td>
+                                <td >white</td>
+                            </tr>
+                        </thead>
+                            <tbody>
+                            <tr>
+                                <td class="bg-primary">primary</td>
+                                <td class="bg-secondary">secondary</td>
+                                <td class="bg-dark">dark</td>
+                                <td class="bg-light">light</td>
+                                <td class="bg-danger">danger</td>
+                                <td class="bg-warning">warning</td>
+                                <td class="bg-success">success</td>
+                                <td class="bg-info">info</td>
+                                <td class="bg-white">white</td>
+                            </tr>
+                            <tr><td>BOTONES</td></tr>
+                            <tr>
+                                <td><button type="submit" class="btn btn-primary">pri</button></td>
+                                <td><button type="submit" class="btn btn-secondary">sec</button></td>
+                                <td><button type="submit" class="btn btn-dark">dark</button></td>
+                                <td><button type="submit" class="btn btn-light">lig</button></td>           
+                                <td><button type="submit" class="btn btn-danger">dan</button></td>  
+                                <td><button type="submit" class="btn btn-warning">war</button></td> 
+                                <td><button type="submit" class="btn btn-success">suc</button></td> 
+                                <td><button type="submit" class="btn btn-info">inf</button> </td>               
+                                <td><button type="submit" class="btn btn-white">whi</button></td>
+                            </tr>
+                            <tr><td>LINKS</td></tr>
+                            <tr>
+                                 <td><a href="#" class=" bg-primary">primary</a></td>
+                                 <td><a href="#"  class=" bg-dark">dark</a></td>
+                                 <td><a href="#"  class=" bg-light">light</a></td>
+                                <td><a href="#"  class="btn bg-danger">danger</a></td>
+                                 <td><a href="#"  class="link bg-warning">warning</a></td>
+                                 <td><a href="#"  class=" bg-success">success</a></td>
+                                 <td><a href="#"  class=" bg-info">info</a></td>
+                                <td> <a href="#"  class=" bg-white">white</a></td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                </div>
+            </div>
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-10 h-100 border"> a </div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-10 h-100 border"> a </div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+
+
+
+
+             <class class="row">
+                <div class="col-12 progress m-1">
+                    
+                    <p data-toggle="tooltip" title="LA CANTIDAD DE AGUA EN EL CANAL MADRE" class="text-success font-weight-bold">
+                    .  Las siguientes medidas estan en referencia al canal, no al total del agua.</p>
+                </div>
+
+                <div class="col-12 progress m-1"  style="height: 50px;">
+                    <div class="progress-bar w-75 bg-primary  progress-bar-striped progress-bar-animated"> 
+                    <h6 data-toggle="tooltip" title="LA CANTIDAD DE AGUA EN EL CANAL MADRE" class="text-white">.  75% CANAL MADRE .</h6></div>
+                </div>
+
+                <div class="col-12 progress m-1"  style="height: 25px;">
+                    <div class="progress-bar w-25 bg-primary  progress-bar-striped progress-bar-animated"></div>
+                    <h6 data-toggle="tooltip" title="LA CANTIDAD DE AGUA EN EL RAMAL 1" class="text-primary">. RAMAL 1</h6>
+                </div>
+
+                <div class="col-12 progress m-1"  style="height: 25px;">
+                    <div class="progress-bar w-0 bg-primary  progress-bar-striped progress-bar-animated"></div>
+                    <h6 data-toggle="tooltip" title="LA CANTIDAD DE AGUA EN EL RAMAL 2" class="text-primary"> RAMAL 2</h6>
+                </div> 
+
+                <div class="col-12 progress m-1"  style="height: 25px;">
+                    <div class="progress-bar w-50 bg-primary  progress-bar-striped progress-bar-animated"></div>
+                    <h6 data-toggle="tooltip" title="LA CANTIDAD DE AGUA EN EL RAMAL 3" class="text-primary">. RAMAL 3</h6>
+                </div>
+
+                <div class="col-12 progress m-1"  style="height: 25px;">
+                    <div class="progress-bar w-0 bg-primary  progress-bar-striped progress-bar-animated"> </div>
+                    <h6 data-toggle="tooltip" title="LA CANTIDAD DE AGUA EN EL RAMAL 4" class="text-primary">.  RAMAL 4</h6>
+                </div>
+
+            </class><br>
+
+
+
+
+
+
+
+
+
+
+
+            </div><!-- /.container-fluid -->
+         
+
+      {% endblock cuerpo %}
+    </div>
+      <!-- /.content-wrapper************************************************************************* -->
+
+
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Cotrina Lezama © Proyecto de tesis 2018</span>
+            </div>
+          </div>
+        </footer>
+
+  
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    {% block js %}    
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script><!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script><!-- Page level plugin JavaScript-->
+    <script src="{% static 'js/sb-admin.min.js' %}"></script><!-- Custom scripts for all pages-->
+
+    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script> <!-- Demo scripts for this page-->
+    <script src="{% static 'js/demo/chart-bar-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+    {% endblock js %}
+
+  </body>
+
+</html>

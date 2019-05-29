@@ -1,0 +1,509 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+
+  <head> 
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block txt_titulo %} Comité-Nuevo Horizonte {% endblock txt_titulo %}</title>
+
+
+    <!-- Bootstrap core CSS-->
+    {% block css %}
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"><!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet"><!-- Page level plugin CSS-->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet"><!-- Custom styles for this template-->
+    <link rel="icon" href="{% static 'img/icocrnh.ico' %}">
+    {% endblock css %}
+
+    
+
+  </head> 
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand  static-top" style="background: #317631">
+
+      <a class="navbar-brand mr-1 text-white" href="{% url 'usuario' %}"> {% block txt_cabecera %} USUARIO {% endblock txt_cabecera %} </a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+         <h4 class="h5 text-white">{{ request.user.get_full_name }}</h4>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            {% block card_login %}
+              
+            
+            <div class="card" style="height: 310px; width: 200px; margin: 3px;">
+                <div>
+                  <p><strong>USUARIO ({{ request.user }})</strong></p>
+                </div>
+                <img src="{% static 'img/perfil.png' %}" class="w-100 img-thumbnail" style="height: 150px; width: 150px;">
+
+                <div class="card-body">
+                  <h5 class="h5">{{ request.user.get_full_name }}</h5>
+                      <div class="btn-group btn-block">
+                        <a href="{% url 'mylogin' %}" class="btn btn-success form-control"><i class="fas fa-lock-open"></i></a>
+                        <a href="{% url 'logout' %}" class="btn btn-danger form-control"><i class="fas fa-lock"></i></a>                          
+                      </div> 
+                </div>
+            </div>
+            {% endblock card_login %}
+        </li>
+      </ul>
+
+    </nav>
+
+
+
+
+
+
+
+      <!-- Sidebar -->
+    <div id="wrapper">
+      <ul class="sidebar navbar-nav text-black" style="background: #4B8549;">
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'usuario' %}">
+            <div class="border w-100 m-1" style="height:130px; border-radius: 5px;">
+              <img src="{% static 'img/logo1.png' %}" class="w-100 h-100 img-thumbnail">
+            </div>
+          </a>
+        </li>
+
+
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>INICIO</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'usuario' %}"><i class="fas fa-user"></i></i> Usuario</a>
+            <a class="dropdown-item" href="{% url 'canalero' %}"><i class="fas fa-user-tie"></i> Canalero</a>
+            <a class="dropdown-item" href="{% url 'presidente' %}"><i class="fas fa-user-graduate"></i></i> Presidente</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-newspaper"></i>
+            <span>NOTICIA</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'u_noticia_lis' %}">Listar</a>
+            <a class="dropdown-item" href="#">sol ord</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <i class="fas fa-map-marked-alt"></i>
+            <span>MIS PARCELAS</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'u_misparcelas_lis' %}?id_auth={{user.id}}">Mis parcelas</a>
+          </div>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <i class="fas fa-list-ol"></i>
+            <span>REPARTO</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'u_reparto_lis' %}">Solicitar</a>
+            <a class="dropdown-item" href="{% url 'u_mis_orden_lis' %}?id_auth={{user.id}}">Ver mis ordenes</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-draw-polygon"></i>
+            <span>DESTAJOS</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="#">Ver mis destajos</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-money-check-alt"></i>
+            <span>MULTAS</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="#">Mis multas</a>
+            <a class="dropdown-item" href="#">Historial completo</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" style="color: #F1FC43; font-size: 2.1em;" href="mk:@MSITStore:C:\Desarrollo\ev1\comision2\static\helpdesk2\helpdesk2.chm::/e_usuario.html">
+            <i class="fas fa-question-circle"></i>
+            <span>Ayuda  <i style="font-size: 2.1em;"> F2?</i></span>
+          </a>
+        </li>
+
+
+      </ul>
+   
+
+
+
+
+
+      <div id="content-wrapper"> <!-- /.content-wrapper ****************************************************-->
+        {% block cuerpo %}
+          
+       
+         
+            
+            <div class="container-fluid m-2">
+              {% block noticias %}
+              <ol class="breadcrumb"><!-- Breadcrumbs-->
+                  <li class="breadcrumb-item">
+                    {% block txt_ol %}
+                       <h5 class="text text-primary">Usuario</h5>
+                  </li>
+                  <li class="breadcrumb-item active">{{ user.get_full_name}}</li>
+                    {% endblock txt_ol %}
+                </ol>
+                {% block txt_bienv %}
+                <h1 class="h1">Bienvenido usuario {{ user.get_full_name}}.</h1><!-- Page Content -->
+                <hr>
+                <p class="font-italic">“Mejor un poco que esté bien hecho, que una gran cantidad imperfecta.”,Platon filósofo griedo</p>                  
+                {% endblock txt_bienv %}
+
+            {% endblock noticias %}
+
+         {% block noticias1 %}
+
+         <div class="row">
+
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-success o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-list-ol"></i>
+                  </div>
+                  <div class="mr-5">REAPARTO</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="{% url 'u_reparto_lis' %}">
+                  <span class="float-left">Solicitar orden..</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-dark o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-draw-polygon"></i>
+                  </div>
+                  <div class="mr-5">DESTAJOS..</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="{% url 'c_usuario_lis' %}">
+                  <span class="float-left">Ver mis destajos..</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                  </div>
+                  <div class="mr-5">PARCELA</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="{% url 'c_parcela_lis' %}">
+                  <span class="float-left">Ver mis parcelas..</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-warning o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-question-circle"></i>
+                  </div>
+                  <div class="mr-5">AYUDA EN LÍNEA</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="{% static 'helpdesk/help.chm' %}">
+                  <span class="float-left">Ver ver ayuda..</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
+         {% endblock noticias1 %}
+
+
+
+         {% block tabla %}
+
+            <div class="card mb-3">
+              <div class="card-header"> {% block titulo_tabla %} listado {% endblock titulo_tabla %}</div>
+
+               <div class="row p-1">
+
+                  <div class="col-5"></div>
+
+                  <div class="col-2">
+                    {% if page_obj.has_previous %}
+                      <ul class="pagination pagination-sm" >
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+                      </ul> 
+                    {% endif %}
+                  </div>
+                
+                    <div class="col-3">
+                      <ul class="pagination pagination-sm" >
+                        {% if page_obj.has_previous %}
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+                        {% endif %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+                        {% if page_obj.has_next %}
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>  
+                        {% endif %} 
+                      </ul>
+                    </div>
+
+                    <div class="col-2">
+                      {% if page_obj.has_next %}
+                        <ul class="pagination pagination-sm" >
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+                        </ul> 
+                      {% endif %}
+                    </div>
+                </div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                   <tr style="background: #B3EBAC">
+
+                    {% block td1_tabla %}       
+                      <td>NOMBRES</td>
+                      <td>TAMAÑO</td>
+                      <td>UBICACIÓN</td>
+                      <td>ACCIONES</td>
+                    {% endblock td1_tabla %}
+
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr style="background: #B3EBAC">
+                     {% block td2_tabla %}       
+                      <td>NOMBRES</td>
+                      <td>TAMAÑO</td>
+                      <td>UBICACIÓN</td>
+                      <td>ACCIONES</td>
+                    {% endblock td2_tabla %}
+                  </tr>
+                </tfoot>
+              <tbody>
+                {% block body_tabla %}
+
+                 <tr>
+                    <td>NOMBRES</td><td>TAMAÑO</td><td>UBICACIÓN</td><td>ACCIONES</td>
+                  </tr>
+                  <tr>
+                    <td>NOMBRES</td><td>TAMAÑO</td><td>UBICACIÓN</td>
+                    <td>
+                      <a class="btn btn-danger" href="#">
+                        <i class="fa fa-trash-o fa-lg"></i> Elimiar
+                      </a>
+                    </td>
+                  </tr>
+
+                {% endblock body_tabla %}
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+
+                  <div class="col-5"> </div>
+
+                      <div class="col-2">
+                        {% if page_obj.has_previous %}
+                          <ul class="pagination pagination-sm" >
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+                          </ul> 
+                        {% endif %}
+                      </div>
+                      
+
+                      <div class="col-3">
+                        <ul class="pagination pagination-sm" >
+                          {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+                          {% endif %}
+                          <li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+                          {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>  
+                          {% endif %} 
+                        </ul>
+                      </div>
+
+                      <div class="col-2">
+                        {% if page_obj.has_next %}
+                          <ul class="pagination pagination-sm" >
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+                          </ul> 
+                        {% endif %}
+                      </div>
+                  </div>
+                  
+            </div>
+            <div class="card-footer small text-muted">__*</div>
+          </div>
+          {% endblock tabla %}
+
+
+
+
+
+
+{% block graficos %}
+
+
+<div class="row">
+    <div class="col-lg-8">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-chart-bar"></i>
+          Bar Chart Example</div>
+        <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+          <canvas id="myBarChart" width="933" height="466" class="chartjs-render-monitor" style="display: block; height: 373px; width: 747px;"></canvas>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-chart-pie"></i>
+          Pie Chart Example</div>
+        <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+          <canvas id="myPieChart" width="422" height="422" class="chartjs-render-monitor" style="display: block; height: 338px; width: 338px;"></canvas>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-chart-area"></i>
+    Area Chart Example</div>
+  <div class="card-body"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+    <canvas id="myAreaChart" width="1446" height="433" class="chartjs-render-monitor" style="display: block; height: 347px; width: 1157px;"></canvas>
+  </div>
+  <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+
+  
+{% endblock graficos %}
+            </div><!-- /.container-fluid -->
+         
+
+      {% endblock cuerpo %}
+    </div>
+      <!-- /.content-wrapper************************************************************************* -->
+
+
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Cotrina Lezama © Proyecto de tesis 2018</span>
+            </div>
+          </div>
+        </footer>
+
+  
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+
+
+    <!-- Bootstrap core JavaScript-->
+    {% block js %}    
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script><!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script><!-- Page level plugin JavaScript-->
+    <script src="{% static 'js/sb-admin.min.js' %}"></script><!-- Custom scripts for all pages-->
+
+    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script> <!-- Demo scripts for this page-->
+    <script src="{% static 'js/demo/chart-bar-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+    <script src="{% static 'js/teclaayudau.js' %}"></script>
+
+    {% endblock js %}
+
+  </body>
+
+</html>

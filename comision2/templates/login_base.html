@@ -1,0 +1,129 @@
+{% load staticfiles i18n %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Comité NUEVO HORIZONTE</title>
+
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"><!-- Bootstrap core CSS-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"><!-- Custom fonts for this template-->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet"><!-- Custom styles for this template-->
+    <link rel="icon" href="{% static 'img/icocrnh.ico' %}">
+</head>
+
+<body style="background: #90BFAB;">
+
+
+
+<nav class="navbar navbar-expand  static-top" style="background: #317631">
+
+      <a class="navbar-brand mr-1 text-white" href="#">Comité de regantes NUEVO HORIZONTE </a>
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 text-white">
+          <a href="{% url 'usuario' %}" class="text-white">{{ request.user.get_full_name }}</a>
+      </form>
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow">
+          <i class="text-success">......</i>
+          <a href="{% url 'index' %}"><i class="fas fa-tv text-white"></i></a>
+        </li>
+      </ul>
+
+    </nav> 
+
+
+
+
+    <div class="container">
+      <div class="card card-login mx-auto mt-5">
+        <div class="card-header">
+          <img src="{% static 'img/login.png' %}" style="height: 30px; width: 30px;" class="rounded-circle">  
+          <i style="font-size: larger;" class="text-muted"> Iniciar sesión </i>
+        </div>
+
+
+        <div class="card-body">
+          <img src="{% static 'img/logo1.png' %}" class="w-100 img-thumbnail" style="height: 9.5em;">
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-danger text-center">
+              <a class="close" href="#" data-dismiss="alert" >×</a>
+                    <i class="fas fa-shield-alt" style="font-size:2.0em;"></i> 
+                      {{ message }} 
+                      <i class="fas fa-user-secret" style="font-size:2.0em;"></i>
+              </div>
+            {% endfor %}          
+        {% endif %}
+
+            <form enctype = "multipart/form-data" method="POST"> 
+              {% csrf_token %} 
+              <br>
+
+
+
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-5" style="font-size:1.4em; line-height: 2.0em; text-shadow: 2px 2px 2px #85D895;">
+                    <label class = "control-label">Usuario : </label>
+                    <br>          
+                    <label class = "control-label">Contraseña:</label>
+                  </div>
+                  <div class="col-7">
+                    <div id = "username_warning"><input type = "text" class = "form-control" id = "username" name= "username"/></div>
+                    <br>
+                    <div id = "password_warning"><input type = "password" class = "form-control" id = "password" name="password" /></div>                   
+                  </div>                  
+                </div>
+              </div>
+              <br>
+
+                  <div class="form-group text-center">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="remember-me">
+                        Recordar contraseña
+                      </label>
+                    </div>
+                  </div>
+
+                  <button type="submit" id = "login" class = "btn btn-success btn-block">Iniciar sesión</button>
+                  <!--span class="badge badge-pill badge-warning">
+                      <a href="{% url 'RegistrarUsuario' %}" >...registrarse</a>
+                  </span-->                       
+              </form>
+        </div>
+
+        <div class="card-footer" style="font-size: 0.7em; line-height: 0.1em;">
+          <p class="text-right font-italic">de momento solo los directivos pueden registrar nuevos usuarios</p>
+          <p class="text-right font-italic">...proximamente se expandirá</p>
+        </div>
+
+      </div>
+      <br><br><br>
+    </div>
+
+
+
+
+
+ <!-- Bootstrap core JavaScript-->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>    
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script><!-- Core plugin JavaScript-->
+
+</body>
+  <!-- Sticky Footer -->
+
+    <footer class="sticky-footer">
+      <div class="container-fluid my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Cotrina Lezama © Proyecto de tesis 2018</span>
+        </div>
+      </div>
+    </footer>
+       
+</html>

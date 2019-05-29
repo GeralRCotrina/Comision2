@@ -1,0 +1,69 @@
+{% extends "u_base.html" %}
+
+
+{% block txt_cabecera %}
+	NOTICIAS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+{% block noticias1 %}
+
+{% endblock noticias1 %}
+ 
+
+
+{% block titulo_tabla %}Listado de Noticias{% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>Titular</td>
+	<td>Descripción</td>
+	<td>Fecha</td>
+	<td>imagen</td>
+{% endblock td1_tabla %}
+
+{% block td2_tabla %}
+	<td>Titular</td>
+	<td>Descripción</td>
+	<td>Fecha</td>
+	<td>imagen*</td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td>[{{ob.id_noticia}}] {{ ob.titular }}</td>
+			<td>{{ ob.descripcion }}</td>
+			<td>{{ ob.fecha }}</td>
+			<td><img src="/media/{{ ob.foto }}" style="height: 100px; width: 65px;"></td>
+			
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO HAY NOTICIAS</h1>
+	{% endif %}
+
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %}	
+{% endblock btn_nuevo %}
+
+
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

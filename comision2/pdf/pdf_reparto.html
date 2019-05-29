@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="utf-8">
+    <title>  </title>
+    <link href="bootstrap.css" rel="stylesheet" type="text/css">
+  </head> 
+
+  <body id="page-top">
+     <div id="content-wrapper"> 
+      <div class="container-fluid m-2">
+             
+
+
+
+              <div class="row breadcrumb" style="height: 70px; width: 100%;">
+                <div class="col">
+                  <div class="float-left">
+                    <img src="logo.png" style="height: 55px; width: 80px;">
+                    <strong class="font-italic">Comité de Renates NUEVO HORIZONTE</strong>
+                  </div>
+                  <div class="float-right h-100 w-50 p-1 text-right">
+                     <p class="font-italic display-7">+for {{fecha}}</p>                  
+                  </div>
+                </div>
+              </div>
+              <strong><hr></strong>             
+              
+                <table class="table" width="100%" cellspacing="0">
+                  <thead>
+                   <tr class="font-italic font-weight-bold" style="background: #ECE9E9">     
+                      <td><strong>REPARTO</strong></td>      
+                      <td><strong>CANAL</strong></td>     
+                      <td><strong>USUARIO</strong></td>    
+                      <td><strong>ORDEN</strong></td>     
+                      <td><strong># TOMA</strong></td>     
+                      <td><strong>FEHCA</strong></td>     
+                      <td><strong>HAS</strong></td>
+                  </tr>
+                </thead>
+              <tbody>
+                {% for r in repartos %}
+                    <tr style="height: 30px; font-size: 0.8em; line-height: 0.8em;">
+                      <td>{{r.reparto}}</td>
+                      <td>{{r.canal}}</td>
+                      <td>{{r.usuario}}</td>
+                      <td>{{r.id_orden}}</td>
+                      <td>{{r.toma}}</td>
+                      <td>{{r.fecha.day}}-{{r.fecha.month}}-{{r.fecha.year}}</td>
+                      <td>{{r.hectareas}} ha</td>
+                    </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+          </div>
+  
+
+ 
+  </div><!-- /.container-fluid -->
+
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer fixed-botton">
+          <hr>
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Comité Nuevo Horizonte © Proyecto de tesis 2018</span>
+            </div>
+          </div>
+        </footer>
+
+  
+
+    </div>
+
+  </body>
+
+</html>
+
+
+
+

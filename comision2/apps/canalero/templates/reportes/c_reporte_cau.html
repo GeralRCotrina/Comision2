@@ -1,0 +1,118 @@
+{% extends "c_base.html" %}
+
+
+{% block txt_cabecera %}
+	REPORTE DE CAUDAL
+{% endblock txt_cabecera %}
+
+
+
+
+
+{% block noticias %}
+
+{% if canales %}
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+<script type="text/javascript">
+
+Highcharts.chart('container', {
+
+    title: {
+        text: 'Reporte del caudal de agua.'
+    },
+
+    subtitle: {
+        text: 'Regidtrado por el canalero.'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Nivel de agua [0 - 10]'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: -3
+        }
+    },
+
+    series: [
+        {% for c in canales %}
+            { name: '{{ c.nombre }}',  data: [
+            {% for ca in caudal %}
+                {% if ca.id_canal.pk == c.id_canal %}
+                    {{ ca.nivel}} , 
+                {% endif %}
+            {% endfor %}   
+            ]}, 
+        {% endfor %}
+        ],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+        </script>
+
+
+{% else %}
+    <h1>NO LLEÓ LA LISTA DE CANALES</h1>
+{% endif %}
+
+{% endblock noticias %}
+
+
+
+
+{% block noticias1 %}
+
+<div class="container border" style="background: #DCFDE1;">
+    <STRONG>Resumen</STRONG>
+        {% for c in canales %}
+           <li style="font-size: 0.7em;"> Al canal <strong>{{ c.nombre }}</strong> se le registraron los caudales:
+            <i style="color: #DCFDE1;">.......</i>
+            {% for ca in caudal %}
+                {% if ca.id_canal.pk == c.id_canal %}
+                   <i> {{ca.fecha.day}}/ {{ca.fecha.month}} : {{ ca.nivel}} ;</i> <i style="color: #DCFDE1;">...</i> 
+                {% endif %}
+            {% endfor %}   
+             </li>
+        {% endfor %}        
+<br></div>
+
+{% endblock noticias1 %}
+
+
+
+
+{% block tabla %}	
+{% endblock tabla %}
+
+
+{% block graficos %}	
+{% endblock graficos %}
+

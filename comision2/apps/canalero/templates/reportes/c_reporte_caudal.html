@@ -1,0 +1,107 @@
+{% extends "c_base.html" %}
+
+
+{% block txt_cabecera %}
+	REPORTE DE CAUDAL
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+
+
+
+
+{% if canales %}
+
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+
+<script type="text/javascript">
+
+Highcharts.chart('container', {
+    chart: {
+        type: 'area'
+    },
+    title: {
+        text: 'Reporte del caudal de agua'
+    },
+    subtitle: {
+        text: 'Reporte de caudal de : <b>{{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }}</b>     &amp;    <b>{{ cant_cau }}</b> semanas atras.'
+    },
+    xAxis: {
+        allowDecimals: false,
+        labels: {
+            formatter: function () {
+                return this.value; // clean, unformatted number for year
+            }
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'NIVEL DE LOS CANALES'
+        },
+        labels: {
+            formatter: function () {
+                return this.value / 1 + ' - Nivel';
+            }
+        }
+    },
+    tooltip: {
+        pointFormat: ' <b>{series.name}</b> con  <b>nivel</b> de agua  <b>{point.y:,.0f}</b><br/> Hace {point.x} semanas!'
+    },
+    plotOptions: {
+        area: {
+            pointStart: (parseInt('{{ cant_cau }}')-1)*-1,
+
+            marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 6,
+                states: {
+                    hover: {
+                        enabled: true
+                    }
+                }
+            }
+        }
+    },
+    series: [
+            {% for c in canales %}
+                {
+                    name: '{{ c.nombre }}',
+                    data: [ 
+                    {% for ca in caudal %}
+                        {% if c.id_canal == ca.id_canal.pk %}
+                            {{ ca.nivel }},
+                        {% endif %}
+                    {% endfor %}
+                    
+                     ]},
+            {% endfor %}
+        ]
+});
+		</script>
+
+
+
+{% else %}
+    <h1>NO LLEÓ LA LISTA DE CANALES</h1>
+{% endif %}
+
+{% endblock noticias %}
+
+
+
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+
+{% block tabla %}	
+{% endblock tabla %}
+
+
+{% block graficos %}	
+{% endblock graficos %}

@@ -1,0 +1,35 @@
+{% extends "c_base.html" %}
+
+{% block txt_cabecera %}
+	BORRAR NOTICIA
+{% endblock txt_cabecera %}
+
+
+
+{% block noticias %}
+	<div class="container border">
+		<br>
+		<form method="post">
+			{% csrf_token %}
+			<h2>¿Seguro que desea borrar la noticia: "{{ object.titular }}" ?</h2>
+			<a href="{% url 'c_noticia_lis' %}" class="btn btn-success">Cancelar</a>
+			<button class="btn  btn-danger" type="submit">Sí, eliminar</button>		
+		</form><br>
+	</div>
+{% endblock noticias %}
+
+
+{% block noticias1 %}
+
+{% endblock noticias1 %}
+
+
+{% block tabla %}
+	
+{% endblock tabla %}
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

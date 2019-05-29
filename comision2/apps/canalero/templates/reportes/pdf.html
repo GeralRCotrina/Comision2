@@ -1,0 +1,11 @@
+{% extends "c_base.html" %}
+
+{% block txt_cabecera %}
+	BORRAR CANAL
+{% endblock txt_cabecera %}
+
+{% block cuerpo %}
+<div class="row container border">
+	<embed height="100%" width="100%"  name="plugin" src="static/nuevo_pdf.pdf"  type="application/pdf">
+</div>
+{% endblock cuerpo %}

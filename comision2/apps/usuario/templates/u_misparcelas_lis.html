@@ -1,0 +1,79 @@
+{% extends "u_base.html" %}
+
+
+{% block txt_cabecera %}
+	MIS DE PARCELAS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+
+{% block noticias1 %}
+
+{% endblock noticias1 %}
+
+
+
+{% block titulo_tabla %}Listado de Parcelas{% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>NOMBRE</td>
+	<td>TOMA</td>
+	<TD>Has sembradas</TD>
+	<td>Has total</td>
+	<td>Estado</td>
+{% endblock td1_tabla %}
+
+{% block td2_tabla %}
+	<td>NOMBRE</td>
+	<td>TOMA</td>
+	<TD>Has sembradas</TD>
+	<td>Has total</td>
+	<td>Estado</td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">({{ ob.id_parcela }}) {{ ob.nombre }}
+			<div class="dropdown-menu w-100 border p-1 bg-warning">
+				<div class="row">
+					<div class="col-3">
+						<label>Ubicación: {{ ob.ubicacion }}</label>
+					</div>
+					<div class="col-2">
+						<label>Decrioción: {{ ob.descripcion  }}</label>
+					</div>
+					<div class="col-2">
+						<label>Dueño: {{ ob.id_auth_user }}</label>
+					</div>
+				</div>
+			</div></td>					
+			<td>{{ ob.num_toma }}</td>
+			<td>{{ ob.has_sembradas }}</td>
+			<td>{{ ob.total_has }}</td>
+			<td>{{ ob.estado }}</td>
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO TIENE PARCELAS REGISTRADAS</h1>
+	{% endif %}
+{% endblock body_tabla %}
+
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

@@ -1,0 +1,84 @@
+{% extends "u_base.html" %}
+
+
+{% block txt_cabecera %}
+	ÓRDENES DE RIEGO
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+{% block noticias1 %}
+
+{% endblock noticias1 %}
+ 
+
+
+{% block titulo_tabla %}Todas mis órdenes{% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>REPARTO</td>
+	<td>PARCELA</td>
+	<td>FECHA INICIO</td>
+	<td>REGADADO</td>
+	<td>S/.</td>
+	<td>ESTADO</td>
+	<td></td>
+{% endblock td1_tabla %}
+
+{% block td2_tabla %}
+	<td>REPARTO</td>
+	<td>PARCELA</td>
+	<td>FECHA INICIO</td>
+	<td>REGADO</td>
+	<td>S/.</td>
+	<td>ESTADO</td>
+	<td></td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td>{{ob.id_reparto.tipo}}- {{ ob.id_reparto.fecha_reparto.day }}</td>
+			<td>{{ ob.id_parcela.nombre }}</td>
+			<td>{{ ob.fecha_establecida.day }}-{{ ob.fecha_establecida.month }}-{{ ob.fecha_establecida.year }}</td>
+			<td>{{ ob.cantidad_has }}</td>
+			<td>{{ ob.importe }}</td>
+			<td>{{ ob.estado }}</td>
+			
+			{% if  ob.estado == 'Solicitada' %}
+				<td><a class="btn btn-outline-danger" href="{% url 'u_orden_eli' ob.pk %}" ><i class="fas fa-trash-alt"></i></a></td>				
+			{% else %}
+				<td><span class="badge badge-pill badge-secondary"><i class="fas fa-lock"></i>   {{ ob.estado }}</span></td>
+			{% endif %}
+			
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO TIENE ÓRDDENES DE RIEGO</h1>
+	{% endif %}
+
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %}	
+{% endblock btn_nuevo %}
+
+
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}
+

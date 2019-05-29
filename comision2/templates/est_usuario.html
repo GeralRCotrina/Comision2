@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+ 
+    
+<title>{% block txt_titulo %} est_usuario {% endblock txt_titulo %}</title>
+   
+
+    <link rel="stylesheet" href="/static/css/est_presidente.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    
+
+
+</head>
+<body>
+
+    <header>
+        <h1 class="text-success">{% block txt_cabecera %}USUARIO{% endblock txt_cabecera %}</h1>
+    </header>
+
+    <div class = "container-fluid cabecera d-block bg-success"></div>
+
+
+
+
+     <div class = "row container-fluid h-100" >
+
+
+        
+        
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-2 col-xl-2 h-100 barra bg-success">
+
+            {% block barra %} 
+
+
+                <div class="card w-100 h-50">
+                    <div class="card-header">
+                        <h4>USUARIO</h4>
+                    </div>
+                    <img src="/static/img/perfil.png" class="w-100 h-50 img-thumbnail">
+                    <div class="card-body">
+                        <h4 class="card-title">  {{ request.user.get_full_name }} </h4>
+                        <a href="#" class="btn btn-primary">VER PERFIL</a>
+                    </div>
+                </div><br>
+
+
+                <div class="col-12 btn-group btn-group-vertical btn-block">
+                    <button class="btn btn-outline-light" data-toggle="collapse" data-target="#a"><strong>INICIO</strong></button>
+                        <div id ="a" class="collapse btn-group-vertical btn-block" >
+                          <a href="{% url 'usuario' %}" class="btn btn-block" style="background:#AED4BB;">Usuario</a>
+                        </div>
+                    <button class="btn btn-outline-light" data-toggle="collapse" data-target="#b"><strong>REPARTO</strong></button>
+                        <div id ="b" class="collapse btn-group-vertical btn-block" >
+                          <a href="{% url 'u_orden_reg' %}" class="btn btn-block" style="background:#AED4BB;">Solicitar Orden</a>
+                          <a href="{% url 'u_orden_lis' %}" class="btn btn-block" style="background:#AED4BB;">Ver Mis Órdenes</a>
+                          <a href="{% url 'u_orden_lis' %}" class="btn btn-block" style="background:#AED4BB;">Estado de Riego</a>
+                        </div>
+                     <button class="btn btn-outline-light" data-toggle="collapse" data-target="#c"><strong>REPORTES</strong></button>
+                        <div id ="c" class="collapse btn-group-vertical btn-block" >
+                          <a href="{% url 'c_multa_reg' %}" class="btn btn-block" style="background:#AED4BB;">Ranking</a>
+                          <a href="{% url 'c_multa_lis' %}" class="btn btn-block" style="background:#AED4BB;">Órdenes</a>
+                        </div>
+                   
+                   
+                    <a href="{% url 'logout' %}" class="btn bg-white">Cerrar sesión</a>
+                </div>
+
+
+
+            {% endblock barra %}
+
+        </div>
+
+
+
+
+
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-9 col-xl-9  h-100 border noticias">
+
+            {% block noticias %}
+
+            <h1 class="alert alert-success alert-dismissable">Noticias de la comisión </h1>
+
+            <div class="container row h-25">
+                <div class="col-7 h-100 border">
+                    <strong>0001</strong>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-4 h-100 border">
+                    <strong>0002</strong>
+                </div>
+            </div> <br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col">
+                    <p class="alert alert-success alert-dismissable"><strong>TITULAR</strong></p>
+                </div>
+            </div><br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-9 h-100 border"> a </div>
+                <div class="col-1"></div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-9 h-100 border"> a </div>
+                <div class="col-1"></div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-10 h-100 border"> a </div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-10 h-100 border"> a </div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+                    
+
+            {% endblock noticias %}
+        </div><br><br>
+
+
+
+
+
+
+
+
+        <div class="col-12  col-sm-12  col-md-12 col-lg-1 col-xl-1 h-100" style="padding: 30px 40px;">
+
+            {% block notificaciones %}
+
+                <div class="row"><kbd>amet</kbd></div><br>
+                <div class="row"><span class="badge badge-primary">12/09/208</span></div><br>
+                <div class="row"><span class="badge badge-pill badge-danger">categoria</span></div><br>
+
+            {% endblock notificaciones %}
+        </div>
+
+
+
+    </div>
+
+        
+
+
+
+
+
+    {% block pie %}
+            <nav class = "container-fluid pie bg-success">
+                <div >
+                    <label class = "navbar-text" ><strong>Cotrina Lezama &copy; proyecto de tesis 2018</strong></label>
+                </div>
+            </nav>
+    {% endblock pie %}
+
+<script src="/static/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</body>
+</html>

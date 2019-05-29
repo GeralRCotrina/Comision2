@@ -1,0 +1,151 @@
+{% extends "est_usuario.html" %}
+
+
+{% block txt_cabecera %}
+	LISTA DE USUARIOS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+<br>
+
+
+<div class="row">
+
+	<div class="col-5"></div>
+
+	<div class="col-2">
+		{% if page_obj.has_previous %}
+			<ul class="pagination pagination-sm" >
+				<li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+			</ul>	
+		{% endif %}
+	</div>
+	
+
+	<div class="col-3">
+		<ul class="pagination pagination-sm" >
+			{% if page_obj.has_previous %}
+				<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+			{% endif %}
+			<li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+			{% if page_obj.has_next %}
+				<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>	
+			{% endif %}	
+		</ul>
+	</div>
+
+	<div class="col-2">
+		{% if page_obj.has_next %}
+			<ul class="pagination pagination-sm" >
+				<li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+			</ul>	
+		{% endif %}
+	</div>
+
+
+
+</div>
+
+
+
+
+<table class="table">
+	<thead>
+		<tr class="bg-info">
+			<td>NOMBRES</td>
+			<td>APELLIDOS</td>
+			<TD>ALIAS</TD>
+			<td>ACCIONES</td>
+		</tr>
+	</thead>
+	<tbody style="background: #ECFDF4;">
+			{% csrf_token %}
+
+			{% if object_list %}
+				{% for persona in object_list %}
+
+				<tr >
+					<td data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">({{ persona.idpersona }}) {{ persona.nombres }}
+					<div class="dropdown-menu w-100 border">
+						<div class="row  bg-success">
+							<div class="col-3">
+								<label>Cel: {{ persona.celular }}</label>
+							</div>
+							<div class="col-2">
+								<label>Tel: {{ persona.telefono }}</label>
+							</div>
+							<div class="col-2">
+								<label>DNI: {{ persona.dni }}</label>
+							</div>
+							<div class="col-5">
+								<label>Nacimiento : {{ persona.fecha_nacimiento }}</label>
+							</div><br>
+						</div>
+					</div></td>					
+					<td>{{ persona.ap_paterno }} {{ persona.ap_materno }}</td>
+					<td>{{ persona.alias }}</td>
+					<td>
+						<a class="btn btn-outline-success" href="{% url 'editar' persona.idpersona %}">
+							<img src="/static/img/editar1.png"  style="width: 25px; height: 25px;"></a>
+							
+						<a class="btn btn-outline-success" href="{% url 'eliminar' persona.idpersona %}" >
+							<img src="/static/img/eliminar1.png" style="width:25px; height: 25px;"></a>
+					</td>
+				</tr>
+
+				{% endfor %}				
+			{% else %}
+				<h1>NO HAY USUARIOS</h1>
+			{% endif %}
+	</div></tbody>
+</table>
+
+<div class="row">
+
+	<div class="col-5"></div>
+
+	<div class="col-2">
+		{% if page_obj.has_previous %}
+			<ul class="pagination pagination-sm" >
+				<li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+			</ul>	
+		{% endif %}
+	</div>
+	
+
+	<div class="col-3">
+		<ul class="pagination pagination-sm" >
+			{% if page_obj.has_previous %}
+				<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+			{% endif %}
+			<li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+			{% if page_obj.has_next %}
+				<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>	
+			{% endif %}	
+		</ul>
+	</div>
+
+	<div class="col-2">
+		{% if page_obj.has_next %}
+			<ul class="pagination pagination-sm" >
+				<li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+			</ul>	
+		{% endif %}
+	</div>
+
+
+
+</div>
+
+
+
+{% endblock noticias %}
+
+<!--{% url 'usuario:editar' persona.id %}
+re_path(r'^usuario/', include('apps.usuario.urls', namespace='usuario')),
+<img src="/static/img/editar1.png"  style="width: 25px; height: 25px;">
+<img src="/static/img/eliminar1.png" style="width:25px; height: 25px;">
+
+<a class="btn btn-outline-success" href="{% url 'UsuarioUpdate' persona.id %}" >Editar</a>
+-->

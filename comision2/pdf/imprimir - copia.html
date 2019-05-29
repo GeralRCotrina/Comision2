@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html manifest="" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Órdenes del reparto</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap.css">
+</head>
+<body>
+
+
+
+
+
+
+<br>
+<div class="container">
+
+  <!---h1>.. {{ticket.decode('utf-8') }}</h1> 
+  ddd
+  <h1>... {{ticket}}</h1>
+  ddd
+  <h1> .... {{ticket1}} </h1-->
+
+
+  <table style="width: 100%;"><!-- class="table table-bordered"    -->
+
+    <tbody>
+
+{% for s in ordenes %}
+
+      <tr style="height: 170px; margin: 0px; border: 1px solid #D9D7D7;">
+        <td style="border: 1px solid #D9D7D7;">
+            <div class="row" style="height: 30px;">
+                <div class="col-12" style="height: 32px; background: #F1EEEE">
+                  <span class="float-left"><span class="badge badge-secondary"><strong>Recibo N° {{s.recibo}}</strong></span></span>
+                  <span class="float-right font-italic text-muted">Comité NH <img src="ico4.png" height="30px;" width="50px;"></span>
+                </div>
+                <br>
+              </div>
+
+            <div class="row">
+                <div class="col-12">
+                  <span class="float-left font-italic"><i class="text-white">....</i><strong>USUARIO:</strong><i class="text-white">....</i>{{s.usuario}}<i class="text-white">....</i></span><br>
+                  <span class="float-left font-italic"><i class="text-white">....</i><strong>CANAL:</strong><i class="text-white">....</i>{{s.canal}}<i class="text-white">....</i><strong>Toma:</strong><i class="text-white">....</i>{{s.toma}}</span><br>
+                  <span class="float-left font-italic"><i class="text-white">....</i><strong>Parcela:</strong><i class="text-white">....</i>{{s.parcela}}<i class="text-white">....</i><strong>Horas:</strong><i class="text-white">....</i>{{s.horas}}</span><br>
+                </div>          
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                  <span class="badge badge-secondary float-right font-italic">. . . . . . . . . . Recibo por ingresos </span>
+                </div>     
+                <br>    
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                  <span class="float-left font-italic"><i class="text-white">....</i><strong>Canceló:</strong><i class="text-white">....</i>{{s.importe}}</span>
+                </div><br>
+                <div class="col-12">
+                  <span class="float-left font-italic"><i class="text-white">....</i><strong> FECHA RIEGO:</strong><i class="text-white">....</i>{{s.fecha}} - {{s.inicio}}</span>
+                </div>            
+            </div><br>
+
+            <div class="row" style="background: #D8D2D2">
+              <div class="col-12">
+                <p class="text-white font-italic"><i class="text-white">.............</i>{{fecha}}</p>
+              </div>
+            </div>
+        </td>
+
+
+
+
+
+
+
+<!-- #F1EEEE -->
+
+
+
+
+        <td>
+          <div>
+            <div class="row container">
+                <div class="col-12" style="height: 32px; background: #F1EEEE">
+                  <span class="float-left"><strong>Recibo N° {{s.recibo}}</strong></span>
+                  <span class="float-right font-italic text-muted">Comité de Regantes NUEVO HORIZONTE <img src="ico4.png" height="30px;" width="50px;"></span>
+                <br><br>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <div class="col-12">
+                 <span class="float-left font-italic">
+                  <i class="text-white">....</i><strong>USUARIO:</strong><i class="text-white">....</i>{{s.usuario}}<i class="text-white">.......</i>
+                  <strong>Parcela:</strong><i class="text-white">....</i>{{s.parcela}}
+                </span>
+              </div>
+            </div><br>
+
+               <div class="row">
+                <div class="col-12">
+                  <span class="text-left font-italic"><i class="text-white">....</i><strong> Toma:</strong><i class="text-white">....</i>{{s.toma}}<i class="text-white">....................</i>
+                  <strong>Horas:</strong><i class="text-white">....</i>{{s.horas}}<i class="text-white">.........................</i><strong>Canal:</strong> <i class="text-white">....</i>{{s.canal}}<i class="text-white">....</i></span>
+                </div> 
+              </div>
+
+            <div class="row justify-content-center"> 
+                <div class="col-12">
+                  <span class="text-left font-italic"><i class="text-white">....</i><strong>Fecha de riego:</strong><i class="text-white">....</i>{{s.fecha}}<i class="text-white">....</i>
+                    <strong>Inicio:</strong><i class="text-white">....</i>{{s.inicio}}<i class="text-white">....</i></span>
+                  <br>
+                </div>         
+            </div>
+
+            <div class="row  justify-content-center">
+                <div class="col-12">
+                  <span class="badge badge-secondary float-right font-italic">. . . . . . . . . . Recibo por turno de riego </span>
+                </div>
+                <br>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12">
+                  <span class="float-left font-italic"><i class="text-white">....</i>Usted canceló:<i class="text-white">....</i><strong>{{s.importe}}</strong></span>
+                </div> 
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12">
+                  <span class="float-right font-italic">TESORERO: ............................................................</span> 
+                </div>
+                <br>
+            </div><br>
+
+
+
+            <div class="row" style="background: #D8D2D2">
+              <div class="col-12">
+                    <p class="text-white font-italic">_AA.HH Nuevo Horizonte _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ {{fecha}}</p>
+              </div>
+            </div>
+          </div>
+
+        </td>
+      </tr>
+
+{% endfor %}
+    
+  </table>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+
+{% extends "p_base.html" %}
+
+
+
+{% block txt_cabecera %}
+	PRESIDENTE
+{% endblock txt_cabecera %}
+
+
+
+
+
+
+{% block noticias %}
+	
+
+	<form>
+		{% csrf_token %}
+		{% if auth %}
+			{% for a in auth %}
+				<p><label> {{a.first_namr}} {{a.last_name}}
+				{% for d in datos %}
+					{% if a.pk == d.id_auth_user.pk %}
+						 . DNI:{{d.dni}}  - 
+						<img src="/media/{{d.foto}}" style="height: 100px; width: 80px;"> </label></p><br>
+					{% endif %}
+				{% endfor %}
+			{% endfor %} <br>
+			<button class="btn btn-success">_LLENAR_</button>
+			
+		{% else %}
+			<h1>NO HAY LISTA</h1>
+		{% endif%}
+	</form>
+
+
+{% endblock noticias %}
+
+
+
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+
+{% block tabla %}
+	
+{% endblock tabla %}
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}
+
+
+

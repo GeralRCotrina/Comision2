@@ -1,0 +1,90 @@
+{% extends "c_base.html" %}
+
+
+{% block txt_cabecera %}
+	LISTA DE PARCELAS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+
+{% block noticias1 %}
+
+{% endblock noticias1 %}
+
+
+
+{% block titulo_tabla %}Listado de Parcelas{% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>CANAL</td>
+	<td>NOMBRE</td>
+	<td>TOMA</td>
+	<TD>Has Sembradas</TD>
+	<td>Descripción</td>
+	<td>Estado</td>
+	<td> </td>
+{% endblock td1_tabla %}
+
+{% block td2_tabla %}
+	<td>CANAL</td>
+	<td>NOMBRE</td>
+	<td>TOMA</td>
+	<TD>Has Sembradas</TD>
+	<td>Descripción</td>
+	<td>Estado</td>
+	<td> </td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td>{{ ob.id_canal }}</td>
+			<td data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">({{ ob.id_parcela }}) {{ ob.nombre }}
+			<div class="dropdown-menu w-100 border p-1 bg-warning">
+				<div class="row">
+					<div class="col-3">
+						<label>Ubicación: {{ ob.ubicacion }}</label>
+					</div>
+					<div class="col-2">
+						<label>HasTotal: {{ ob.hectareas }}</label>
+					</div>
+					<div class="col-2">
+						<label>Dueño: {{ ob.id_auth_user }}</label>
+					</div>
+				</div>
+			</div></td>					
+			<td>{{ ob.num_toma }}</td>
+			<td>{{ ob.has_sembradas }}</td>
+			<td>{{ ob.descripcion }}</td>
+			<td>{{ ob.estado }}</td>
+			<td>
+				<a class="btn btn-outline-success" href="{% url 'c_parcela_edi' ob.id_parcela %}"><i class="far fa-edit"></i></a>		
+				<a class="btn btn-outline-danger" href="{% url 'c_parcela_eli' ob.id_parcela %}" ><i class="fas fa-trash-alt"></i></a>
+			</td>
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO HAY USUARIOS</h1>
+	{% endif %}
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %} {% url 'c_parcela_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

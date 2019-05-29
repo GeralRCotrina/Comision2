@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+ 
+    
+<title>{% block txt_titulo %} est_vocal {% endblock txt_titulo %}</title>
+   
+
+    <link rel="stylesheet" href="/static/css/est_vocal.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    
+
+
+</head>
+<body>
+
+    <header>
+        <h1>{% block txt_cabecera %}VOCAL{% endblock txt_cabecera %}</h1>
+    </header>
+
+    <div class = "container-fluid cabecera d-block"></div>
+
+
+
+
+     <div class = "row container-fluid h-100" >
+
+
+        
+        
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-2 col-xl-2 h-100 barra container-fluid">
+
+            {% block barra %} 
+
+
+                <div class="card w-100 h-50">
+                    <div class="card-header">
+                        <h4>VOCAL</h4>
+                    </div>
+                    <img src="/static/img/perfil.png" class="w-100 h-50 img-thumbnail">
+                    <div class="card-body">
+                        <h4 class="card-title">  {{ request.user.get_full_name }} </h4>
+                        <a href="#" class="btn btn-primary">VER PERFIL</a>
+                    </div>
+                </div><br>
+
+
+                <div class="col-12 btn-group btn-group-vertical">
+                    <button class="btn btn-success"><strong>INICIO</strong></button>
+                    <button class="btn btn-success"><strong>REGISTRAR</strong></button>
+                    <button class="btn btn-success"><strong>PARCELA</strong></button>
+                    <button class="btn btn-success"><strong>DESTAJO</strong></button>
+                    <button class="btn btn-bg-secondary"><strong>Cerrar sesión</strong></button>
+                </div>
+
+
+
+            {% endblock barra %}
+
+        </div>  
+
+
+
+
+
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-9 col-xl-9  h-100 border noticias">
+
+            {% block noticias %}
+
+            <h1 class="alert alert-success alert-dismissable">Noticias de la comisión </h1>
+
+            <div class="container row h-25">
+                <div class="col-7 h-100 border">
+                    <strong>0001</strong>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-4 h-100 border">
+                    <strong>0002</strong>
+                </div>
+            </div> <br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col">
+                    <p class="alert alert-success alert-dismissable"><strong>TITULAR</strong></p>
+                </div>
+            </div><br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-9 h-100 border"> a </div>
+                <div class="col-1"></div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-9 h-100 border"> a </div>
+                <div class="col-1"></div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-10 h-100 border"> a </div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+            <div class="container row " style="height: 50px;">
+                <div class="col-10 h-100 border"> a </div>
+                <div class="col-2 h-100 border">b</div>
+            </div><br>
+
+                    
+
+            {% endblock noticias %}
+        </div><br><br>
+
+
+
+
+
+
+
+
+        <div class="col-12  col-sm-12  col-md-12 col-lg-1 col-xl-1 h-100" style="padding: 30px 40px;">
+
+            {% block notificaciones %}
+
+                <div class="row"><kbd>amet</kbd></div><br>
+                <div class="row"><span class="badge badge-primary">12/09/208</span></div><br>
+                <div class="row"><span class="badge badge-pill badge-danger">categoria</span></div><br>
+
+            {% endblock notificaciones %}
+        </div>
+
+
+
+    </div>
+
+        
+
+
+
+
+
+    {% block pie %}
+            <nav class = "container-fluid pie">
+                <div >
+                    <label class = "navbar-text" ><strong>Cotrina Lezama &copy; proyecto de tesis 2018</strong></label>
+                </div>
+            </nav>
+    {% endblock pie %}
+
+
+</body>
+</html>

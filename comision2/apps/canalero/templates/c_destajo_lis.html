@@ -1,0 +1,84 @@
+{% extends "c_base.html" %}
+
+
+{% block txt_cabecera %}
+	NOTICIAS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+{% block noticias1 %}
+
+{% endblock noticias1 %}
+ 
+
+
+{% block titulo_tabla %}Listado de Noticias{% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>Id</td>
+	<td>Canal</td>
+	<td>Parcela</td>
+	<td>Tamaño</td>
+	<td>N° de orden</td>
+	<td>Se registró el</td>
+	<td>Descripción</td>
+	<td></td>
+{% endblock td1_tabla %}
+
+{% block td2_tabla %}
+	<td>Id</td>
+	<td>Canal</td>
+	<td>Parcela</td>
+	<td>Tamaño</td>
+	<td>N° de orden</td>
+	<td>Se registró el</td>
+	<td>Descripción</td>
+	<td></td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td>[{{ob.id_destajo}}]</td>
+			<td> {{ ob.id_canal }}</td>
+			<td> {{ ob.id_parcela }}</td>
+			<td>{{ ob.tamano }}</td>
+			<td> {{ ob.num_orden }}</td>
+			<td>{{ ob.fecha_registro }}</td>
+			<td> {{ ob.descripcion }}</td>
+			<td>
+				<a class="btn btn-outline-success" href="{% url 'c_destajo_edi' ob.id_destajo %}">
+					<img src="/static/img/editar1.png"  style="width: 25px; height: 25px;"></a>
+					
+				<a class="btn btn-outline-success" href="{% url 'c_destajo_eli' ob.id_destajo %}" >
+					<img src="/static/img/eliminar1.png" style="width:25px; height: 25px;"></a>
+			</td>
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO HAY DESTAJOS</h1>
+	{% endif %}
+
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %} {% url 'c_destajo_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

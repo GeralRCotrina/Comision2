@@ -1,0 +1,51 @@
+{% extends "p_base.html" %}
+
+{% block txt_cabecera %}
+	JAMAS SE USA inicio>templates
+{% endblock txt_cabecera %}
+
+{% block card_login %}	
+{% endblock card_login %}
+
+
+{% block noticias %}
+	
+	<div class="row">
+		<div class="col-6 border p-2">
+
+
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<p><label for="id_id_auth_user">Usuario:</label> 
+				<input type="text" name="id_auth_user" class="form-control" id="id_id_auth_user" placeholder="{{ request.user.get_full_name }}"  disabled></p>
+				<input type="hidden" name="csrfmiddlewaretoken" value="sjQgNCQ3gvFkNXkrrbZgpeG5CV4rd0pAhD42UZN15Jr6MvGa2veq8rM8WFijTOww">
+				<p><label for="id_dni">DNI:</label> <input type="text" name="dni" class="form-control" maxlength="8" id="id_dni"></p>
+				<p><label for="id_sexo">Sexo:</label> <input type="text" name="sexo" class="form-control" maxlength="1" id="id_sexo"></p>
+				<p><label for="id_alias">Alias:</label> <input type="text" name="alias" class="form-control" maxlength="20" id="id_alias"></p>
+				<p><label for="id_fecha_nacimiento">fecha nacimiento:</label> <input type="date" name="fecha_nacimiento" class="form-control" id="id_fecha_nacimiento"></p>
+				<p><label for="id_telefono">teléfono:</label> <input type="text" name="telefono" class="form-control" maxlength="20" id="id_telefono"></p>
+				<p><label for="id_celular">Móvil:</label> <input type="text" name="celular" class="form-control" maxlength="13" id="id_celular"></p>
+				<p><label for="id_foto">foto:</label> <input type="file" name="foto" class="btn-block" accept="image/*"></p>
+				
+				<button type="submit" class="btn btn-primary">GUARDAR</button><br><br><br><br>
+						 {{ form.errors }}
+			</form>
+		</div>
+	</div>
+
+
+{% endblock noticias %}
+
+
+
+
+{% block tabla %}
+	
+{% endblock tabla %}
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

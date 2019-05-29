@@ -1,0 +1,60 @@
+{% extends "c_base.html" %}
+
+{% block txt_cabecera %}
+	ESTABLECER HORA
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+	<div class="container border">
+
+		{% if orden %}
+			
+		
+		<br>
+		<form method="post">
+			{% csrf_token %}
+			<h2>Ingrese hora para la orden [{{orden.id_parcela}}]?</h2><br><br>
+
+			<input type="hidden" name="idord"  value="{{orden.pk}}">
+			<input type="hidden" name="idrepa"  value="{{orden.id_reparto.pk}}">
+
+			<input type="date" name="fecha" style="height: 2em; font-size: 4em;" class="form-control" required="required">	
+			<br><br>
+
+							
+				<input type="number" step="01" min="00" max="23" name="horas" required="required" style="height: 2em; width: 2em; font-size: 5em;">
+				<i style="height: 2em; width: 180px; font-size: 90px;">:</i>
+				<input type="number" step="01" min="00" max="59" name="minutos" required="required" style="height: 2em; width: 2em; font-size: 5em;">
+				<br><br>
+
+
+				<div class="form-check">
+					<label for="dos" class="form-check-label text-danger" style="font-size: 2em;">
+						<input type="checkbox" name="actu" class="form-check-input" value="on" style="height:1em; width: 1em;">_No Actualizar la hora de las siguientes órdenes
+					</label>
+				</div>
+				<br>
+
+
+			<a href="{% url 'c_reparto_lis' %}" class="btn btn-warning">Cancelar</a>
+			<button class="btn  btn-success" type="submit">Establecer hora</button>		
+		</form><br>
+		{% else %}
+		<H1>NO LLEGÓ LA ORDEN	</H1>
+		{% endif %}
+	</div>
+{% endblock noticias %}
+
+
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+{% block tabla %}	
+{% endblock tabla %}
+
+{% block graficos %}	
+{% endblock graficos %}
+
+
+<!--style="height: 150px; width: 180px; font-size: 90px;"-->

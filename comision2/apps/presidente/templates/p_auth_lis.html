@@ -1,0 +1,109 @@
+{% extends "p_base.html" %}
+
+
+{% block txt_cabecera %}
+	LISTA DE USUARIOS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+
+
+{% block noticias1 %}
+<div class=" row container h-100 m-2">
+	<div class="col-4 btn-group">
+		<h3 class="text-muted" id="txt_tit">Buscar usuario (Auth User) ...   </h3>
+	</div>
+	<div class="col-8 btn-group">
+		<form action="{% url 'p_auth_bus' %}" method="post" class="form-inline">
+			{% csrf_token %}
+
+			<div class="row">
+				<div class="col-9 btn-group">
+					<input type="text" name="buscar" placeholder="Buscar.." class="form-control" id="valor" onkeyup="alEscribeJS()">			
+					<button class="btn btn-outline-secondary" disabled="true" >
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+				<div class="col-3">
+					<a class="btn btn-outline-success p-2 form-control" href="{% url 'RegistrarUsuario' %}">
+						<strong>+</strong><i class="fas fa-user-edit"></i>
+					</a>
+				</div>
+			</div>	
+		</form>
+	</div>
+</div>
+
+{% endblock noticias1 %}
+
+
+
+
+{% block titulo_tabla %} Lista de  Auth {% endblock titulo_tabla %}
+
+
+
+		{% block td1_tabla %}
+			<td>id</td>
+			<td>Usuario</td>
+			<td>Nombres</td>
+			<td>Apellidos</td>
+			<td>Email</td>
+			<td>Ultima vez</td>
+			<td></td>
+		{% endblock td1_tabla %}
+
+		{% block td2_tabla %}
+			<td>id</td>
+			<td>Usuario</td>
+			<td>Nombres</td>
+			<td>Apellidos</td>
+			<td>Email</td>
+			<td>Ultima vez</td>
+			<td></td>
+		{% endblock td2_tabla %}
+ 
+
+{% block body_tabla %}
+	{% csrf_token %}
+			{% if object_list %}
+				{% for p in object_list %}
+					<tr>
+						<td data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ p.pk }}</td>
+						<td>{{ p.username }}</td>			
+						<td>{{ p.first_name }}</td>		
+						<td>{{ p.last_name }}</td>		
+						<td>{{ p.email }}</td>
+						<td> {{ p.last_login }} </td>				
+						<td>
+							<a class="btn btn-outline-success" href="#"><i class="far fa-edit"></i></a>		
+							<a class="btn btn-outline-danger" href="#" ><i class="fas fa-trash-alt"></i></a>
+						</td>
+					</tr>
+				{% endfor %}	
+			{% endif %}
+
+
+{% endblock body_tabla %}
+
+
+
+
+
+
+
+{% block btn_nuevo %} {% url 'p_usuario_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}
+
+

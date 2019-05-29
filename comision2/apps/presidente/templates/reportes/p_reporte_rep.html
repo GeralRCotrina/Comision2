@@ -1,0 +1,79 @@
+{% extends "p_base.html" %}
+
+
+{% block txt_cabecera %}
+	REPORTE DE CAUDAL
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+
+{% if repartos %}
+
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+<script type="text/javascript">
+
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Porcentaje de órdenes sacadas por repartos..'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Órdenes',
+        colorByPoint: true,
+        data: [
+            {% for r in repartos %}
+                {
+                    name: '{{ r.fecha.day }}/{{ r.fecha.month }}/{{ r.fecha.year }}',
+                    y: {{ r.cantidad }},
+                },
+            {% endfor %}
+        ]
+    }]
+});
+</script>
+
+
+
+
+{% else %}
+    <h1>NO LLEGÓ LA LISTA DE REPARTOS</h1>
+{% endif %}
+
+{% endblock noticias %}
+
+
+
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+
+{% block tabla %}	
+{% endblock tabla %}
+
+
+{% block graficos %}	
+{% endblock graficos %}

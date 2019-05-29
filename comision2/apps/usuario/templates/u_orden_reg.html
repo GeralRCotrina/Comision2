@@ -1,0 +1,21 @@
+{% extends "est_usuario.html" %}
+
+{% block txt_cabecera %}
+	SOLICITAR ORDEN DE RIEGO
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+	
+	<div class="row">
+		<div class="col-6 border">
+			<form method="post">
+				{% csrf_token %}
+				{{form.as_p}}
+				<button type="submit" class="btn btn-primary btn-block">SOLICITAR</button><br><br><br><br>
+			</form>
+
+		</div>
+	</div>
+
+{% endblock noticias %}

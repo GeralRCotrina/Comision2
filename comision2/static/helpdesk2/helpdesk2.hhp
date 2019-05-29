@@ -1,0 +1,19 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=helpdesk2.chm
+Contents file=contenidos.hhc
+Default Window=ventanas
+Default topic=e_usuario.html
+Display compile progress=No
+Language=0x280a Español (Perú)
+
+[WINDOWS]
+ventanas="ayuda con html","contenidos.hhc","index.hhc","general.html","general.html","e_usuario.html","general","e_usuario.html","específico",0x23420,,0xc387e,,,,,,,,0
+
+
+[FILES]
+e_usuario.html
+general.html
+
+[INFOTYPES]
+

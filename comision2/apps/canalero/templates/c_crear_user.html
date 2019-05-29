@@ -1,0 +1,84 @@
+{% extends "c_base.html" %}
+
+{% block txt_cabecera %}
+	CREAR USUARIO DE ACCESO ***
+{% endblock txt_cabecera %}
+
+
+	
+
+
+{% block noticias1 %}
+
+	<div class="row">
+		<div class="col-5">
+
+				
+
+			
+				<form method="post" enctype = "multipart/form-data">  
+
+
+				{% csrf_token %}
+				
+		            <div id = "username_warning" class = "form-group">
+		                <label class = "control-label">Usuario de acceso</label>
+		                <input type = "text" class = "form-control" id = "id_username" name= "username"/>
+		            </div>
+
+
+					<div class = "form-group">
+		                <label class = "control-label">Nombres</label>
+		                <input type = "text" class = "form-control" name="first_name"/>
+		                <label class = "control-label">Apellidos</label>
+		                <input type = "text" class = "form-control" name="last_name"/>
+		                <label class = "control-label">Correo</label>
+		                <input type = "email"  id="id_email"  class = "form-control"  maxlength="254" name="email"/>
+		            </div>
+					<br>
+
+
+		            <div id = "password_warning" class = "form-group">
+		                <label class = "control-label">Contraseña</label>
+		                <input type = "password" class = "form-control" id = "id_password1" name="password1" />
+		            </div>
+					<br>
+
+		            <div id = "password_warning" class = "form-group">
+		                <label class = "control-label">Confime contraseña</label>
+		                <input type = "password" class = "form-control" id = "id_password2" name="password2" />
+		            </div><br />
+
+		            <button type = "submit" id = "login" class = "btn btn-success btn-block">REGISTRARSE</button>
+		                
+		        </form> 
+
+
+
+
+			<br><br><br>
+		</div>
+
+		<div class="col-7">
+			<ul>
+				<li>Su contraseña no puede asemejarse tanto a su otra información personal.</li><br>
+				<li>Su contraseña debe contener al menos 8 caracteres</li><br>
+				<li>Su contraseña no puede ser una clave utilizada comunmente.</li><br>
+				<LI>Su contraseña no puede ser completamente numérica.</LI>
+			</ul>
+			<br>
+		</div>
+	</div>
+{% endblock noticias1 %}
+
+
+
+{% block tabla %}
+	
+{% endblock tabla %}
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

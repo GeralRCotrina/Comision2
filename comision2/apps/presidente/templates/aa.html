@@ -1,0 +1,45 @@
+{% extends "est_presidente.html" %}
+
+{% block txt_cabecera %}
+	AA
+{% endblock txt_cabecera %}
+
+
+{% block barra %}
+	
+{% endblock barra %}
+
+{% block noticias %}
+
+	<div class="row">
+		<div class="col-5">
+
+				
+
+			
+				<form method="post" enctype = "multipart/form-data">  
+
+
+				{% csrf_token %}
+
+				{{form.as_p}}
+
+		            <button type = "submit" id = "login" class = "btn btn-success btn-block">REGISTRARSE</button>
+		                
+		        </form> 
+
+
+
+
+			<br><br><br>
+		</div>
+	</div>
+
+	
+{% endblock noticias %}
+
+
+
+{% block notificaciones %}
+	
+{% endblock notificaciones %}

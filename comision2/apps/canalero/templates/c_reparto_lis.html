@@ -1,0 +1,155 @@
+{% extends "c_base.html" %}
+
+
+{% block txt_cabecera %}
+	LISTA DE REPARTOS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+
+{% block noticias1 %}
+
+<div class="row">
+
+		{% csrf_token %}
+
+		{% if object_list %}
+			{% for ob in object_list %}
+
+
+
+				{% if ob.tipo == 'Para Chayas' %}
+
+
+			            <div class="col-xl-3 col-sm-6 mb-3">
+			              <div class="card text-primary bg-warning o-hidden h-100">
+			                <div class="card-body">
+			                  <div class="card-body-icon">
+			                    <i class="fas fa-fw fa-list"></i>
+			                  </div>
+			                  <div class="mr-5"> ({{ob.id_reparto}}) {{ob.tipo}} <br>
+			                  {{ob.fecha_reparto.day}}/{{ob.fecha_reparto.month}}/{{ob.fecha_reparto.year}} ; 4pm/</div>
+			                </div>
+			                <a class="card-footer text-white clearfix small z-1" href="{% url 'c_reparto_lis_ord' %}?id_repa={{ob.id_reparto}}">
+			                  <span class="float-left">Ver ordenes del reparto..</span>
+			                  <span class="float-right">
+			                    <i class="fas fa-angle-right"></i>
+			                  </span>
+			                </a>
+			              </div>
+			            </div>
+
+
+
+		          {% elif ob.tipo == 'General' %}
+
+
+
+			            <div class="col-xl-3 col-sm-6 mb-3">
+			              <div class="card text-white bg-primary o-hidden h-100">
+			                <div class="card-body">
+			                  <div class="card-body-icon">
+			                    <i class="fas fa-fw fa-list"></i>
+			                  </div>
+			                  <div class="mr-5"> ({{ob.id_reparto}}) {{ob.tipo}} <br>
+			                  {{ob.fecha_reparto.day}}/{{ob.fecha_reparto.month}}/{{ob.fecha_reparto.year}} ; 4pm/</div>
+			                </div>
+			                <a class="card-footer text-white clearfix small z-1" href="{% url 'c_reparto_lis_ord' %}?id_repa={{ob.id_reparto}}">
+			                  <span class="float-left">Ver ordenes del reparto..</span>
+			                  <span class="float-right">
+			                    <i class="fas fa-angle-right"></i>
+			                  </span>
+			                </a>
+			              </div>
+			            </div>
+
+			        {% else %}
+
+
+
+			            <div class="col-xl-3 col-sm-6 mb-3">
+			              <div class="card text-white bg-secondary o-hidden h-100">
+			                <div class="card-body">
+			                  <div class="card-body-icon">
+			                    <i class="fas fa-fw fa-list"></i>
+			                  </div>	  
+			                  <div class="mr-5"> ({{ob.id_reparto}}) {{ob.tipo}} <br>
+			                  {{ob.fecha_reparto.day}}/{{ob.fecha_reparto.month}}/{{ob.fecha_reparto.year}} ; 4pm/</div>
+			                </div>
+			                <a class="card-footer text-white clearfix small z-1" href="{% url 'c_reparto_lis_ord' %}?id_repa={{ob.id_reparto}}">
+			                  <span class="float-left">Ver ordenes del reparto..</span>
+			                  <span class="float-right">
+			                    <i class="fas fa-angle-right"></i>
+			                  </span>
+			                </a>
+			              </div>
+			            </div>
+			            
+			        {% endif %}
+
+	          {% endfor %}				
+		{% else %}
+			<h1>NO HAY DESTAJOS</h1>
+		{% endif %}
+
+
+
+    </div>
+
+{% endblock noticias1 %}
+
+
+
+{% block titulo_tabla %}LISTADO DE REPARTOS{% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>N°</td>
+			<td>Tipo de reparto</td>
+			<td>Fecha</td>
+			<td>Acciones</td>
+{% endblock td1_tabla %}
+
+{% block td2_tabla %}
+	<td>REPARTO</td>
+			<td>Descripción</td>
+			<td>Fecha</td>
+			<td>Acciones</td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+			{% if object_list %}
+				{% for ob in object_list %}
+
+				<tr >
+					<td>[{{ob.id_reparto}}] </td>
+					<td>{{ ob.tipo }}</td>
+					<td>{{ ob.fecha_reparto }}</td>
+					<td>
+						<a class="btn btn-outline-success" href="{% url 'c_reparto_edi' ob.id_reparto %}"><i class="far fa-edit">     </i> MAL</a>		
+						<a class="btn btn-outline-danger"  href="{% url 'c_reparto_eli' ob.id_reparto %}"><i class="fas fa-trash-alt"></i></a>
+					</td>
+				</tr>
+
+				{% endfor %}				
+			{% else %}
+				<h1>NO HAY REPARTOS</h1>
+	{% endif %}
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %} {% url 'c_reparto_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

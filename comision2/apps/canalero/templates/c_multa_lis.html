@@ -1,0 +1,80 @@
+{% extends "c_base.html" %}
+
+{% block txt_cabecera %}
+	LISTA DE MULTAS
+{% endblock txt_cabecera %}
+
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+{% block noticias1 %}
+
+{% endblock noticias1 %}
+
+
+
+
+
+
+
+
+
+{% block titulo_tabla %}Lista de Multas{% endblock titulo_tabla %}
+
+{% block tr1_tabla %}
+	<td>REPARTO</td>
+	<td>Descripción</td>
+	<td>Fecha</td>
+	<td>Acciones</td>
+{% endblock tr1_tabla %}
+
+{% block tr2_tabla %}
+	<td>REPARTO</td>
+	<td>Descripción</td>
+	<td>Fecha</td>
+	<td>Acciones</td>
+{% endblock tr2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td>[{{ob.idmulta}}] {{ ob.idusuario }}</td>
+			<td>{{ ob.concepto }}</td>
+			<td>{{ ob.fecha }}</td>
+			<td>
+				<a class="btn btn-outline-success" href="{% url 'c_multa_edi' ob.idmulta %}">
+					<img src="/static/img/editar1.png"  style="width: 25px; height: 25px;"></a>
+					
+				<a class="btn btn-outline-success" href="{% url 'c_multa_eli' ob.idmulta %}" >
+					<img src="/static/img/eliminar1.png" style="width:25px; height: 25px;"></a>
+			</td>
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO HAY MULTAS</h1>
+	{% endif %}
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %} {% url 'c_multa_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}
+
+
+

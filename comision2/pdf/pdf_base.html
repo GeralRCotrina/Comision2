@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="utf-8">
+    <title>  </title>
+    <link href="bootstrap.css" rel="stylesheet" type="text/css">
+  </head> 
+
+  <body id="page-top">
+     <div id="content-wrapper"> 
+      <div class="container-fluid m-2">
+             
+
+
+
+              <div class="row breadcrumb" style="height: 70px; width: 100%;">
+                <div class="col">
+                  <div class="float-left">
+                    <img src="logo.png" style="height: 60px; width: 60px;"><strong class="font-italic">Comité NUEVO HORIZONTE</strong>
+                  </div>
+                  <div class="float-right h-100 w-50 p-1 text-right">
+                     <p class="font-italic display-7"> Nom: __{{nombre}} : {{fecha}}</p>                  
+                  </div>
+                </div>
+              </div>
+              <strong><hr></strong>             
+              
+                <table class="table" width="100%" cellspacing="0">
+                  <thead>
+                   <tr class="font-italic font-weight-bold" style="background: #ECE9E9">     
+                      <td><strong>REPARTO</strong></td>      
+                      <td><strong>CANAL</strong></td>     
+                      <td><strong>USUARIO</strong></td>    
+                      <td><strong>ORDEN</strong></td>     
+                      <td><strong># TOMA</strong></td>     
+                      <td><strong>FEHCA</strong></td>     
+                      <td><strong>HAS</strong></td>
+                  </tr>
+                </thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td>Ramal 1</td><td>Maria LM</td><td>7</td>  
+                  <td>2</td><td>3-11-18</td> <td>2 ha</td>
+                </tr>
+
+                <tr>
+                  <td>1</td><td>Ramal 1</td><td>Maria LM</td><td>7</td>  
+                  <td>2</td><td>3-11-18</td> <td>2 ha</td>
+                </tr>
+
+ 
+                
+                {% for s in [5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] %}
+                  <tr>
+                    <td>{{reparto}}</td>
+                    <td>{{canal}}</td>
+                    <td>{{usuario}}</td>
+                    <td>{{id_orden}}</td>
+                    <td>{{toma}}</td>
+                    <td>{{fecha}}</td>
+                    <td>{{hectareas}} ha</td>
+                  </tr>
+                {% endfor %}
+                    
+                  </tbody>
+                </table>
+          </div>
+  
+
+
+  </div><!-- /.container-fluid -->
+
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer fixed-botton">
+          <hr>
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Comité Nuevo Horizonte © Proyecto de tesis 2018</span>
+            </div>
+          </div>
+        </footer>
+
+  
+
+    </div>
+
+  </body>
+
+</html>
+
+
+
+

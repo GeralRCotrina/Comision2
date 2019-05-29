@@ -1,0 +1,269 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    
+        <title>{% block txt_titulo %} Comisión EAI {% endblock txt_titulo %}</title>
+   
+    
+    
+
+    <!--link rel="stylesheet" href="/static/css/normalize.css"-->
+    <link rel="stylesheet" href="/static/css/estereotipo.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    
+
+
+</head>
+<body>
+
+
+
+
+
+    <header class="header1">
+        <h1>
+        {% block txt_cabecera %}ESTEREOTIPO A{% endblock txt_cabecera %}</h1>
+    </header>
+
+	<div class = "container-fluid cabecera d-block"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <div class = "row container-fluid h-100">
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+        
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-2 col-xl-2 h-100 border" style="background-color: #84A58F;">
+
+            {% block barra %}  
+                <div class = "col-lg-2 well">
+                    <div class = "container-fluid">
+                        <img src = "../static/img/user.png" width = "50px" height = "50px"/>
+                        <br />
+                        <br />
+                        <label class = "text-muted">nombres COMPLETOPS></label>
+                    </div>
+                    <hr style = "border:1px dotted #d3d3d3;"/>
+                    <ul id = "menu" class = "nav menu">
+                        <li><a style = "font-size:18px; border-bottom:1px solid #d3d3d3;" href = "home.php"><i class = "glyphicon glyphicon-home"></i> Inicio</a></li>
+                        <li><a style = "font-size:18px; border-bottom:1px solid #d3d3d3;" href = ""><i class = "glyphicon glyphicon-tasks"></i> Cuentas</a>
+                            <ul style = "list-style-type:none;">
+                                <li><a href = "" style = "font-size:15px;"><i class = "glyphicon glyphicon-user"></i> Admin</a></li>
+                                <li><a href = "" style = "font-size:15px;"><i class = "glyphicon glyphicon-user"></i> Estudiante</a></li>
+                            </ul>
+                        </li>
+                        <li><a style = "font-size:18px; border-bottom:1px solid #d3d3d3;" href = ""><i class = "glyphicon glyphicon-book"></i> Libros</a></li>
+                        <li><a style = "font-size:18px; border-bottom:1px solid #d3d3d3;" href = ""><i class = "glyphicon glyphicon-th"></i> Transaccion</a>
+                            <ul style = "list-style-type:none;">
+                                <li><a href = "" style = "font-size:15px;"><i class = "glyphicon glyphicon-random"></i> Prestamos</a></li>
+                                <li><a href = "" style = "font-size:15px;"><i class = "glyphicon glyphicon-random"></i> Entregas</a></li>
+                            </ul>
+                        </li>
+                        <li><a  style = "font-size:18px; border-bottom:1px solid #d3d3d3;" href = ""><i class = "glyphicon glyphicon-cog"></i> Configuracion</a>
+                            <ul style = "list-style-type:none;">
+                                <li><a style = "font-size:15px;" href = ""><i class = "glyphicon glyphicon-log-out"></i> Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            {% endblock barra %}
+        </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-9 col-xl-9  h-100 border">
+
+            {% block noticias %}
+
+                
+                    <h1 class="alert alert-success alert-dismissable">Noticias de la comisión </h1>                    
+               
+                        <div class="row noticia "></div><div class="row noticia ">
+                            <div class="col-3">
+                                <a href="#" class="alert alert-danger">Lorem ipsum </a>
+
+                            </div>
+                            <div class="col-7">
+                                <p  class="text-left">Lorem ipsum dolor sit <kbd>amet</kbd>, consectetur adipisicing elit, sed ...</p>
+                            </div>
+                            <div class="col-2 b-red">
+                                <span class="badge badge-pill badge-danger">.   categoria   .</span>
+                                <span class="badge badge-primary">12/09/208</span>
+                            </div>
+                        </div>
+                        <div class="row noticia ">
+                            <div class="col-3">
+                                <a href="#" class="alert alert-primary">Lorem ipsum </a>
+
+                            </div>
+                            <div class="col-7">
+                                <p  class="text-left">Lorem ipsum dolor sit <kbd>amet</kbd>, consectetur adipisicing elit, sed ...</p>
+                            </div>
+                            <div class="col-2 b-red">
+                                <span class="badge badge-pill badge-danger">.   seguir   .</span>
+                                <span class="badge badge-primary">12/09/208</span>
+                            </div>
+                        </div>
+                        <div class="row noticia ">
+                            <div class="col-3">
+                                <a href="#" class="alert alert-secondary">Lorem ipsum </a>
+
+                            </div>
+                            <div class="col-7">
+                                <p  class="text-left">Lorem ipsum dolor sit <kbd>amet</kbd>, consectetur adipisicing elit, sed ...</p>
+                            </div>
+                            <div class="col-2 b-red">
+                                <span class="badge badge-pill badge-danger">.   seguir   .</span>
+                                <span class="badge badge-primary">12/09/208</span>
+                            </div>
+                        </div>
+                        <div class="row noticia ">
+                            <div class="col-3">
+                                <a href="#" class="alert alert-secondary">Lorem ipsum </a>
+
+                            </div>
+                            <div class="col-7">
+                                <p  class="text-left">Lorem ipsum dolor sit <kbd>amet</kbd>, consectetur adipisicing elit, sed ...</p>
+                            </div>
+                            <div class="col-2 b-red">
+                                <span class="badge badge-pill badge-danger">.   seguir   .</span>
+                                <span class="badge badge-primary">12/09/208</span>
+                            </div>
+                        </div><div class="row noticia "></div>
+
+
+            {% endblock noticias %}
+        </div><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="col-12  col-sm-12  col-md-12 col-lg-1 col-xl-1 h-100 border" style="text-align: right;">
+
+            {% block notificaciones %}
+
+            <div class="btn-group btn-group-vertical">
+                <button class="btn btn-outline-success " >REPORTES</button>
+                <button class="btn btn-outline-success " >LISTDOS</button>
+                <button class="btn btn-outline-success " >CONSULTAS</button>
+                <button class="btn btn-outline-success " >NOTICIAS</button>
+                <button class="btn btn-outline-success " >INFORMACIÓN</button>
+                <button class="btn btn-outline-success " >REPORTES</button>
+                <button class="btn btn-outline-success " >LISTDOS</button>
+                <button class="btn btn-outline-success " >CONSULTAS</button>
+                <button class="btn btn-outline-success " >NOTICIAS</button>
+                <button class="btn btn-outline-success " >INFORMACIÓN</button>
+                <button class="btn btn-outline-success " >REPORTES</button>
+                <button class="btn btn-outline-success " >LISTDOS</button>
+                <button class="btn btn-outline-success " >CONSULTAS</button>
+                <button class="btn btn-outline-success " >NOTICIAS</button>
+                <button class="btn btn-outline-success " >INFORMACIÓN</button>
+            </div>
+
+
+                <!--span class="badge badge-pill badge-danger">referencias </span><br>   
+                <kbd>mejoras</kbd> <br> 
+                <span class="badge badge-primary">ayuda en linia</span><br>
+                <span class="badge badge-pill badge-danger">referencias </span><br>   
+                <kbd>mejoras</kbd> <br> 
+                <span class="badge badge-primary">ayuda en linia</span><br>
+                <span class="badge badge-pill badge-danger">referencias </span><br>   
+                <kbd>mejoras</kbd> <br> 
+                <span class="badge badge-primary">ayuda en linia</span><br>
+                <span class="badge badge-pill badge-danger">referencias </span><br>   
+                <kbd>mejoras</kbd> <br> 
+                <span class="badge badge-primary">ayuda en linia</span><br-->
+
+
+            {% endblock notificaciones %}
+        </div>
+
+
+
+    </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% block pie %}
+            <nav class = "container-fluid pie">
+                <div >
+                    <label class = "navbar-text" ><strong>Cotrina lezama &copy; proyecto de tesis 2018</strong></label>
+                </div>
+            </nav>
+    {% endblock pie %}
+
+    <!-- class = "container-fluid text-right" -->
+    <!--script src = "/static/js/jquery.js"></script-->
+    <!--script src = "/static/js/bootstrap.js"></script-->
+    <!--script src = "/static/js/login.js"></script-->
+</body>
+</html>

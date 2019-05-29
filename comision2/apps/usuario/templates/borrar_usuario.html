@@ -1,0 +1,19 @@
+{% extends "est_usuario.html" %}
+
+{% block txt_cabecera %}
+	BORRAR USUARIO
+{% endblock txt_cabecera %}
+
+
+
+{% block noticias %}
+	<div class="container border">
+		<br>
+		<form method="post">
+			{% csrf_token %}
+			<h2>¿Seguro que desea borrar a {{ object.nombres }} ?</h2>
+			<a href="{% url 'listar' %}" class="btn btn-success">Cancelar</a>
+			<button class="btn  btn-danger" type="submit">Sí, eliminar</button>		
+		</form><br>
+	</div>
+{% endblock noticias %}

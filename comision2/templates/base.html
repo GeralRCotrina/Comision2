@@ -1,0 +1,355 @@
+{% load staticfiles i18n %} 
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block txt_titulo %} est_base {% endblock txt_titulo %}</title>
+
+
+    <!-- Bootstrap core CSS-->
+    {% block css %}
+    <link href=" {% static 'vendor/bootstrap/css/bootstrap.min.css' %} " rel="stylesheet"><!-- Custom fonts for this template-->
+    <link href=" {% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"><!-- Page level plugin CSS-->
+    <link href=" {% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet"><!-- Custom styles for this template-->
+    <link href=" {% static 'css/sb-admin.css' %}" rel="stylesheet">
+    {% endblock css %}
+
+    
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand  static-top" style="background: #317631">
+
+      <a class="navbar-brand mr-1 text-white" href="index.html"> {% block txt_cabecera %} PRESIDENTE {% endblock txt_cabecera %} </a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+         <h4 class="h5 text-white">{{ request.user.get_full_name }}</h4>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <div class="card" style="height: 310px; width: 200px; margin: 3px;">
+                <div>
+                  <p><strong>{{ request.user }}</strong></p>
+                </div>
+                <img src=" {% static 'img/perfil.png' %}" class="w-100 img-thumbnail" style="height: 150px; width: 150px;">
+
+                <div class="card-body">
+                  <h5 class="card-title">{{ request.user.get_full_name }}</h5>
+                  <a href="#" class="btn btn-info">Ver perfil</a>
+                  <a href="{% url 'logout' %}" class="btn btn-danger">Salir</a>
+                </div>
+          </div>
+        </li>
+      </ul>
+
+    </nav> 
+
+
+
+
+
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav text-black" style="background: #4B8549;">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'presidente' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>INICIO</span>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>USUARIOS</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_usuario_reg' %}">Registrar</a>
+            <a class="dropdown-item" href="{% url 'p_usuario_lis' %}">Listar</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>NOTICIA</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_noticia_reg' %}">Registrar</a>
+            <a class="dropdown-item" href="{% url 'p_noticia_lis' %}">Listar</a>
+          </div>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>USUARIO</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_parcela_reg' %}">Registrar</a>
+            <a class="dropdown-item" href="{% url 'p_parcela_lis' %}">Listar</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>PARCELA</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_parcela_reg' %}">Registrar</a>
+            <a class="dropdown-item" href="{% url 'p_parcela_lis' %}">Listar</a>
+          </div>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>CANAL</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="{% url 'p_canal_reg' %}">Registrar</a>
+            <a class="dropdown-item" href="{% url 'p_canal_lis' %}">Listar</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+        </li>
+      </ul>
+   
+
+
+
+
+      <div id="content-wrapper"> <!-- /.content-wrapper ****************************************************-->
+        {% block cuerpo %}
+          
+       
+          {% block contenedor %}
+            
+            <div class="container-fluid m-2 border">
+                
+              <ol class="breadcrumb"><!-- Breadcrumbs-->
+                  <li class="breadcrumb-item">
+                    <a href="index.html">Dashboard</a>
+                  </li>
+                  <li class="breadcrumb-item active">Blank Page</li>
+                </ol>
+                <h1>Blank Page</h1><!-- Page Content -->
+                <hr>
+                <p>This is a great starting point for new custom pages.</p>
+
+
+            </div><!-- /.container-fluid -->
+          {% endblock contenedor %}
+
+ 
+
+
+
+          {% block tabla %}
+
+            <div class="card mb-3">
+              <div class="card-header"> {% block titulo_tabla %} listado {% endblock titulo_tabla %}</div>
+
+               <div class="row p-1">
+
+                  <div class="col-5"></div>
+
+                  <div class="col-2">
+                    {% if page_obj.has_previous %}
+                      <ul class="pagination pagination-sm" >
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+                      </ul> 
+                    {% endif %}
+                  </div>
+                
+                    <div class="col-3">
+                      <ul class="pagination pagination-sm" >
+                        {% if page_obj.has_previous %}
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+                        {% endif %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+                        {% if page_obj.has_next %}
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>  
+                        {% endif %} 
+                      </ul>
+                    </div>
+
+                    <div class="col-2">
+                      {% if page_obj.has_next %}
+                        <ul class="pagination pagination-sm" >
+                          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+                        </ul> 
+                      {% endif %}
+                    </div>
+                </div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                   <tr style="background: #B3EBAC">
+
+                    {% block tr1_tabla %}       
+                      <td>NOMBRES</td>
+                      <td>TAMAÑO</td>
+                      <td>UBICACIÓN</td>
+                      <td>ACCIONES</td>
+                    {% endblock tr1_tabla %}
+
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr style="background: #B3EBAC">
+                     {% block tr2_tabla %}       
+                      <td>NOMBRES</td>
+                      <td>TAMAÑO</td>
+                      <td>UBICACIÓN</td>
+                      <td>ACCIONES</td>
+                    {% endblock tr2_tabla %}
+                  </tr>
+                </tfoot>
+              <tbody>
+                {% block body_tabla %}
+
+                 <tr>
+                    <td>NOMBRES</td><td>TAMAÑO</td><td>UBICACIÓN</td><td>ACCIONES</td>
+                  </tr>
+                  <tr>
+                    <td>NOMBRES</td><td>TAMAÑO</td><td>UBICACIÓN</td><td>ACCIONES</td>
+                  </tr>
+
+                {% endblock body_tabla %}
+                    
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+
+                  <div class="col-5"> <a class="btn btn-outline-success form-control" href="{% url 'p_canal_reg' %}">+ NUEVO</a></div>
+
+                      <div class="col-2">
+                        {% if page_obj.has_previous %}
+                          <ul class="pagination pagination-sm" >
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo; primera</a></li>
+                          </ul> 
+                        {% endif %}
+                      </div>
+                      
+
+                      <div class="col-3">
+                        <ul class="pagination pagination-sm" >
+                          {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; previo</a></li>
+                          {% endif %}
+                          <li class="page-item active"><a class="page-link" href="#">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+                          {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">siguiente &raquo;</a></li>  
+                          {% endif %} 
+                        </ul>
+                      </div>
+
+                      <div class="col-2">
+                        {% if page_obj.has_next %}
+                          <ul class="pagination pagination-sm" >
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a></li>
+                          </ul> 
+                        {% endif %}
+                      </div>
+                  </div>
+                  
+            </div>
+            <div class="card-footer small text-muted">__*</div>
+          </div>
+          {% endblock tabla %}
+
+
+
+
+
+      {% endblock cuerpo %}
+    </div>
+      <!-- /.content-wrapper************************************************************************* -->
+
+
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Cotrina Lezama © Proyecto de tesis 2018</span>
+            </div>
+          </div>
+        </footer>
+
+  
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    {% block js %}      
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script><!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script><!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin.min.js' %}"></script>
+    {% endblock js %}
+
+  </body>
+
+</html>

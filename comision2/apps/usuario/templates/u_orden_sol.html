@@ -1,0 +1,98 @@
+{% extends "u_base.html" %}
+
+
+{% block txt_cabecera %}
+	REPARTO
+{% endblock txt_cabecera %}
+
+
+{% block txt_ol %}
+		<strong>SOLICITAR ORDEN </strong> 
+{% endblock txt_ol %}
+
+{% block txt_bienv %}	
+{% endblock txt_bienv %}
+
+
+
+
+
+{% block noticias1 %}
+
+
+{% if hecho %}
+
+<div class="modal fade bd-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block; padding-right: 16px;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title" id="mySmallModalLabel">{{mensaje}}</h4>
+          
+      </div>
+        <div class="modal-body">
+          <a  class="btn btn-success" href="{% url 'usuario' %}">ir su usuario</a>
+      </div>
+      </div>
+    </div>
+ </div>
+
+ 
+{% elif parcelas %}
+	<div class="card card-login mx-auto mt-5">
+        <div class="card-header">
+        Reserve su orden .. <br>
+        <h5 class="text font-italic text-primary">{{reparto.tipo}} - <i class="fas fa-calendar-alt text-success"></i>      {{reparto.fecha_reparto.day}}/{{reparto.fecha_reparto.month}}/{{reparto.fecha_reparto.year}}       <i class="far fa-clock text-success"></i>     4pm</h5>
+    	 <h6  class="text font-italic text-secondary">Para: {{user.get_full_name}}</h6>
+      </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name="id_repa"  value="{{reparto.id_reparto}}">
+            <input type="hidden" name="id_auth"  value="{{user.id}}">
+            <div class="form-group">
+              <div class="form-group btn-block"> 
+              	<label class="text-center">Parcela a regar  <i class="fas fa-map-pin"></i>  <i class="fas fa-map-marked-alt"></i></label>
+              	<select class="form-control" name="id_parcela" autofocus="autofocus" required="required">
+                	{% for p in parcelas %}
+                  	 	<option value="{{p.id_parcela}}" style="font-size: 2em; height: 80px;">  {{ p.nombre }}</option>                	 
+                   {% endfor %} 
+				        </select> 
+              </div>
+            </div>
+            <label class=" text-center">¿Cuánto regará?</label>
+            {% if mensaje %}
+                  <p class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{mensaje}}</strong>
+                  </p>
+            {% endif %}
+            <div class="form-group ">     
+            	<div class="btn-group btn-block">        	
+      					<input type="number" step="0.5"  min="0.5" max="20" name="cantidad" class="form-control" placeholder="entre 0.5 y 20" required="required">
+                <label class="form-control text-center text-primary">HORAS <i class="far fa-clock"></i></label>
+      				</div> 
+            </div>
+            <button type="submit" class="btn btn-success btn-block" > <i class="far fa-save"></i>  Registrar solicitud</button>
+          </form>
+        </div>
+      </div>
+{% else %}
+	<h2>USTED NO TIENE PARCELAS..</h2>
+{% endif %}
+
+
+{% endblock noticias1 %}
+ 
+
+
+
+
+{% block tabla %}
+{% endblock tabla %}
+
+
+
+
+{% block graficos %}	
+{% endblock graficos %}

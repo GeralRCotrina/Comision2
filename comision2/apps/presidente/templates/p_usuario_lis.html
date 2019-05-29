@@ -1,0 +1,103 @@
+{% extends "p_base.html" %}
+
+
+{% block txt_cabecera %}
+	LISTA DE USUARIOS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+
+
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+
+
+
+{% block titulo_tabla %} Lista de  USUARIOS {% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>Usuario</td>
+	<td>fecha_nacimiento</td>
+	<td>ACCIONES</td>
+{% endblock td1_tabla %}
+
+
+ 
+
+
+
+{% block td2_tabla %}
+	<td>Usuario</td>
+	<td>fecha_nacimiento</td>
+	<td>ACCIONES</td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+			{% if object_list %}
+				
+		
+			{% for persona in object_list %}
+				<tr>
+					<td data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">({{ persona.id_datos_personales }}) {{ persona.alias }}
+					<div class="dropdown-menu w-100 border p-1 bg-info">
+						<div class="row">
+							<div class="col-3">
+								<label>Cel: {{ persona.celular }}</label>
+							</div>
+							<div class="col-2">
+								<label>Tel: {{ persona.telefono }}</label>
+							</div>
+							<div class="col-2">
+								<label>DNI: {{ persona.dni }}</label>
+							</div>
+							<div class="col-2">
+								<label>User: {{ persona.id_auth_user }}</label>
+							</div>
+							<div class="col-5">
+								<label>Nacimiento : {{ persona.fecha_nacimiento }}</label>
+							</div><br>
+						</div>
+					</div></td>					
+					<td>{{ persona.fecha_nacimiento }}</td>
+					<td>
+						<a class="btn btn-outline-success" href="{% url 'p_usuario_edi' persona.id_datos_personales %}"><i class="far fa-edit"></i></a>		
+						<a class="btn btn-outline-danger" href="{% url 'p_usuario_eli' persona.id_datos_personales %}" ><i class="fas fa-trash-alt"></i></a>
+					</td>
+				</tr>
+
+				{% endfor %}				
+			
+{% else %}
+
+			<h1>NO HAY USUARIOS</h1>
+{% endif %}
+
+{% endblock body_tabla %}
+
+
+
+
+
+
+
+
+{% block btn_nuevo %} {% url 'p_usuario_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}
+
+<!--img src="/static/img/editar1.png"  style="width: 25px; height: 25px;"
+<img src="/static/img/eliminar1.png" style="width:25px; height: 25px;">-->

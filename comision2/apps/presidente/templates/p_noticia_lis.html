@@ -1,0 +1,71 @@
+{% extends "p_base.html" %}
+
+
+{% block txt_cabecera %}
+	NOTICIAS
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+
+{% endblock noticias %}
+
+
+ 
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+
+{% block titulo_tabla %}Listado de Noticias{% endblock titulo_tabla %}
+
+{% block td1_tabla %}
+	<td>Titular</td>
+	<td>Descripción</td>
+	<td>Fecha</td>
+	<td>imagen</td>
+	<td></td>
+{% endblock td1_tabla %}
+
+{% block td2_tabla %}
+	<td>Titular</td>
+	<td>Descripción</td>
+	<td>Fecha</td>
+	<td>imagen</td>
+	<td></td>
+{% endblock td2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td>[{{ob.id_noticia}}] {{ ob.titular }}</td>
+			<td>{{ ob.descripcion }}</td>
+			<td>{{ ob.fecha }}</td>
+			<td><img src="/media/{{ ob.foto }}" style="height: 100px; width: 65px;"></td>
+			<td>
+				<a class="btn btn-outline-success" href="{% url 'p_noticia_edi' ob.id_noticia %}"><i class="far fa-edit"></i></a>		
+				<a class="btn btn-outline-danger" href="{% url 'p_noticia_eli' ob.id_noticia %}" ><i class="fas fa-trash-alt"></i></a>
+			</td>
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO HAY NOTICIAS</h1>
+	{% endif %}
+
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %} {% url 'p_noticia_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

@@ -1,0 +1,67 @@
+{% extends "p_base.html" %}
+
+
+{% block txt_cabecera %}
+	LISTA DE CANALES
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+{% endblock noticias %}
+
+
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+
+
+
+{% block titulo_tabla %}Lista de Canales{% endblock titulo_tabla %}
+
+{% block tr1_tabla %}
+	<td>NOMBRES</td>
+	<td>TAMAÑO</td>
+	<td>UBICACIÓN</td>
+	<td>ACCIONES</td>
+{% endblock tr1_tabla %}
+
+{% block tr2_tabla %}
+	<td>NOMBRES</td>
+	<td>TAMAÑO</td>
+	<td>UBICACIÓN</td>
+	<td>ACCIONES</td>
+{% endblock tr2_tabla %}
+
+
+{% block body_tabla %}
+	{% csrf_token %}
+	{% if object_list %}
+		{% for ob in object_list %}
+
+		<tr >
+			<td>[{{ob.id_canal}}] {{ ob.nombre }}</td>
+			<td>{{ ob.tamano }}</td>
+			<td>{{ ob.ubicacion }}</td>
+			<td>
+				<a class="btn btn-outline-success" href="{% url 'p_canal_edi' ob.id_canal %}"><i class="far fa-edit"></i></a>
+				<a class="btn btn-outline-danger" href="{% url 'p_canal_eli' ob.id_canal %}" ><i class="fas fa-trash-alt"></i></a>
+			</td>
+		</tr>
+
+		{% endfor %}				
+	{% else %}
+		<h1>NO HAY Canales</h1>
+	{% endif %}
+{% endblock body_tabla %}
+
+
+{% block btn_nuevo %} {% url 'p_canal_reg' %} {% endblock btn_nuevo %}
+
+
+
+
+
+
+{% block graficos %}
+	
+{% endblock graficos %}

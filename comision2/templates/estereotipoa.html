@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    
+        <title>{% block txt_titulo %} etereotipoa {% endblock txt_titulo %}</title>
+   
+    
+     
+
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/estereotipoa.css">
+    
+
+
+</head>
+<body>
+
+    <header><h1> {% block txt_cabecera %}ESTEREOTIPO A{% endblock txt_cabecera %}</h1></header>
+
+	<div class = "container-fluid cabecera d-block"></div>
+
+
+
+
+     <div class = "row container-fluid" style="margin-top:10px; height:80%;">
+
+
+        
+        
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-2 col-xl-2 h-100 border">
+
+            {% block barra %} 
+
+                <div class = "well loggin" style = "margin-top:60px;">
+                <br />
+                <h4>Ingrese ssal sistema</h4>
+                <hr style = "border:1px solid #d3d3d3; width:100%;" />
+                <form enctype = "multipart/form-data">  
+                    <div id = "username_warning" class = "form-group">
+                        <label class = "control-label">Usuario</label>
+                        <input type = "text" class = "form-control" id = "username"/>
+                    </div>
+                    <div id = "password_warning" class = "form-group">
+                        <label class = "control-label">Contraseña</label>
+                        <input type = "password" class = "form-control" id = "password"/>
+                    </div>
+                    <br />
+                    <div class = "form-group">
+                        <button type = "button" id = "login" class = "btn btn-primary btn-block"><span class = "glyphicon glyphicon-save"></span> Iniciar sesión</button>
+                        
+                    </div>
+                    <div class="form-control">
+                        <a href="#">...registrarse</a>
+                    </div>
+                </form> 
+                <div id = "result"></div>
+                </div>
+
+            {% endblock barra %}
+        </div>  
+
+
+
+        <div class="col-12  col-sm-12   col-md-6  col-lg-9 col-xl-9  h-100 border">
+
+            {% block noticias %}
+            {% endblock noticias %}
+        </div><br><br>
+
+
+        <div class="col-12  col-sm-12  col-md-12 col-lg-1 col-xl-1 h-100 border">
+
+            {% block notificaciones %}
+            {% endblock notificaciones %}
+        </div>
+
+
+
+    </div>
+
+        
+
+
+
+
+
+    {% block pie %}
+            <nav class = "container-fluid pie">
+                <div >
+                    <label class = "navbar-text" ><strong>Cotrina lezama &copy; proyecto de tesis 2018</strong></label>
+                </div>
+            </nav>
+    {% endblock pie %}
+
+    <!-- class = "container-fluid text-right" -->
+    <script src = "/static/js/jquery.js"></script>
+    <script src = "/static/js/bootstrap.js"></script>
+    <script src = "/static/js/login.js"></script>
+</body>
+</html>

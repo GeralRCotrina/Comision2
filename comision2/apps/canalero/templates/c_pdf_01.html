@@ -1,0 +1,26 @@
+{% extends "c_base.html" %}
+{% load static %} 
+{% block txt_cabecera %}
+	ENTREGA DE ÓRDENES
+{% endblock txt_cabecera %}
+
+
+
+{% block cuerpo %}
+
+	{% if pdf %}
+	 	<h1 class="text-success">{{ pdf }}</h1>
+	 {% else %}
+	 	<h1 class="text-muted">No llegó el PDF</h1>
+	 {% endif %} 
+
+<div class="row container h-100">
+	<div class="col h-100">
+		<embed src="{% static url_pdf %} " width="100%;" height="100%;"></embed>
+	</div>
+</div>
+<br>
+<br>
+
+	
+{% endblock cuerpo %} 

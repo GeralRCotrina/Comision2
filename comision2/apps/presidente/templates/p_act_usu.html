@@ -1,0 +1,219 @@
+{% extends "p_base.html" %}
+
+
+
+{% block noticias1 %}	
+{% endblock noticias1 %}
+
+
+
+{% block tabla %}
+
+{% block txt_not1 %}
+	Panel para restablecer contraseñas
+{% endblock txt_not1 %}
+
+
+	{% if passs %}
+	{% else %}
+	<h3>INGRESE EL USUARIO QUE BUSCA</h3>
+	{% endif %}
+
+
+	<br><br>
+
+	<div class="col-12 mt-2">
+			<form method="POST" action="{% url 'p_act_usu' %}">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-8">
+						<input class="form-control" type="text" name="usuario">
+					</div>
+					<div class="col-4">
+						<button type="submmit" class="btn btn-outline-info form-control">BUSCAR</button>
+					</div>
+				</div>
+			</form>			
+		</div>
+
+	<br>
+
+
+	{% if usuario != 'bacío' %}
+		<p><strong> {{usuario}}</strong></p>
+		<p style="font-size: 0.8em" class="bg-dark text-primary">{{passs}}</p>		
+
+	
+
+	<div class="row mr-2 ml-2">
+
+		
+
+
+<div class="row">
+	<div class="col-12">
+		
+						{% if msj == 'err' %}
+							<div class="row mt-2">
+								<div class="col-12">
+									<p class="alert alert-danger">no coinciden las contraseñas!!</p>					
+								</div>
+							</div>
+						{% elif msj == 'succ1' %}
+							<div class="row mt-2">
+								<div class="col-12">
+									<p class="alert alert-success"><STRONG>USUARIO CAMBIADO!!</STRONG></p>					
+								</div>
+							</div>
+
+						{% elif msj == 'succ2' %}
+							<div class="row mt-2">
+								<div class="col-12">
+									<p class="alert alert-success"><STRONG>CONTRASEÑA CAMBIADA!!</STRONG></p>
+								</div>
+							</div>
+
+						{% elif msj == 'no_disp' %}
+							<div class="row mt-2">
+								<div class="col-12">
+									<p class="alert alert-danger"><STRONG>USUARIO NO DISPONIBLE!!</STRONG></p>	
+								</div>
+							</div>
+							
+						{% elif msj == 'nusr' %}
+							<div class="row mt-2">
+								<div class="col-12">
+									<p class="alert alert-warning"><STRONG>USUARIO NO ENCONTRADO!!</STRONG></p>
+								</div>
+							</div>
+						{% endif %}
+	</div>
+</div>
+
+
+
+{% if msj != 'nusr'  %}
+
+
+		<div class="col-12 border mt-2">
+					
+
+			<div class="col-12 mt-2 mb-2">
+					<div id="acordion">
+
+<!--hidden-->
+						<div class="card">
+							<div class="card-header">
+								<a href="#uno" class="card-link" data-toggle="collapse" data-parent="#acordion" aria-expanded="true">CAMBIAR USUARIO</a>
+							</div>
+							<div id="uno" class="collapse" style="">
+								<form method="POST" action="{% url 'p_cam_usu' %}">
+									{% csrf_token %}
+									<input type="hidden" name="usuario"  value="{{usuario}}">
+									<div class="card-body ">
+										<div class="row">
+											
+											<div class="col-4">
+												<i style="font-size: 0.8em;  line-height: 0.2em;">Usuario nuevo</i>
+												<input class="form-control mt-2" type="text" name="nuevo_usuario">								
+											</div>
+											<div class="col-4">
+
+												<div class="dropdown">
+										            <button class="btn btn-warning form-control dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" aria-expanded="false">CAMBIAR
+										            <span class="caret"></span></button>
+										            <ul class="dropdown-menu p-2" role="menu" aria-labelledby="menu1" x-placement="bottom-start" 
+										            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);  background: #DAFEED;">
+										              <li role="presentation" class="dropdown-header"><strong>¿Está seguro de recordarlo?</strong></li>
+										              <li role="presentation"><button class="btn btn-danger form-control" type="submit" >
+										              	<i class="fas fa-user-shield"></i>  CAMBIAR USUARIO</button></li>
+										            </ul>
+										          </div>
+
+
+
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+			</div>
+		
+		
+
+
+
+
+
+
+
+
+
+				<div class="col-12 mt-2 mb-2">
+					<div id="acordion">
+						<div class="card">
+							<div class="card-header">
+								<a href="#dos" class="card-link" data-toggle="collapse" data-parent="#acordion" aria-expanded="true">CAMBIAR CONTASEÑA</a>
+							</div>
+							<div id="dos" class="collapse" style="">
+								<form  method="POST" action="{% url 'p_cam_pas' %}">
+									{% csrf_token %}
+									<input type="hidden" name="usuario"  value="{{usuario}}">
+									<div class="card-body ">
+										<div class="row">
+											
+											<div class="col-4">
+												<i style="font-size: 0.8em;  line-height: 0.2em;">Contraseña nueva</i>
+												<input class="form-control mt-2" type="password" name="nueva_contra_1">								
+											</div>
+											<div class="col-4">
+												<i style="font-size: 0.8em;  line-height: 0.7em;">Repita la contraseña</i>
+												<input class="form-control mt-2" type="password" name="nueva_contra_2">								
+											</div>
+											<div class="col-4"><div class="dropdown">
+										            <button class="btn btn-warning form-control dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" aria-expanded="false">CAMBIAR
+										            <span class="caret"></span></button>
+										            <ul class="dropdown-menu p-2" role="menu" aria-labelledby="menu1" x-placement="bottom-start" 
+										            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px); background: #DAFEED;">
+										              <li role="presentation" class="dropdown-header"><strong>¿Está seguro de recordarla?</strong></li>
+										              <li role="presentation" class="dropdown-header"><i class="fas fa-pencil-alt"></i> anotela y no la pierda</li>
+										              <li role="presentation" class="dropdown-header"><i class="fab fa-expeditedssl"></i> no la comparta con nadie</li>
+										              <li role="presentation"><a class="btn-warning" role="menuitem" tabindex="-1" href="#">cancelar proceso...</a></li><br>
+										              <li role="presentation"><button class="btn btn-danger form-control" type="submit" ><i class="fas fa-key"></i>  CAMBIAR</button></li>
+										            </ul>
+										          </div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+					
+		</div>		
+		
+	{% endif %}	
+{% endif %}	
+</div>
+
+{% endblock tabla %}
+
+
+
+{% block graficos %}	
+{% endblock graficos %}
+
+
