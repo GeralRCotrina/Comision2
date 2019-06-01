@@ -1,4 +1,4 @@
-  	//document.location.href="/canalero/c_orden_apr/?id_ord="+iOr+"&&id_rep="+iRe+"&&est="+est;
+//document.location.href="/canalero/c_orden_apr/?id_ord="+iOr+"&&id_rep="+iRe+"&&est="+est;
 
 /*
 	var xhr = new XMLHttpRequest();
