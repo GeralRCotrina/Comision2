@@ -1,6 +1,6 @@
 {% load static %} 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
  
   <head> 
 
@@ -126,6 +126,18 @@
             <a class="dropdown-item" href="{% url 'p_usuario_reg' %}">Registrar Datos</a>
             <a class="dropdown-item" href="{% url 'p_usuario_lis' %}">Listar Datos</a>
             <a class="dropdown-item" href="{% url 'p_auth_lis' %}">Listar Auth</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <i class="fas fa-clipboard-list"></i>
+            <span>ASAMBLEA</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">            
+            <a class="dropdown-item" href="{% url 'p_asamb_reg' %}">REGISTRAR</a>
+            <a class="dropdown-item" href="{% url 'p_asamb_lis' %}">LISTAR</a>
+            <a class="dropdown-item" href="#">#</a>
           </div>
         </li>
 

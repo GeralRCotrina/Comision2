@@ -1,11 +1,37 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from apps.inicio.models import Parcela, Canal, Noticia, Caudal, AuthUser
+from apps.inicio.models import Parcela, Canal, Noticia, Caudal, AuthUser, Asamblea
 
 """		fields = '__all__'
 		exclude = ['id']
 """
+
+
+"""
+class AsambleaForm(forms.ModelForm):
+
+	class Meta:
+		model = Asamblea
+
+		fields = ['tipo','descripcion','fecha_asamblea','estado']	
+		labels = {
+			'tipo':'TIPO DE ASAMBLEA',
+			'descripcion':'Descripción',
+			'fecha_registro':'fecha_registro',
+			'fecha_asamblea':'fecha_asamblea',
+			'estado':'Estado',
+		}
+
+		widgets={
+		    'tipo':forms.Select(attrs={'class':'form-control'}),
+		    'descripcion':forms.Textarea(attrs={'class':'form-control'}),
+		    'fecha_registro':forms.DateInput(attrs={'class':'form-control','type':'date'}),
+		    'fecha_asamblea':forms.DateInput(attrs={'class':'form-control','type':'date'}),
+			'estado':forms.TextInput(attrs={'class':'form-control','value':'REGISTRADA','disabled':'true',}),
+		    }
+"""
+
 class NoticiaForm(forms.ModelForm):
 
 	class Meta:

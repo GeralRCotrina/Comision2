@@ -39,8 +39,12 @@ class ArchivosParcela(models.Model):
 #foto = models.ImageField(upload_to='photos')
 
 class Asamblea(models.Model):
+    TIPO = (
+        ('1', 'REUNIÓN GENERAL'),
+        ('2', 'REUNIÓN SIMPLE'),
+    )
     id_asamblea = models.AutoField(primary_key=True)
-    tipo = models.CharField(max_length=15, blank=True, null=True)
+    tipo = models.CharField(max_length=15, blank=True, null=True, choices=TIPO)
     descripcion = models.CharField(max_length=300, blank=True, null=True)
     fecha_registro = models.DateTimeField(blank=True, null=True)
     fecha_asamblea = models.DateTimeField(blank=True, null=True)
@@ -49,6 +53,9 @@ class Asamblea(models.Model):
     class Meta:
         managed = False
         db_table = 'asamblea'
+
+
+
 
 
 class AuthGroup(models.Model):

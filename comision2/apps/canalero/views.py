@@ -74,30 +74,6 @@ class ImprimirReparto(View):
 
 
 
-
-"""
-options = { 'page-size':'A4','margin-top':'0.1in','margin-right':'0.0in','margin-bottom':'0.0in','margin-left':'0.0in',}
-result.append(dic.decode('utf-8'))
-
-from jinja2 import Environment, PackageLoader
-env = Environment(loader=PackageLoader('myproject', 'templates'))
-
-myvar = 'Séptimo Cine'# Asegúrese de que comencemos con un byfring codificado en utf-8
-
-diccionario = {'title':''}
-diccionario['title'] = myvar.decode('utf-8')# Decodifica la cadena UTF-8 para obtener unicode
-
-template = env.get_template('index.html')
-
-with open("index_file.html", "w") as f:
-    html = template.render(diccionario)
-
-    # jinja devuelve unicode, por lo que `html` debe codificarse en una cadena de bytring
-    # antes de escribirlo en un archivo
-    f.write(html.encode('utf-8'))
-"""
-
-
 #-----------------------------------------------------------------------------------
 class ImprimirReparto1(View):
 
@@ -377,23 +353,6 @@ class SolicitudesPorReparto(TemplateView):
 		return render(request,'c_reparto_lis_ord.html',dicc)
 
 
-"""
-class AprobarOrden(TemplateView):
-
-	def get(self, request, *args, **kwargs):
-		idord = self.request.GET.get('id_ord')
-		idrep = self.request.GET.get('id_rep')		
-		est = self.request.GET.get('est')
-		orr=OrdenRiego.objects.get(id_orden_riego=int(idord))
-		orr.estado=est
-		orr.save()
-
-		dicc={}
-		dicc['reparto']=Reparto.objects.get(id_reparto=idrep)
-		dicc['repartos']=Reparto.objects.all()
-		dicc['ordenes']=OrdenRiego.objects.filter(id_reparto=idrep)
-		return render(request,'c_reparto_lis_ord.html',dicc)
-"""
 
 class AprobarOrden(TemplateView):
 
@@ -443,13 +402,6 @@ class EstablecerHora(TemplateView):
 		urll='../c_reparto_lis_ord/?id_repa='+str(idrepa)
 		
 		return redirect(urll)
-
-
-
-
-
-
-
 
 
 def CalcularHora(idord):

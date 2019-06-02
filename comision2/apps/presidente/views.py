@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.inicio.models import DatosPersonales, Parcela, Canal, Noticia, AuthUser, Caudal, Reparto, OrdenRiego
+from apps.inicio.models import DatosPersonales, Parcela, Canal, Noticia, AuthUser, Caudal, Reparto, OrdenRiego, Asamblea
 from apps.inicio.forms import PersonaForm
 from apps.presidente.forms import ParcelaForm, CanalForm, NoticiaForm, CaudalForm, AuthForm
 from django.urls import reverse_lazy
@@ -9,7 +9,12 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 # -*- coding: utf-8 -*-
 
-from datetime import *
+import datetime
+
+from django.utils.dateparse import parse_date
+
+
+
 import time
 import locale
 locale.setlocale(locale.LC_ALL, "")# Establecemos el locale de nuestro sistema
@@ -113,9 +118,6 @@ class CambioPASS(View):
 		return render(request,'p_act_usu.html',dicc)
 
 
-
-
-
 class RepPeparto1(View):
 
 	def get(self, request, *args, **kwargs):
@@ -127,6 +129,51 @@ class RepPeparto1(View):
 			print('    -   -  >  ',r.id_reparto,'  - -  ',reporte_reparto['co',r.id_reparto])
 
 		return render(request,'reportes/p_reporte_rep.html',reporte_reparto)
+
+
+
+
+
+
+class AsambReg(View):
+
+	def get(self, request, *args, **kwargs):
+		return render(request,'asamblea/p_asamb_reg.html')
+
+	def post(self,request,*args,**kwargs):
+		desc =  self.request.POST.get('descripcion_asamb')
+		fec =  self.request.POST.get('fecha_asamb')
+		hor =  self.request.POST.get('hora_asamb')
+		tipo =  self.request.POST.get('tipo_asamb')
+
+		HorArr = hor.split(':')
+
+		fech = parse_date(fec)
+		dt=datetime.datetime(year=fech.year,month=fech.month,day=fech.day)
+		dt=dt+datetime.timedelta(hours=float(HorArr[0]))
+		dt=dt+datetime.timedelta(minutes=float(HorArr[1]))
+
+		dtr =  datetime.datetime.now()
+
+		asamb=Asamblea(tipo=tipo,descripcion=desc,fecha_registro=dtr,fecha_asamblea=dt,estado=1)
+		asamb.save()
+
+		return render(request,'asamblea/p_asamb_reg.html',{'msj':'Se guardó correctamente.'})
+
+
+class AsambLis(View):
+	def get(self, request, *args, **kwargs):
+		ListAsamb = Asamblea.objects.all()
+		return render(request,'asamblea/p_asamb_lis.html',{'asambleas':ListAsamb})
+
+
+
+
+
+
+
+
+
 
 
 
@@ -148,52 +195,6 @@ class RepPeparto(View):
 			print('   - -  - >',d)
 		return render(request,'reportes/p_reporte_rep.html',diccionario)
 
-"""
-cursor.execute(sql, params)
-result = []
-detalles = cursor.fetchall()
-for row in detalles:
-        dic = dict(zip([col[0] for col in cursor.description], row))
-        result.append(dic)
-cursor.close()
-return result
-
-
-def my_custom_sql1():
-	cursor = connection.cursor()
-	# Data modifying operation - commit required
-	cursor.execute("aki poner el gestor procedure")
-	transaction.commit_unless_managed()
-	# Data retrieval operation - no commit required
-	cursor.execute("SELECT foo FROM bar WHERE baz = %s", [self.baz])
-	row = cursor.fetchone()
-	return row
-
-
-
-from django.db import connection
-import cx_Oracle
-
-def call_proc_str1(cadena, valors=None):
-   # llama a un procedimiento Oracle cuyo ultimo parámetro es un string de salida   
-   cur = connection.cursor()
-    # preparam cadena per a Oracle
-    cadena="BEGIN %s; END;;" % (cadena,)
-    # preparam el parametre de sortida
-    sortida=cur.cursor.var(cx_Oracle.STRING)
-    # afeixim paràmetre com a darrer
-    valors.append(sortida)
-    try:
-        cur.execute(cadena, valors)
-        # retornam paràmetre de sortida
-        return sortida.getvalue()
-    except Exception, e:
-        mensaje="%s Error: call_proc cadena#%s valors#%s" % (e, cadena, valors)
-        logger.error(mensaje)
-        raise Exception(mensaje)
-    finally:
-        cur.close()
-"""
 
 
 class RepCaudal2(View):
@@ -226,17 +227,6 @@ class RepCaudal(View):
 
 
 
-#print('        cont= ',cont,';    sem=',sem,';   c=',c,';   s=',s)
-#cau=Caudal.objects.filter(Q(id_canal=c),Q(fecha__week=(sem-s)))
-#reporte_caudal['caudal']=cau.nivel
-#semana_numero = time.strftime("%U")
-#Order.objects.filter( delivery__range=[breakfast_start_date, datetime.now()],
-#state__in=order_states, delivery__week_day__gte=6,
-#delivery__time__between=( datetime.time(datetime.strptime('07:00:00', '%H:%M:%S')),
-
-#datetime.time(datetime.strptime('11:00:00', '%H:%M:%S'))))
-
-
 class CaudalCreate(TemplateView):	
 
 	def get(self, request, *args, **kwargs):
@@ -255,14 +245,6 @@ class CaudalCreate(TemplateView):
 		dicc={}
 		dicc['mensaje']='Registro de caudal hecho correctamente'
 		return render(request,'p_caudal_reg.html',dicc)
-
-
-#date.today(
-#fecha.strftime("%A/%B/%d/%Y")
-#print('    for   id_ca:',ca.id_canal,'    niv:',niv,' - canal = ',ca,'  fecha: ',fecha)
-#can=Canal.objects.get(id_canal=id_can)
-#cau=Caudal(id_canal=can,fecha=x,nivel=niv,descripcion=des)
-#cau.save()
 
 
 def ListaE(request):
