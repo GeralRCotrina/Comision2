@@ -38,17 +38,14 @@
 			 	{% for a in asambleas %}
 				
 					<div class="col-6  col-md-4 col-xl-3 mb-2">
-						<div class="card text-white {% if a.estado == '0' %}
-							bg-success
-							{% else %}
-							bg-warning
-						{% endif %} o-hidden h-100">
+						<div class="card text-white {% if a.estado == '1' %} bg-primary {% elif a.estado == '2' %} bg-danger {% else %} bg-secondary {% endif %} o-hidden h-100">
 			                <div class="card-body">
 			                  <div class="card-body-icon">
 			                  	<i class="fas fa-clipboard-list"></i>
 			                  </div>
-			                  <div class="mr-2">
-			                  	{{ a.tipo }}   <br>  <i class="fas fa-table"></i> 
+			                  <div class="mr-2"> [{{a.pk}}|{{a.estado}}]
+			                  	{{ a.tipo }}  <br>  
+			                  	<i class="fas fa-table"></i> 
 			                  	{{a.fecha_asamblea.day}}/{{a.fecha_asamblea.month}}
 			                  	<i class="far fa-clock"></i>  {{a.fecha_asamblea.hour}}:
 			                  	{% if a.fecha_asamblea.minute > 10 %}
@@ -59,15 +56,37 @@
 				              </div>
 			                </div>
 			                <dic class="row card-footer">
-			                	<div class="col-4">
-			                		<a href="#" class="float-left text-white"><i class="fas fa-chart-pie"></i></a>
-			                	</div>
-			                	<div class="col-4">
-			                		<a href="#" class="float-left text-white"><i class="fas fa-list-ol"></i></a>
-			                	</div>
-			                	<div class="col-4">
-			                		<a href="#" class="float-left text-white"><i class="fas fa-user-check"></i></a>
-			                	</div>
+			                	{% if a.estado == '1' %}
+				                	<div class="col-6">
+				                		<a href="{% url 'p_asamb_ini' %}?id_asamb={{ a.pk }}" class="float-left text-white"><i class="fas fa-user-check"></i></a>
+				                	</div>
+				                	<div class="col-6">
+				                		<a href="{% url 'p_asamb_edi' %}?id_asamb={{ a.pk }}" class="float-left text-white"><i class="fas fa-cog"></i></a>
+				                	</div>
+
+				                {% elif a.estado == '2' %}		                		
+				                	<div class="col-3">
+				                		<a href="#" class="float-left text-white"><i class="fas fa-chart-pie"></i></a>
+				                	</div>
+				                	<div class="col-3">
+				                		<a href="#" class="float-left text-white"><i class="fas fa-list-ol"></i></a>
+				                	</div>
+				                	<div class="col-3">
+				                		<a href="{% url 'p_asamb_ini' %}?id_asamb={{ a.pk }}" class="float-left text-white"><i class="fas fa-user-check"></i></a>
+				                	</div>
+				                	<div class="col-3">
+				                		<a href="{% url 'p_asamb_edi' %}?id_asamb={{ a.pk }}" class="float-left text-white"><i class="fas fa-cog"></i></a>
+				                	</div>
+
+				                {% elif a.estado == '3' %}
+				                	<div class="col-6">
+				                		<a href="#" class="float-left text-white"><i class="fas fa-chart-pie"></i></a>
+				                	</div>
+				                	<div class="col-6">
+				                		<a href="#" class="float-left text-white"><i class="fas fa-list-ol"></i></a>
+				                	</div>
+			                	{% endif %}
+
 			                </dic>
 			              </div>
 					</div>
@@ -76,156 +95,6 @@
 			{% endif %}
 				
 
-
-
-
-				<div class="col-6  col-md-4 col-xl-3 mb-2">
-					<div class="card text-white bg-primary o-hidden h-100">
-		                <div class="card-body">
-		                  <div class="card-body-icon">
-		                  	<i class="fas fa-clipboard-list"></i>
-		                  </div>
-		                  <div class="mr-2">
-		                  	REUNIÓN GENERAL   <br>  <i class="fas fa-table"></i> 05/05  <i class="far fa-clock"></i>   11:35
-			              </div>
-		                </div>
-		                <dic class="row card-footer">
-		                	<div class="col-6">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-list-ol"></i></a>
-		                	</div>
-		                	<div class="col-6">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-user-check"></i></a>
-		                	</div>
-		                </dic>
-		              </div>
-				</div>
-				
-				
-				<div class="col-6  col-md-4 col-xl-3 mb-2">
-					<div class="card text-white bg-secondary o-hidden h-100">
-		                <div class="card-body">
-		                  <div class="card-body-icon">
-		                  	<i class="fas fa-clipboard-list"></i>
-		                  </div>
-		                  <div class="mr-2">
-		                  	REUNIÓN GENERAL   <br>  <i class="fas fa-table"></i> 05/05  <i class="far fa-clock"></i>   11:35
-			              </div>
-		                </div>
-		                <dic class="row card-footer">
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-chart-pie"></i></a>
-		                	</div>
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-list-ol"></i></a>
-		                	</div>
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-user-check"></i></a>
-		                	</div>
-		                </dic>
-		              </div>
-				</div>
-				
-				
-				<div class="col-6  col-md-4 col-xl-3 mb-2">
-					<div class="card text-white bg-secondary o-hidden h-100">
-		                <div class="card-body">
-		                  <div class="card-body-icon">
-		                  	<i class="fas fa-clipboard-list"></i>
-		                  </div>
-		                  <div class="mr-2">
-		                  	REUNIÓN GENERAL   <br>  <i class="fas fa-table"></i> 05/05  <i class="far fa-clock"></i>   11:35
-			              </div>
-		                </div>
-		                <dic class="row card-footer">
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-chart-pie"></i></a>
-		                	</div>
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-list-ol"></i></a>
-		                	</div>
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-user-check"></i></a>
-		                	</div>
-		                </dic>
-		              </div>
-				</div>
-				
-				
-				
-				<div class="col-6  col-md-4 col-xl-3 mb-2">
-					<div class="card text-white bg-secondary o-hidden h-100">
-		                <div class="card-body">
-		                  <div class="card-body-icon">
-		                  	<i class="fas fa-clipboard-list"></i>
-		                  </div>
-		                  <div class="mr-2">
-		                  	REUNIÓN GENERAL   <br>  <i class="fas fa-table"></i> 05/05  <i class="far fa-clock"></i>   11:35
-			              </div>
-		                </div>
-		                <dic class="row card-footer">
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-chart-pie"></i></a>
-		                	</div>
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-list-ol"></i></a>
-		                	</div>
-		                	<div class="col-4">
-		                		<a href="#" class="float-left text-white"><i class="fas fa-user-check"></i></a>
-		                	</div>
-		                </dic>
-		              </div>
-				</div>
-				
-				
-				
-				<div class="col-6  col-md-4 col-xl-3 mb-2">
-					<div class="card text-white bg-secondary o-hidden h-100">
-		                <div class="card-body">
-		                  <div class="card-body-icon">
-		                  	<i class="fas fa-clipboard-list"></i>
-		                  </div>
-		                  <div class="mr-2">
-		                  	REUNIÓN GENERAL   <br>  <i class="fas fa-table"></i> 05/05  <i class="far fa-clock"></i>   11:35
-			              </div>
-		                </div>
-		                <dic class="row card-footer">
-		                	<div class="col-6">
-		                		<a href="#" class="float-left text-white">Asistencia  <i class="fas fa-check"></i></a>
-		                	</div>
-
-		                	<div class="col-6">
-		                		<a href="#" class="float-left text-white">Reporte <i class="fas fa-chart-pie"></i></a>
-		                	</div>
-		                </dic>
-		              </div>
-				</div>
-				
-				
-				
-				<div class="col-6  col-md-4 col-xl-3 mb-2">
-					<div class="card text-white bg-secondary o-hidden h-100">
-		                <div class="card-body">
-		                  <div class="card-body-icon">
-		                  	<i class="fas fa-clipboard-list"></i>
-		                  </div>
-		                  <div class="mr-2">
-		                  	REUNIÓN GENERAL   <br>  <i class="fas fa-table"></i> 05/05  <i class="far fa-clock"></i>   11:35
-			              </div>
-		                </div>
-		                <dic class="row card-footer">
-		                	<div class="col-6">
-		                		<a href="#" class="float-left text-white">Asistencia  <i class="fas fa-check"></i></a>
-		                	</div>
-
-		                	<div class="col-6">
-		                		<a href="#" class="float-left text-white">Reporte <i class="fas fa-chart-pie"></i></a>
-		                	</div>
-		                </dic>
-		              </div>
-				</div>
-				
-				
-				
 				
 				
 			</div>

@@ -25,7 +25,7 @@ function Busqueda(txt){
 	$('#txt_tit').text(cont0+' resultados...');
 }
 
-
+ 
 function InsertarTabla() {
 	var fila ='<tbody id="cuerpo">';
 	for (var i = resultado.length - 1; i >= 0; i--) 

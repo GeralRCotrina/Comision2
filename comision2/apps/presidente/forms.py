@@ -168,7 +168,8 @@ class AuthForm(forms.ModelForm):
 			'email',
 			'is_staff',
 			'is_active',
-			'date_joined']	
+			'date_joined',
+			'dni']	
 
 		widgets={	
 			    'username':forms.TextInput(attrs={'class':'form-control'}),
@@ -180,5 +181,6 @@ class AuthForm(forms.ModelForm):
 			    'is_staff':forms.TextInput(attrs={'class':'form-control'}),
 			    'is_active':forms.TextInput(attrs={'class':'form-control'}),
 			    'date_joined':forms.TextInput(attrs={'class':'form-control'}),
+			    'dni':forms.TextInput(attrs={'class':'form-control','type':'number'}),
 		    }
 

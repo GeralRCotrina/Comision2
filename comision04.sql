@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2018 a las 18:02:15
+-- Tiempo de generación: 03-06-2019 a las 03:24:21
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -101,6 +101,29 @@ inner join canal ca
 	on ca.id_canal = pa.id_canal
 order by re.id_reparto,ca.id_canal$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_prueba` ()  BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE a INT;
+  DECLARE b varchar(500);
+  DECLARE cur1 CURSOR FOR SELECT id_parcela FROM parcela;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur1;
+
+  read_loop: LOOP
+    FETCH cur1 INTO a;
+    IF done THEN
+    	set b = concat("-",a);
+    ELSE    
+        LEAVE read_loop;
+    END IF;
+  END LOOP;
+  
+  SELECT b as todos;
+
+  CLOSE cur1;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registro_rapido` (IN `vnombres` VARCHAR(30), `vapellidos` VARCHAR(150), `valias` VARCHAR(20), `vcelular` CHAR(13), `vdni` CHAR(8), `vfecha_nacimiento` DATE, `vfoto` VARCHAR(150), `vsexo` CHAR(1), `vtelefono` VARCHAR(20))  BEGIN
 	DECLARE Id int;
     DECLARE vusername varchar(150);
@@ -187,6 +210,16 @@ CREATE TABLE `asamblea` (
   `fecha_asamblea` datetime DEFAULT NULL,
   `estado` varchar(15) COLLATE hp8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=hp8 COLLATE=hp8_bin;
+
+--
+-- Volcado de datos para la tabla `asamblea`
+--
+
+INSERT INTO `asamblea` (`id_asamblea`, `tipo`, `descripcion`, `fecha_registro`, `fecha_asamblea`, `estado`) VALUES
+(1, 'General', 'Reunión editada.', '2019-06-01 00:00:00', '2019-06-02 11:31:00', '1'),
+(2, 'Simple', 'Prueba desde el celular.', '2019-06-02 02:43:13', '2019-06-02 11:05:00', '3'),
+(3, 'General', 'Última prueba del 2 de junio.', '2019-06-02 08:33:58', '2019-06-05 02:30:00', '2'),
+(4, 'Simple', 'Reunión que ya pasó.', '2019-06-02 08:57:30', '2021-05-28 12:05:00', '1');
 
 -- --------------------------------------------------------
 
@@ -448,11 +481,11 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$120000$5JpN0ehJ9fqt$UOqgUiZGBB7Tvszm1HPcRWP1NJEePIShAk5Ju5ZCYTI=', '2018-12-05 04:52:01.237183', 1, 'grcl', 'Geral R', '[Desarrollador]', 'lareg.yors@gmail.com', 1, 1, '2018-10-24 13:32:59.769234'),
-(2, 'pbkdf2_sha256$120000$AItsavlw7ynS$Q/einI9/ZHI3pyb7ECEpoT417Ap/ZdzYrblnsXz1Tms=', '2018-11-13 18:00:41.859694', 0, 'Presidente', 'Domingo Pelayo', 'Sanchez Vilchez', 'dpelayo@gmail.com', 0, 1, '2018-10-24 13:55:47.000000'),
+(1, 'pbkdf2_sha256$120000$HG91ACukV1Kh$hL0EJUf/ywkZlO0je9nWTMrRjlGT0aa32V+5b+lRUQE=', '2019-06-02 13:31:35.695839', 1, 'grcl', 'Geral R', '[Desarrollador]', 'lareg.yors@gmail.com', 1, 1, '2018-10-24 13:32:59.769234'),
+(2, 'pbkdf2_sha256$120000$AItsavlw7ynS$Q/einI9/ZHI3pyb7ECEpoT417Ap/ZdzYrblnsXz1Tms=', '2019-02-06 02:26:10.547525', 0, 'Presidente', 'Domingo Pelayo', 'Sanchez Vilchez', 'dpelayo@gmail.com', 0, 1, '2018-10-24 13:55:47.000000'),
 (3, 'pbkdf2_sha256$120000$rbNTcxSzMZ0i$XL8cQ3Vf5ZekzzhEj2FCD901jB03tRmMKZ4MNoLfWV8=', '2018-11-13 18:03:26.536817', 0, 'Canalero', 'Saul', 'Cieza', 'scieza@hotmail.com', 0, 1, '2018-10-24 13:57:47.000000'),
-(5, 'pbkdf2_sha256$120000$iq4pABZBLoQ1$z4W+Bhp0w90w9KUyqgHr3Ox/0xtRDp2GP3iMg7bekc8=', NULL, 0, 'Vocal', 'Roger', 'Gonzales Chuan', 'rgonzales@gmail.com', 0, 1, '2018-10-24 21:54:31.409353'),
-(14, 'pbkdf2_sha256$120000$WcycMo7qlabt$mfuJ5dp6BkRboc8OjPO7RkxFwILDvVYY560YalEwr5s=', '2018-11-09 00:32:49.015098', 0, 'pramon', 'Josué Ramón', 'Pereda Rojas', '', 0, 1, '2018-11-09 00:31:53.927712'),
+(5, 'pbkdf2_sha256$120000$iq4pABZBLoQ1$z4W+Bhp0w90w9KUyqgHr3Ox/0xtRDp2GP3iMg7bekc8=', '2019-02-13 21:29:24.969332', 0, 'Vocal', 'Roger', 'Gonzales Chuan', 'rgonzales@gmail.com', 0, 1, '2018-10-24 21:54:31.409353'),
+(14, 'pbkdf2_sha256$120000$xbOVaxg99CXg$ABNeamYDI8vdwzvPHFP6wOD69gWYhlfkPD6T4/XsyXc=', '2019-02-13 22:20:04.944054', 0, 'pramon', 'Josué Ramón', 'Pereda Rojas', '', 0, 1, '2018-11-09 00:31:53.927712'),
 (22, 'pbkdf2_sha256$120000$deVQsxfL8L7g$6ELRKWn8NLDrYaqxmBAhAjh50uc+3RIJdbVw5+YDAZU=', NULL, 0, 'ahenry', 'Julio Henry', 'Arbildo Chavarry', 'julio.chavarry@gmail.com', 0, 1, '2018-11-09 14:24:02.074009'),
 (23, 'pbkdf2_sha256$120000$s54ZBxP4w0jy$NKc9AkQ5CTpeALW0ngFuAMGT0/hRGq5o6yiXJGosO1o=', NULL, 0, 'tporfirio', 'Samuel Porfirio', 'Tirado Sánchez', 'notiene@notiene.com', 0, 1, '2018-11-09 14:40:09.442479'),
 (24, 'pbkdf2_sha256$120000$KYDfCa6sHt71$rj1zuiYIKm375JgCV8FLexiUmcuwc2TJEZQhAj0rS6g=', NULL, 0, 'Nicolas', 'Nicolas Edwin', 'Santos Arce', 'notiene@notiene.com', 0, 1, '2018-11-09 14:43:49.634648'),
@@ -532,7 +565,7 @@ INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `userna
 (98, 'pbkdf2_sha256$120000$adYtJgx897cm$8Xkb3sBG14z+SiNxLO969uIpqYqQc3OUU4mPbn9n62Q=', NULL, 0, 'rmodesto', 'Modesto', 'Rojas Ruiz', '', 0, 1, '2018-11-09 20:31:09.394983'),
 (99, 'pbkdf2_sha256$120000$qK0zX6dbhqPc$xgSBBWeDTA+OXPC2N4w8eLxPiYKflPyHqkkbMxjo+OU=', NULL, 0, 'cfelipe', 'Segundo Felipe', 'Castañeda Rabanal', '', 0, 1, '2018-11-09 20:32:02.207698'),
 (100, 'pbkdf2_sha256$120000$BkmvUmPbBTXR$3EETq8pTcpGmER2/DDgwYV10mHxgFPaiH5X0Nfx06tA=', NULL, 0, 'qmarciano', 'Victor Marciano', 'Quiroz Cruzado', '', 0, 1, '2018-11-09 20:33:21.402495'),
-(101, 'pbkdf2_sha256$120000$8KaKiSqW0kga$T2JXYkvAclzyPuKRpjBHydtAqUCza38t38k8XjgGLew=', NULL, 0, 'cfranklin', 'Robert Franklin', 'Cotrina Lezama', '', 0, 1, '2018-11-09 20:34:24.898749'),
+(101, 'pbkdf2_sha256$120000$ygc4uKkJMinS$TqSJw/dFzFFPHq8ul81OZ4IHJVesnAh2ItD1X/8yMMg=', '2019-02-14 00:36:46.985589', 0, 'cfranklin', 'Robert Franklin', 'Cotrina Lezama', '', 0, 1, '2018-11-09 20:34:24.898749'),
 (102, 'pbkdf2_sha256$120000$rRjxEBOWlpUs$4h2w4rHohS0UxpwCSm8GGyF5OX4td+W4OBsP+W2k3HM=', NULL, 0, 'sjesus', 'Jhonell Jesus', 'Sanchez Muñoz', '', 0, 1, '2018-11-09 20:35:43.758592'),
 (103, 'pbkdf2_sha256$120000$vx5VBHoHfMEa$H4xL65xmqQ6TG6+ccc34tgbs79kg0P6JyqKCr2oBsxg=', NULL, 0, 'moctavio', 'Felix Octavio', 'Muñoz Pinedo', '', 0, 1, '2018-11-09 20:36:32.087298'),
 (104, 'pbkdf2_sha256$120000$ksVLht2zVLF4$dSitxu5bLeFZ6TJO/ozmVfCJcpgacc9vdXH7tNkF/No=', NULL, 0, 'sdavid', 'Wilder David', 'Sanchez Paz', '', 0, 1, '2018-11-09 20:37:26.244004'),
@@ -947,15 +980,20 @@ CREATE TABLE `django_session` (
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('1ccvzwq4pslk9ndabwh2f7hvfsndob8i', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 20:35:58.926615'),
+('1fjk434pg1cdjk7znw1df70ddvlpaeqs', 'YjRlNTBkZjIyZmNjZDJmZjI0OTE3ZTdiNDYzOWQ5YzI2MzY2Y2I1Njp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhZDY2NTg3ZjhlODEyNmE0NGY3NDY1MWNlNjI1MjNmYmVlNmNjOWUxIn0=', '2019-06-16 13:31:35.766243'),
+('1y5l67o1fmpxhaikumu5qj6r6mr2vmmp', 'YjRlNTBkZjIyZmNjZDJmZjI0OTE3ZTdiNDYzOWQ5YzI2MzY2Y2I1Njp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhZDY2NTg3ZjhlODEyNmE0NGY3NDY1MWNlNjI1MjNmYmVlNmNjOWUxIn0=', '2019-02-28 00:53:35.679803'),
 ('4da8kkkeky53mglf3i0spz7r84ku3ts7', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2018-12-19 04:52:01.362211'),
 ('4hsrjhngfddtsab470dt96a9moihr8x8', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:17:14.954273'),
 ('5t85ym829tstif20vlq49btj6aifvnpw', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2018-11-28 03:37:10.599686'),
 ('65upvsxujm7t3y59qb7oxuew3ph1lbo4', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2018-12-19 04:47:26.986865'),
 ('75ckoeeh0w8vxzkgruxln3qlbt0788b5', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 05:13:34.211631'),
 ('7xqu9lccef9immkw1916gcpn2wq32p7e', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 20:45:29.740744'),
+('aaw7rbb3gludd0shf70dppejvwrxvuin', 'YjRlNTBkZjIyZmNjZDJmZjI0OTE3ZTdiNDYzOWQ5YzI2MzY2Y2I1Njp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhZDY2NTg3ZjhlODEyNmE0NGY3NDY1MWNlNjI1MjNmYmVlNmNjOWUxIn0=', '2019-03-23 03:07:20.731862'),
 ('avvx4stu9fbd0ya2e2edns6e8t1ycatf', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 05:04:39.247484'),
+('bq9dq161ug15j8p9pnpc4zyxyqahbk6j', 'YjRlNTBkZjIyZmNjZDJmZjI0OTE3ZTdiNDYzOWQ5YzI2MzY2Y2I1Njp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhZDY2NTg3ZjhlODEyNmE0NGY3NDY1MWNlNjI1MjNmYmVlNmNjOWUxIn0=', '2019-05-04 19:09:01.366379'),
 ('c56b5fzbkcobbiy105296r8twyq43w6o', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:12:16.006079'),
 ('cjotbhnry6ctyrecq5mhdkvrouczn0pw', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-16 16:32:36.082730'),
+('d1p4cqa180eqzbgi4y5emxvwce9iw8zr', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2019-02-19 01:30:41.004640'),
 ('fjolhbix1iwfpn1byd21h7pwpkrklpek', 'ZjE4ZTg4OWVhMjc0MTg0NTUxMGU2YjcyZWZiZDk5MmYxYTE1NWMyNjp7fQ==', '2018-11-07 22:28:02.214088'),
 ('gece0q5sinynjff2gmhoc0baky6ffc1w', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 05:27:13.596974'),
 ('ix0j23u5ds65tp49rrhzhf3rrp2ayn2k', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:29:59.709324'),
@@ -963,13 +1001,18 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 ('ko7mvmbtj3tt39pcy9hg7l27dvfj21h7', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:28:05.671350'),
 ('l6zjj5grboiwadmdsr98lmf0ryn1a4p8', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:28:45.828260'),
 ('mlnbjat13hrgolefic8za87mpq271ga3', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 19:47:46.294384'),
+('n1ksidqyjs1ojn327k9ixficft3jfjpq', 'YjRlNTBkZjIyZmNjZDJmZjI0OTE3ZTdiNDYzOWQ5YzI2MzY2Y2I1Njp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhZDY2NTg3ZjhlODEyNmE0NGY3NDY1MWNlNjI1MjNmYmVlNmNjOWUxIn0=', '2019-06-16 06:34:28.934645'),
 ('n3hk15v3i4v5vtxkd5takriw0ln1yei4', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:32:08.020249'),
 ('npbcewt24ssfsgy5re407fv2hvsvkhe6', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 05:05:20.808965'),
+('nqpnbnnbwtrt1plqgw5me8tw162qw6bg', 'YjRlNTBkZjIyZmNjZDJmZjI0OTE3ZTdiNDYzOWQ5YzI2MzY2Y2I1Njp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhZDY2NTg3ZjhlODEyNmE0NGY3NDY1MWNlNjI1MjNmYmVlNmNjOWUxIn0=', '2019-05-04 18:54:58.265816'),
 ('nrbtckgzfon5yl65yp2nnvghzbjtgw5d', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2018-12-19 04:49:41.953863'),
 ('pn30dgpr1dyvxpdziq7p8dav5gq8xqql', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 05:02:30.554228'),
 ('pwqlgtqlp8i2w2uav0oir40qs6mu8x1g', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2018-12-05 02:40:25.191997'),
 ('qmnqakzfrg49ye887g4ic3uwjc01gt9t', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:18:06.539177'),
+('rw7m078dt8bnggmqtb6kepytsrufvj3u', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2019-02-18 01:24:21.106950'),
+('sfe6vpnm4vv1oatm5nnh6l0vb93cs9bm', 'MjExMTY5YTQ3MGViM2I3NTI5MmQ1YWMxYjZmYjIzZmRiMDkwYzZlMTp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0OGUyYzk3Njg0ZmUzNjQ4YmE1NGVhYzEyNTEwODI4OWZhM2I0OGMxIn0=', '2019-02-20 02:26:10.705346'),
 ('tdxgz5nug9hyawlcb3rh8hhnhqyrat43', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 19:46:13.587812'),
+('v4bbru1ugu74x6oihr7sk3cpdk3q9v7g', 'OTg3YmI5MzU5ZjJmM2RjOTIwMjYxZDU3MGIwMzUxNGYzYTQ2Mzk5MDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzODUyYWEzZmViOTA4Mzg5YThmNTA4MmRkNzIyZWFmMWUzMzFlZGZmIn0=', '2019-02-17 23:58:57.924970'),
 ('xi764xzbb20hedqwt2jq2y0if3u8otdl', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 20:43:17.751521'),
 ('xqxbd573v0b1ikauesm824zhjf7zzwtm', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 19:50:35.934963'),
 ('yck1pt7iautzdlv9d8rdlwdsfzivaaqd', 'YmM3OWFhOTUwODhkZjY4ZjdjYzhlZGFkYTQ1MzNhZjY1NTBiOTAzZDp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI3ZDRmOTZhMzk3Nzc2NWZjZTcwYmJmNzYwZmZhZGE4MWQzNDdlMTI4In0=', '2018-11-17 16:24:00.185875'),
@@ -989,6 +1032,125 @@ CREATE TABLE `hoja_asistencia` (
   `estado` varchar(15) COLLATE hp8_bin NOT NULL,
   `hora` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=hp8 COLLATE=hp8_bin;
+
+--
+-- Volcado de datos para la tabla `hoja_asistencia`
+--
+
+INSERT INTO `hoja_asistencia` (`id_hoja_asistencia`, `id_asamblea`, `id_auth_user`, `estado`, `hora`) VALUES
+(116, 1, 14, '1', '2000-01-01 10:15:01'),
+(117, 1, 14, '3', '2000-01-01 00:00:01'),
+(118, 1, 22, '2', '2000-01-01 00:00:01'),
+(119, 1, 23, '0', '2000-01-01 00:00:01'),
+(120, 1, 24, '0', '2000-01-01 00:00:01'),
+(121, 1, 25, '0', '2000-01-01 00:00:01'),
+(122, 1, 26, '0', '2000-01-01 00:00:01'),
+(123, 1, 27, '0', '2000-01-01 00:00:01'),
+(124, 1, 28, '0', '2000-01-01 00:00:01'),
+(125, 1, 29, '0', '2000-01-01 00:00:01'),
+(126, 1, 30, '0', '2000-01-01 00:00:01'),
+(127, 1, 31, '0', '2000-01-01 00:00:01'),
+(128, 1, 32, '0', '2000-01-01 00:00:01'),
+(129, 1, 33, '0', '2000-01-01 00:00:01'),
+(130, 1, 34, '0', '2000-01-01 00:00:01'),
+(131, 1, 35, '0', '2000-01-01 00:00:01'),
+(132, 1, 36, '0', '2000-01-01 00:00:01'),
+(133, 1, 37, '0', '2000-01-01 00:00:01'),
+(134, 1, 38, '0', '2000-01-01 00:00:01'),
+(135, 1, 39, '0', '2000-01-01 00:00:01'),
+(136, 1, 40, '0', '2000-01-01 00:00:01'),
+(137, 1, 41, '0', '2000-01-01 00:00:01'),
+(138, 1, 42, '0', '2000-01-01 00:00:01'),
+(139, 1, 43, '0', '2000-01-01 00:00:01'),
+(140, 1, 44, '0', '2000-01-01 00:00:01'),
+(141, 1, 34, '0', '2000-01-01 00:00:01'),
+(142, 1, 45, '0', '2000-01-01 00:00:01'),
+(143, 1, 46, '0', '2000-01-01 00:00:01'),
+(144, 1, 47, '0', '2000-01-01 00:00:01'),
+(145, 1, 48, '0', '2000-01-01 00:00:01'),
+(146, 1, 49, '0', '2000-01-01 00:00:01'),
+(147, 1, 50, '0', '2000-01-01 00:00:01'),
+(148, 1, 51, '0', '2000-01-01 00:00:01'),
+(149, 1, 52, '0', '2000-01-01 00:00:01'),
+(150, 1, 53, '0', '2000-01-01 00:00:01'),
+(151, 1, 54, '0', '2000-01-01 00:00:01'),
+(152, 1, 55, '0', '2000-01-01 00:00:01'),
+(153, 1, 30, '0', '2000-01-01 00:00:01'),
+(154, 1, 56, '0', '2000-01-01 00:00:01'),
+(155, 1, 57, '0', '2000-01-01 00:00:01'),
+(156, 1, 58, '0', '2000-01-01 00:00:01'),
+(157, 1, 59, '0', '2000-01-01 00:00:01'),
+(158, 1, 60, '0', '2000-01-01 00:00:01'),
+(159, 1, 61, '0', '2000-01-01 00:00:01'),
+(160, 1, 62, '0', '2000-01-01 00:00:01'),
+(161, 1, 63, '0', '2000-01-01 00:00:01'),
+(162, 1, 64, '0', '2000-01-01 00:00:01'),
+(163, 1, 65, '0', '2000-01-01 00:00:01'),
+(164, 1, 26, '0', '2000-01-01 00:00:01'),
+(165, 1, 66, '0', '2000-01-01 00:00:01'),
+(166, 1, 66, '0', '2000-01-01 00:00:01'),
+(167, 1, 5, '0', '2000-01-01 00:00:01'),
+(168, 1, 67, '0', '2000-01-01 00:00:01'),
+(169, 1, 68, '0', '2000-01-01 00:00:01'),
+(170, 1, 39, '0', '2000-01-01 00:00:01'),
+(171, 1, 69, '0', '2000-01-01 00:00:01'),
+(172, 1, 70, '0', '2000-01-01 00:00:01'),
+(173, 1, 28, '0', '2000-01-01 00:00:01'),
+(174, 1, 37, '0', '2000-01-01 00:00:01'),
+(175, 1, 71, '0', '2000-01-01 00:00:01'),
+(176, 1, 72, '0', '2000-01-01 00:00:01'),
+(177, 1, 73, '0', '2000-01-01 00:00:01'),
+(178, 1, 74, '0', '2000-01-01 00:00:01'),
+(179, 1, 75, '0', '2000-01-01 00:00:01'),
+(180, 1, 76, '0', '2000-01-01 00:00:01'),
+(181, 1, 77, '0', '2000-01-01 00:00:01'),
+(182, 1, 78, '0', '2000-01-01 00:00:01'),
+(183, 1, 79, '0', '2000-01-01 00:00:01'),
+(184, 1, 80, '0', '2000-01-01 00:00:01'),
+(185, 1, 81, '0', '2000-01-01 00:00:01'),
+(186, 1, 82, '0', '2000-01-01 00:00:01'),
+(187, 1, 83, '0', '2000-01-01 00:00:01'),
+(188, 1, 84, '0', '2000-01-01 00:00:01'),
+(189, 1, 84, '0', '2000-01-01 00:00:01'),
+(190, 1, 85, '0', '2000-01-01 00:00:01'),
+(191, 1, 86, '0', '2000-01-01 00:00:01'),
+(192, 1, 87, '0', '2000-01-01 00:00:01'),
+(193, 1, 88, '0', '2000-01-01 00:00:01'),
+(194, 1, 2, '0', '2000-01-01 00:00:01'),
+(195, 1, 89, '0', '2000-01-01 00:00:01'),
+(196, 1, 90, '0', '2000-01-01 00:00:01'),
+(197, 1, 91, '0', '2000-01-01 00:00:01'),
+(198, 1, 27, '0', '2000-01-01 00:00:01'),
+(199, 1, 92, '0', '2000-01-01 00:00:01'),
+(200, 1, 93, '0', '2000-01-01 00:00:01'),
+(201, 1, 94, '0', '2000-01-01 00:00:01'),
+(202, 1, 95, '0', '2000-01-01 00:00:01'),
+(203, 1, 48, '0', '2000-01-01 00:00:01'),
+(204, 1, 96, '0', '2000-01-01 00:00:01'),
+(205, 1, 97, '0', '2000-01-01 00:00:01'),
+(206, 1, 84, '0', '2000-01-01 00:00:01'),
+(207, 1, 98, '0', '2000-01-01 00:00:01'),
+(208, 1, 99, '0', '2000-01-01 00:00:01'),
+(209, 1, 52, '0', '2000-01-01 00:00:01'),
+(210, 1, 41, '0', '2000-01-01 00:00:01'),
+(211, 1, 100, '0', '2000-01-01 00:00:01'),
+(212, 1, 101, '0', '2000-01-01 00:00:01'),
+(213, 1, 102, '0', '2000-01-01 00:00:01'),
+(214, 1, 103, '0', '2000-01-01 00:00:01'),
+(215, 1, 104, '0', '2000-01-01 00:00:01'),
+(216, 1, 105, '0', '2000-01-01 00:00:01'),
+(217, 1, 106, '0', '2000-01-01 00:00:01'),
+(218, 1, 107, '0', '2000-01-01 00:00:01'),
+(219, 1, 26, '0', '2000-01-01 00:00:01'),
+(220, 1, 108, '0', '2000-01-01 00:00:01'),
+(221, 1, 59, '0', '2000-01-01 00:00:01'),
+(222, 1, 109, '0', '2000-01-01 00:00:01'),
+(223, 1, 110, '0', '2000-01-01 00:00:01'),
+(224, 1, 38, '0', '2000-01-01 00:00:01'),
+(225, 1, 55, '0', '2000-01-01 00:00:01'),
+(226, 1, 111, '0', '2000-01-01 00:00:01'),
+(227, 1, 112, '0', '2000-01-01 00:00:01'),
+(228, 1, 113, '0', '2000-01-01 00:00:01');
 
 -- --------------------------------------------------------
 
@@ -1135,12 +1297,12 @@ CREATE TABLE `orden_riego` (
 
 INSERT INTO `orden_riego` (`id_orden_riego`, `id_reparto`, `id_parcela`, `fecha_establecida`, `fecha_inicio`, `duracion`, `unidad`, `cantidad_has`, `importe`, `estado`, `id_comprobante`) VALUES
 (5, 4, 25, '2018-12-11', '2018-12-11 02:02:00', 1.5, 'h', 1, 3.75, 'Aprobada', NULL),
-(6, 4, 24, '2018-11-05', '2018-11-05 01:01:00', 2.5, 'h', 2.5, 6.25, 'Aprobada', NULL),
-(7, 4, 36, '2018-12-04', '2018-12-04 04:31:00', 1.5, 'h', 1.5, 3.75, 'Aprobada', NULL),
-(8, 4, 23, '2018-11-06', '2018-11-06 01:01:00', 2.5, 'h', 2.5, 6.25, 'Rechazada', NULL),
-(9, 4, 82, '2018-11-13', '2018-11-13 02:02:00', 1.5, 'h', 1.5, 3.75, 'Solicitada', NULL),
-(10, 4, 55, '2018-11-14', '2018-11-14 05:25:00', 2, 'h', 2, 5, 'Aprobada', NULL),
-(11, 11, 42, '2018-11-24', '2018-11-15 02:17:00', 12, 'h', 12, 30, 'Aprobada', NULL),
+(6, 4, 24, '2018-11-05', '2018-11-05 01:01:00', 2.5, 'h', 2.5, 6.25, 'Solicitada', NULL),
+(7, 4, 36, '2018-12-04', '2018-12-04 04:31:00', 1.5, 'h', 1.5, 3.75, 'Rechazada', NULL),
+(8, 4, 23, '2018-11-06', '2018-11-06 01:01:00', 2.5, 'h', 2.5, 6.25, 'Aprobada', NULL),
+(9, 4, 82, '2019-04-22', '2019-04-22 19:05:00', 1.5, 'h', 1.5, 3.75, 'Aprobada', NULL),
+(10, 4, 55, '2019-04-22', '2019-04-22 17:20:00', 2, 'h', 2, 5, 'Aprobada', NULL),
+(11, 11, 42, '2018-11-24', '2018-11-15 02:17:00', 12, 'h', 12, 30, 'Solicitada', NULL),
 (12, 10, 31, '2018-12-04', '2018-12-04 16:46:00', 12, 'h', 12, 30, 'Aprobada', NULL);
 
 -- --------------------------------------------------------
@@ -1322,6 +1484,66 @@ CREATE TABLE `talonario` (
   `primer_ticket` int(11) DEFAULT NULL,
   `cantidad_tickets` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=hp8 COLLATE=hp8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vista_futbolistas`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vista_futbolistas` (
+`id_parcela` int(11)
+,`nombre` varchar(60)
+,`ubicacion` varchar(150)
+,`num_toma` int(11)
+,`id_canal` int(11)
+,`id_auth_user` int(11)
+,`total_has` double
+,`has_sembradas` double
+,`descripcion` varchar(100)
+,`estado` varchar(15)
+,`codigo_predio` varchar(25)
+,`volumen_agua` float
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `v_parcelas`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `v_parcelas` (
+`id_parcela` int(11)
+,`nombre` varchar(60)
+,`ubicacion` varchar(150)
+,`num_toma` int(11)
+,`id_canal` int(11)
+,`id_auth_user` int(11)
+,`total_has` double
+,`has_sembradas` double
+,`descripcion` varchar(100)
+,`estado` varchar(15)
+,`codigo_predio` varchar(25)
+,`volumen_agua` float
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vista_futbolistas`
+--
+DROP TABLE IF EXISTS `vista_futbolistas`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_futbolistas`  AS  (select `p`.`id_parcela` AS `id_parcela`,`p`.`nombre` AS `nombre`,`p`.`ubicacion` AS `ubicacion`,`p`.`num_toma` AS `num_toma`,`p`.`id_canal` AS `id_canal`,`p`.`id_auth_user` AS `id_auth_user`,`p`.`total_has` AS `total_has`,`p`.`has_sembradas` AS `has_sembradas`,`p`.`descripcion` AS `descripcion`,`p`.`estado` AS `estado`,`p`.`codigo_predio` AS `codigo_predio`,`p`.`volumen_agua` AS `volumen_agua` from (`parcela` `p` join `canal` `c` on((`p`.`id_canal` = `c`.`id_canal`))) where (`c`.`id_canal` = 3)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `v_parcelas`
+--
+DROP TABLE IF EXISTS `v_parcelas`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_parcelas`  AS  select `p`.`id_parcela` AS `id_parcela`,`p`.`nombre` AS `nombre`,`p`.`ubicacion` AS `ubicacion`,`p`.`num_toma` AS `num_toma`,`p`.`id_canal` AS `id_canal`,`p`.`id_auth_user` AS `id_auth_user`,`p`.`total_has` AS `total_has`,`p`.`has_sembradas` AS `has_sembradas`,`p`.`descripcion` AS `descripcion`,`p`.`estado` AS `estado`,`p`.`codigo_predio` AS `codigo_predio`,`p`.`volumen_agua` AS `volumen_agua` from (`parcela` `p` join `canal` `c` on((`p`.`id_canal` = `c`.`id_canal`))) where (`c`.`id_canal` = 3) ;
 
 --
 -- Índices para tablas volcadas
@@ -1612,7 +1834,7 @@ ALTER TABLE `archivos_parcela`
 -- AUTO_INCREMENT de la tabla `asamblea`
 --
 ALTER TABLE `asamblea`
-  MODIFY `id_asamblea` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_asamblea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `auth_group`
@@ -1738,7 +1960,7 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT de la tabla `hoja_asistencia`
 --
 ALTER TABLE `hoja_asistencia`
-  MODIFY `id_hoja_asistencia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hoja_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
 
 --
 -- AUTO_INCREMENT de la tabla `limpieza`

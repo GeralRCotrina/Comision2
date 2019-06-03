@@ -48,6 +48,8 @@ urlpatterns = [
 	re_path(r'^p_rep_caudal2/$', login_required(views.RepCaudal2.as_view()),name='p_rep_caudal2'),
 	re_path(r'^p_rep_reparto/$', login_required(views.RepPeparto.as_view()),name='p_rep_reparto'),
 
-	re_path(r'^ASAMBLEA1/$', login_required(views.AsambReg.as_view()),name='p_asamb_reg'),	
-	re_path(r'^ASAMBLEA-LISTAR/$', login_required(views.AsambLis.as_view()),name='p_asamb_lis'),
+	re_path(r'^pasambreg/$', login_required(views.AsambReg.as_view()),name='p_asamb_reg'),	
+	re_path(r'^pasamblis/$', login_required(views.AsambLis.as_view()),name='p_asamb_lis'),
+	re_path(r'^p_asamb_edi/?/$',login_required(views.AsambEdi.as_view()),name='p_asamb_edi'),
+	re_path(r'^p_asamb_ini/?/$',login_required(views.AsambIni.as_view()),name='p_asamb_ini'),
 	] 

@@ -20,8 +20,7 @@
 
 	var xhr = new XMLHttpRequest();
 
-	var cad = "/canalero/c_orden_apr/?id_ord="+iOr+"&&id_rep="+iRe+
-			"&&est="+est;
+	var cad = "/canalero/c_orden_apr/?id_ord="+iOr+"&&id_rep="+iRe+"&&est="+est;
 
 	xhr.open('GET',cad,true); // sincrono o asincrono
 	xhr.onreadystatechange = function(){

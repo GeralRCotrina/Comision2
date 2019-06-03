@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.inicio.models import DatosPersonales, Parcela, Canal, Noticia, AuthUser, Caudal, Reparto, OrdenRiego, Asamblea
+from apps.inicio.models import DatosPersonales, Parcela, Canal, Noticia, AuthUser, Caudal, Reparto, OrdenRiego, Asamblea, HojaAsistencia
 from apps.inicio.forms import PersonaForm
 from apps.presidente.forms import ParcelaForm, CanalForm, NoticiaForm, CaudalForm, AuthForm
 from django.urls import reverse_lazy
@@ -136,7 +136,6 @@ class RepPeparto1(View):
 
 
 class AsambReg(View):
-
 	def get(self, request, *args, **kwargs):
 		return render(request,'asamblea/p_asamb_reg.html')
 
@@ -145,19 +144,16 @@ class AsambReg(View):
 		fec =  self.request.POST.get('fecha_asamb')
 		hor =  self.request.POST.get('hora_asamb')
 		tipo =  self.request.POST.get('tipo_asamb')
-
 		HorArr = hor.split(':')
 
 		fech = parse_date(fec)
 		dt=datetime.datetime(year=fech.year,month=fech.month,day=fech.day)
 		dt=dt+datetime.timedelta(hours=float(HorArr[0]))
 		dt=dt+datetime.timedelta(minutes=float(HorArr[1]))
-
 		dtr =  datetime.datetime.now()
 
 		asamb=Asamblea(tipo=tipo,descripcion=desc,fecha_registro=dtr,fecha_asamblea=dt,estado=1)
 		asamb.save()
-
 		return render(request,'asamblea/p_asamb_reg.html',{'msj':'Se guardó correctamente.'})
 
 
@@ -166,7 +162,54 @@ class AsambLis(View):
 		ListAsamb = Asamblea.objects.all()
 		return render(request,'asamblea/p_asamb_lis.html',{'asambleas':ListAsamb})
 
+class AsambEdi(View):
+	def get(self, request, *args, **kwargs):
+		pka = self.request.GET.get('id_asamb')
+		asamb = Asamblea.objects.get(pk=pka)
+		return render(request,'asamblea/p_asamb_edi.html',{'msj':'editando asamblea.','asamb':asamb})
 
+	def post(self,request,*args,**kwargs):
+		pka =  self.request.POST.get('id_asamb')
+		desc =  self.request.POST.get('descripcion_asamb')
+		fec =  self.request.POST.get('fecha_asamb')
+		hor =  self.request.POST.get('hora_asamb')
+		tipo =  self.request.POST.get('tipo_asamb')
+		HorArr = hor.split(':')
+		FecArr = fec.split('/')
+
+		fech = parse_date(fec)
+		dt=datetime.datetime(year=int(FecArr[2]),month=int(FecArr[1]),day=int(FecArr[0]))
+		dt=dt+datetime.timedelta(hours=float(HorArr[0]))
+		dt=dt+datetime.timedelta(minutes=float(HorArr[1]))
+		Asamblea.objects.filter(pk=int(float(pka))).update(tipo=tipo,descripcion=desc,fecha_asamblea=dt,estado=1)
+		ListAsamb = Asamblea.objects.all()
+		return render(request,'asamblea/p_asamb_lis.html',{'msj':'Se editó correctamente.','asambleas':ListAsamb})
+
+class AsambIni(View):
+	def get(self, request, *args, **kwargs):
+		pka = self.request.GET.get('id_asamb') 
+		asamb = Asamblea.objects.get(pk=pka)
+		parc = Parcela.objects.all()
+
+		if asamb.tipo == 'General':
+			
+			hr = time.strftime("%I:%M:%S")
+			hr = "2000-01-01 00:00:01"
+			for p in parc :
+				Hasis = HojaAsistencia(id_asamblea=asamb,id_auth_user=p.id_auth_user,estado="0" ,hora=hr)
+				#Hasis.save()
+
+			lstHAsis = HojaAsistencia.objects.filter(id_asamblea=asamb)
+			return  render(request,'asamblea/p_asamb_asis.html',{'msj':'CREADA 1','lstHAsis':lstHAsis})
+
+
+		elif asamb.tipo == 'Simple':
+			return  render(request,'asamblea/p_asamb_asis.html',{'msj':'CREADA 2'})
+		else :
+			print("      >> ERR")
+			return  render(request,'asamblea/p_asamb_asis.html',{'msj':'ERR'})
+
+		return render(request,'asamblea/p_asamb_asis.html',{'msj':'VAMOS A INICIAR','pka':pka})
 
 
 
@@ -392,56 +435,3 @@ class BuscarAuthList(TemplateView):
 		auths=AuthUser.objects.all()
 		dicc = {"personas":auths}		
 		return render(request,'p_auth_lis.html',dicc)
-
-
-
-
-"""
-
-
-
-class BuscarAuthList(TemplateView):
-
-	def post(self,request,*args,**kwargs):
-		buscar = request.POST['buscar']
-		auths=AuthUser.objects.filter(first_name__icontains=buscar)
-		dicc={}
-		
-		if auths:
-			dicc['object_list0']=auths
-		else:
-			auths=AuthUser.objects.filter(last_name__icontains = buscar)
-			if auths:
-				dicc['object_list1']=auths
-			else:
-				dicc['object_list2']=AuthUser.objects.filter(username__icontains = buscar)
-		
-		return render(request,'p_auth_lis.html',dicc)
-
-
-"""
-
-
-
-
-"""
-
-
-class BuscarAuthList(TemplateView):
-
-	def post(self,request,*args,**kwargs):
-		buscar = request.POST['buscar']
-		auths=AuthUser.objects.filter(first_name__icontains=buscar)
-		dicc={}
-		dicc['object_list']
-		if auths:
-			return render(request,'p_auth_lis.html',{'object_list':auths})
-		else:
-			auths=AuthUser.objects.filter(last_name__icontains = buscar)
-			if auths:
-				return render(request,'p_auth_lis.html',{'object_list':auths})
-			else:
-				auths=AuthUser.objects.filter(username__icontains = buscar)
-				return render(request,'p_auth_lis.html',{'object_list':auths})
-"""
-

@@ -13,13 +13,11 @@
 		<form method="post">
 			{% csrf_token %}
 				{% if msj %}
-					<p class="alert alert-success alert-dismissable">
+					<p class="alert alert-warning alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert">×</button>
-						<strong>FELICIDADES</strong> {{msj}} + {{pka}}
+						<strong>EDITAR </strong> {{msj}} 
 					</p>				
 				{% endif %}
-
-
 
 
 			<div class="row">
@@ -29,18 +27,19 @@
 						<option value="General">REUNIÓN GENERAL</option>
 						<option value="Simple">REUNIÓN SIMPLE</option>
 					</select>
+					<input type="hidden" name="id_asamb" value="{{ asamb.pk }}">
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3 mb-2">
 					<label style="line-height:0.0em;">FECHA</label>
-					<input type="date" name="fecha_asamb" class="form-control" required="required">
+					<input type="text" name="fecha_asamb" class="form-control" required="required" value="{{ asamb.fecha_asamblea.day }}/{{ asamb.fecha_asamblea.month }}/{{ asamb.fecha_asamblea.year }}">
 				</div>
 				<div class="col-12 col-sm-6 col-lg-3 mb-2">
 					<label style="line-height:0.0em;">HORA</label>
-					<input type="time" class="form-control mb-2" name="hora_asamb" />
+					<input type="text" class="form-control mb-2" name="hora_asamb" value="{{ asamb.fecha_asamblea.hour }}:{{ asamb.fecha_asamblea.minute }}"/>
 				</div>
 				<div class="col-12">
 					<label style="line-height:0.0em;">DESCRIPCIÓN</label>
-					<textarea name="descripcion_asamb" class="form-control mb-2" required="required"></textarea>
+					<textarea name="descripcion_asamb" class="form-control mb-2" required="required">{{ asamb.descripcion }}</textarea>
 				</div>
 				
 			</div>

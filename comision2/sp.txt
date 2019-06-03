@@ -1,0 +1,29 @@
+
+=================================cerar sp
+DELIMITER //
+
+CREATE PROCEDURE sp_prueba()
+BEGIN
+    select p.id_parcela 
+FROM parcela p
+	inner join canal c
+    	on p.id_canal = c.id_canal 
+WHERE c.id_canal = 3;
+END
+//
+DELIMITER ;
+
+
+
+====================
+create procedure insertar_usuarios (in addusuario varchar(15), in addpassword varchar(15))
+begin
+declare existe int;
+select count(usuario) into existe from usuarios where usuario=addusuario;
+if existe then
+   select 'el usuario ya existe' as mensaje;
+else
+   insert into usuarios(usuario,password) values(addusuario,addpassword);
+   select 'los datos se insertaron correctamente' as mensaje;
+end if;
+end

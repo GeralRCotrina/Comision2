@@ -40,8 +40,8 @@ class ArchivosParcela(models.Model):
 
 class Asamblea(models.Model):
     TIPO = (
-        ('1', 'REUNIÓN GENERAL'),
-        ('2', 'REUNIÓN SIMPLE'),
+        ('General', 'REUNIÓN GENERAL'),
+        ('Simple', 'REUNIÓN SIMPLE'),
     )
     id_asamblea = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=15, blank=True, null=True, choices=TIPO)
@@ -98,6 +98,7 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
+    dni = models.IntegerField(max_length=8)
 
 
     class Meta:
