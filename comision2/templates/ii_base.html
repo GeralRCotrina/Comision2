@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  
+  <meta charset="utf-8">
+
+
+  <title>cr NH</title>
+
+    {% block css %}
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'css/css2.css' %}" rel="stylesheet">
+  <link href="{% static 'css/css1.css' %}" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/businesscasual.css' %}" rel="stylesheet">
+  <link href="{% static 'css/businesscasual.min.css' %}" rel="stylesheet">
+    
+    <link rel="icon" href="{% static 'img/icocrnh.ico' %}">
+    {% endblock css %}
+
+</head>
+
+<body>
+{% block body %}
+  <h1 class="site-heading text-center text-white d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">comité de regantes</span>
+    <span class="site-heading-lower">NUEVO HORIZONTE </span>
+  </h1>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">cr NUEVO HORIZONTE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active px-lg-4">
+            <a class="nav-link text-uppercase text-expanded js-scroll-trigger" href="{% url 'index' %}">Presentación
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="#sec1">Nosotros</a>
+          </li>
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="#">Servicios</a>
+          </li>
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="#">Historia</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="page-section clearfix">
+    <div class="container">
+      <div class="intro">
+        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{% static 'img/intro.jpg' %}" alt="">
+        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+          <h2 class="section-heading mb-4">
+            <span class="section-heading-upper">sistema de gestión</span>
+            <span class="section-heading-lower">c.r. N.H.</span>
+          </h2>
+          <p class="mb-3">Habilitados para todos nuestros usuario, en el cual podran solicitar sus órdenes 
+            de riego y otras procesos adicionales.
+            <br>
+            <i style="font-style: italic;"> Este sistema se construyó para agilizar los procesos administrativos del comité!</i>
+          </p>
+          <div class="intro-button mx-auto">
+            <a class="btn btn-primary btn-xl" href="{% url 'mylogin' %}">Ingresar al sistema</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+<section class="page-section">
+    <div class="container">
+      <div class="product-item">
+        <div class="product-item-title d-flex">
+          <div class="bg-faded p-5 d-flex ml-auto rounded">
+            <h2 class="section-heading mb-0">
+              <span class="section-heading-upper">producimos</span>
+              <span class="section-heading-lower">la mejor alfalfa </span>
+            </h2>
+          </div>
+        </div>
+        <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'img/products-01.jpg' %}" alt="">
+        <div class="product-item-description d-flex mr-auto">
+          <div class="bg-faded p-5 rounded">
+            <p class="mb-0">Son una comunidad dedicada casi esxlusivamente a al cultivo de alfalfa, por mas de 20 años,
+             convirtiendonos en personas conocedoras de las mejores practicas agricolas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<section class="page-section" id="sec1">
+    <div class="container">
+      <div class="product-item">
+        <div class="product-item-title d-flex">
+          <div class="bg-faded p-5 d-flex mr-auto rounded">
+            <h2 class="section-heading mb-0">
+              <span class="section-heading-upper">comercializamos</span>
+              <span class="section-heading-lower">heno &amp; semilla</span>
+            </h2>
+          </div>
+        </div>
+        <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'img/products-02.jpg' %}" alt="">
+        <div class="product-item-description d-flex ml-auto">
+          <div class="bg-faded p-5 rounded">
+            <p class="mb-0">Desde que esta tierra vió sus primeras flores, nuestro producto fue comercializado a nivel nacional,
+            a la fecha; contamos con producción permanente de heno de alfalfa y semilla, ambos a precios que solo se obtienes a 
+          travez de años de optimizar la producción.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+  <section class="page-section cta">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <div class="cta-inner text-center rounded">
+            <h2 class="section-heading mb-4">
+              <span class="section-heading-upper">NUESTRA PROMESA</span>
+              <span class="section-heading-lower">PARA USTED</span>
+            </h2>
+            <p class="mb-0">Pensado para cubrir las espectativas básicas de los usuarios y administrativos del comité; todos amigos mios por supuesto, el sistema debe agilizar significativamente la gestión administrativa en el comité de regantes Nuevo Horizonte.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+  <footer class="footer text-faded text-center py-5">
+    <div class="container">
+      <p class="m-0 small">Sin Copyright &copy; publicado bajo licencia MIT</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{% endblock body %}
+</body>
+
+</html>

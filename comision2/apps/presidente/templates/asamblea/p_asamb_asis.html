@@ -33,24 +33,26 @@
 					<button class="btn btn-outline-secondary" disabled="true">
 						<i class="fas fa-search"></i>
 					</button>
-				</div>
+				</div><br>
+				<button class="btn btn-outline-success form-control" onclick="Mostar()">#-#-#</button>
 			</div>	
 		</form>
 	</div>
 
 
 
-
-
-
 	<div class="col-12 col-md-5 col-lg-5 btn-group border">
 		<div class="w-100" style="height: 200px; ">
 			
+			<div id="container"  style="min-width: 100%; height: 100%; max-width: 100%;"></div>
 
 
-
-<div id="container" style="min-width: 100%; height: 100%; max-width: 100%;"></div>
 <script type="text/javascript">
+	
+var ast = 0.1;
+var fal = 0.1;
+var tar = 0.1;
+
 
 Highcharts.chart('container', {
     chart: {
@@ -88,23 +90,14 @@ Highcharts.chart('container', {
         name: 'Runión 03/02/19',
         innerSize: '60%',
         data: [
-            ['Tardanzas', 13.29],
-           ['Faltó', 18.25],
-           ['Asistió', 58.9],
-           /*['Edge', 3.78],
-            ['Safari', 3.42],
-            {
-                name: 'Faltó',
-                y: 7.01,
-                dataLabels: {
-                    enabled: false,
-                }
-            }*/
+            ['Tardanzas', ast],
+           ['Faltó', fal],
+           ['Asistió', tar],
         ]
     }]
 });
-</script>
 
+</script>
 
 
 
@@ -113,11 +106,10 @@ Highcharts.chart('container', {
 		</div>
 	</div>
 
+	
+
 
 </div>
-
-
-
 
 
 <div class="row border m-2 p-1">
@@ -144,30 +136,29 @@ Highcharts.chart('container', {
 						<td>{{ ob.id_auth_user.dni}}</td>
 						<td>
 							{% if ob.estado == '0' %}
-								<span id="a" class="badge badge-pill badge-secondary">ESPERANDO</span>
+								<span id="{{ob.pk}}" class="badge badge-pill badge-light">ESPERANDO</span>
 							{% elif ob.estado == '1' %}
-								<span id="a" class="badge badge-pill badge-success">ASISTIÓ</span>
+								<span id="{{ob.pk}}" class="badge badge-pill badge-success">ASISTIÓ</span>
 							{% elif ob.estado == '2' %}
-								<span id="a" class="badge badge-pill badge-warning">TARDE</span>
+								<span id="{{ob.pk}}" class="badge badge-pill badge-info">TARDE</span>
 							{% elif ob.estado == '3' %}
-								<span id="a" class="badge badge-pill badge-danger">FALTÓ</span>
+								<span id="{{ob.pk}}" class="badge badge-pill badge-secondary">FALTÓ</span>
 							{% else %}
-								<span id="a" class="badge badge-pill badge-info">ERR</span>
+								<span id="{{ob.pk}}" class="badge badge-pill badge-info">ERR</span>
 							{% endif %} 
 						</td>
 						<td>{{ ob.hora.hour }}:{{ ob.hora.minute }}</td>
 						<td>
 							<div class="btn-group">
 								<button class="btn btn-outline-success" onclick="UrlJS2({{ob.pk}},'Asistio')"><i class="fas fa-check"></i></button>
-								<button class="btn btn-outline-warning" onclick="UrlJS2({{ob.pk}},'Tarde')"><i class="far fa-clock"></i></button>
-								<button class="btn btn-outline-danger" onclick="UrlJS2({{ob.pk}},'Falto')"><i class="far fa-times-circle"></i></button>
-
+								<button class="btn btn-outline-info" onclick="UrlJS2({{ob.pk}},'Tarde')"><i class="far fa-clock"></i></button>
+								<button class="btn btn-outline-secondary" onclick="UrlJS2({{ob.pk}},'Falto')"><i class="far fa-times-circle"></i></button>
 							</div>
 						</td>
 					</tr>
 					{% endfor %}				
 				{% else %}
-					<h1>NO HAY Canales</h1>
+					<h1>NO HAY ASISTENCIAS AÚN</h1>
 				{% endif %}
 			</tbody>
 		</table>

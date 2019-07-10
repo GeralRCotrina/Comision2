@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from apps.presidente.forms import RegistroForm
 import time
 
-
+ 
 import datetime
 
 import pdfkit
@@ -351,7 +351,7 @@ class SolicitudesPorReparto(TemplateView):
 		dicc['repartos']=Reparto.objects.all()
 		dicc['ordenes']=OrdenRiego.objects.filter(id_reparto=idrepa)
 		return render(request,'c_reparto_lis_ord.html',dicc)
-
+ 
 
 
 class AprobarOrden(TemplateView):

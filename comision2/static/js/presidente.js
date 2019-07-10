@@ -10,6 +10,7 @@ function alEscribeJS(){
 	LimpiarJS();
 	Busqueda(val);
 	InsertarTabla();
+	alert('escri..');
 }
 
 function Busqueda(txt){

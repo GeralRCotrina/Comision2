@@ -38,7 +38,7 @@ urlpatterns = [
 	re_path(r'^p_noticia_lis/$',login_required(views.NoticiaList.as_view()),name='p_noticia_lis'),
 	re_path(r'^p_noticia_edi/(?P<pk>\d+)/$',login_required(views.NoticiaUpdate.as_view()),name='p_noticia_edi'),
 	re_path(r'^p_noticia_eli/(?P<pk>\d+)/$',login_required(views.NoticiaDelete.as_view()),name='p_noticia_eli'),
-
+ 
 
 	re_path(r'^p_caudal_reg/$',login_required(views.CaudalCreate.as_view()),name='p_caudal_reg'),
 	re_path(r'^p_caudal_lis/$',login_required(views.CaudalList.as_view()),name='p_caudal_lis'),
@@ -52,4 +52,6 @@ urlpatterns = [
 	re_path(r'^pasamblis/$', login_required(views.AsambLis.as_view()),name='p_asamb_lis'),
 	re_path(r'^p_asamb_edi/?/$',login_required(views.AsambEdi.as_view()),name='p_asamb_edi'),
 	re_path(r'^p_asamb_ini/?/$',login_required(views.AsambIni.as_view()),name='p_asamb_ini'),
+	re_path(r'^p_hasis_est/?/$',login_required(views.HjaAsisEst.as_view()),name='p_hasis_est'),
+
 	] 

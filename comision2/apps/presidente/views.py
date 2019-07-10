@@ -4,6 +4,7 @@ from apps.inicio.forms import PersonaForm
 from apps.presidente.forms import ParcelaForm, CanalForm, NoticiaForm, CaudalForm, AuthForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView,UpdateView,DeleteView, TemplateView, View
+from django.http import HttpResponse
 
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -26,6 +27,7 @@ from django.db import connection, transaction
 @permission_required('inicio.es_presidente')
 def presidente(request):		
 	return render(request,'presidente.html')
+
 
  
 
@@ -132,9 +134,6 @@ class RepPeparto1(View):
 
 
 
-
-
-
 class AsambReg(View):
 	def get(self, request, *args, **kwargs):
 		return render(request,'asamblea/p_asamb_reg.html')
@@ -185,6 +184,7 @@ class AsambEdi(View):
 		ListAsamb = Asamblea.objects.all()
 		return render(request,'asamblea/p_asamb_lis.html',{'msj':'Se editó correctamente.','asambleas':ListAsamb})
 
+
 class AsambIni(View):
 	def get(self, request, *args, **kwargs):
 		pka = self.request.GET.get('id_asamb') 
@@ -214,6 +214,26 @@ class AsambIni(View):
 
 
 
+class HjaAsisEst(TemplateView):
+	print("     >> hja asis: .")
+
+	def get(self, request, *args, **kwargs):
+		idhje = self.request.GET.get('id_hje')		
+		est = self.request.GET.get('std')
+
+		hja=HojaAsistencia.objects.get(id_hoja_asistencia =int(idhje))
+		if est == 'Asistio':
+			hja.estado='1'
+		elif est == 'Tarde':
+			hja.estado='2'
+		elif est == 'Falto':
+			hja.estado='3'
+		else:
+			print("    >> ERR: "+str(est))
+		hja.save()
+		dicc={}
+		dicc['msj1']="OK"
+		return HttpResponse(dicc)
 
 
 

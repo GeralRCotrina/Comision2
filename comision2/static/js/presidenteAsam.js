@@ -1,8 +1,15 @@
- 
+
+window.onload = function() {
+	LlenarDiccJS1();
+	Porcentaje();
+};
+
 var personas = []
 var personaBK =[]
 var primero = true
 var resultado = []
+
+
 
 function alEscribeJS1(){
 	var val = document.getElementById('valor1').value;
@@ -10,6 +17,7 @@ function alEscribeJS1(){
 	LimpiarJS1();
 	Busqueda1(val);
 	InsertarTabla1();
+	Graficar();
 }
 
 
@@ -69,11 +77,10 @@ function InsertarTabla1() {
 		+resultado[i].hora+"</td><td>"
 		+'<div class="btn-group">'
 			+'<button class="btn btn-outline-success" onclick="UrlJS2('+resultado[i].pk+',\'Asistio\')"><i class="fas fa-check"></i></button>'
-			+'<button class="btn btn-outline-warning" onclick="UrlJS2('+resultado[i].pk+',\'Tarde\')"><i class="far fa-clock"></i></button>'
-			+'<button class="btn btn-outline-danger" onclick="UrlJS2('+resultado[i].pk+',\'Falto\')"><i class="far fa-times-circle"></i></button>'
+			+'<button class="btn btn-outline-info" onclick="UrlJS2('+resultado[i].pk+',\'Tarde\')"><i class="far fa-clock"></i></button>'
+			+'<button class="btn btn-outline-secondary" onclick="UrlJS2('+resultado[i].pk+',\'Falto\')"><i class="far fa-times-circle"></i></button>'
 		+'</div></td></tr>';						
 	}
-	console.log("  >>> "+fila);
 	fila +="</tbody>";
 	$('#dataTable1').append(fila);
 }
@@ -81,5 +88,68 @@ function InsertarTabla1() {
 
 
 function UrlJS2(pkh,msj){
-	alert(">> pkh: "+pkh+"     >> mdj: "+msj);
+	CambiarEst(pkh,msj);
+	Porcentaje();
 }
+
+
+
+function Porcentaje(){
+	fal = 0;
+	ast = 0;
+	tar = 0;
+
+	for (var i = personas.length - 1; i >= 0; i--) {
+		if(personas[i].estado.toUpperCase().indexOf('FALTÓ') > -1){
+			fal += 1;
+		}
+		else if(personas[i].estado.toUpperCase().indexOf('ASISTIÓ') > -1){
+			ast += 1;
+		}
+		else if(personas[i].estado.toUpperCase().indexOf('TARDE') > -1){
+			tar += 1;
+		}
+	}
+}
+
+
+
+
+
+function CambiarEst(pkh,msj){
+	var xhr = new XMLHttpRequest();
+	var cad = "/presidente/p_hasis_est/?id_hje="+pkh+"&&std="+msj;
+
+	xhr.open('GET',cad,true); // sincrono o asincrono
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			console.log("retornó successfull");
+			var sp=document.getElementById(pkh);
+			sp.classList.remove("badge-success");
+			sp.classList.remove("badge-info");
+			sp.classList.remove("badge-light");
+			if(msj == 'Falto')
+			{
+				sp.classList.add("badge-secondary");
+				sp.innerHTML = 'FALTÓ';
+			}
+			else if( msj == 'Asistio')
+			{
+				sp.classList.add("badge-success");
+				sp.innerHTML = 'ASISTIÓ';
+			}
+			else if( msj == 'Tarde')
+			{
+				sp.classList.add("badge-info");
+				sp.innerHTML = 'TARDE';
+			}
+			else{
+				alert("ERR:     >>pkh:"+pkh+"     >> mdj: "+msj);
+			}
+		}
+	}
+	xhr.send();
+
+ }
+
+
