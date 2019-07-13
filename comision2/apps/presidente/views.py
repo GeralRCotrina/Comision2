@@ -197,7 +197,8 @@ class AsambIni(View):
 			hr = "2000-01-01 00:00:01"
 			for p in parc :
 				Hasis = HojaAsistencia(id_asamblea=asamb,id_auth_user=p.id_auth_user,estado="0" ,hora=hr)
-				#Hasis.save()
+				Hasis.save()
+				print("creó la hoja de asistencia")
 
 			lstHAsis = HojaAsistencia.objects.filter(id_asamblea=asamb)
 			return  render(request,'asamblea/p_asamb_asis.html',{'msj':'CREADA 1','lstHAsis':lstHAsis})

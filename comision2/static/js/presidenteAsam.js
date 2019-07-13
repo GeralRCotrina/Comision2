@@ -1,24 +1,39 @@
 
 window.onload = function() {
 	LlenarDiccJS1();
-	Porcentaje();
 };
 
 var personas = []
 var personaBK =[]
 var primero = true
 var resultado = []
+var pk_usuario = 0;
 
 
 
 function alEscribeJS1(){
-	var val = document.getElementById('valor1').value;
-	LlenarDiccJS1();
-	LimpiarJS1();
-	Busqueda1(val);
-	InsertarTabla1();
-	Graficar();
+	var dn = document.getElementById('valor1').value;
+
+	if (dn.length == 8) {
+		console.log(">>Podría ser un DNI.");
+		LlenarDiccJS1();
+		LimpiarJS1();
+		Busqueda1(dn);
+		MarcarAsis();
+		InsertarTabla1();
+	}
+	else{
+		LlenarDiccJS1();
+		LimpiarJS1();
+		Busqueda1(dn);
+		InsertarTabla1();
+	}
 }
+
+function MarcarAsis(){
+	UrlJS2(pk_usuario,'Asistio');
+}
+
 
 
 function LlenarDiccJS1(){
@@ -51,6 +66,7 @@ function Busqueda1(txt){
 		{
 			cont0 += 1;
 			resultado.push(personas[i]);
+			pk_usuario = personas[i].pk
 		}
 		strr = strr+"-"+i;
 	}
@@ -89,30 +105,7 @@ function InsertarTabla1() {
 
 function UrlJS2(pkh,msj){
 	CambiarEst(pkh,msj);
-	Porcentaje();
 }
-
-
-
-function Porcentaje(){
-	fal = 0;
-	ast = 0;
-	tar = 0;
-
-	for (var i = personas.length - 1; i >= 0; i--) {
-		if(personas[i].estado.toUpperCase().indexOf('FALTÓ') > -1){
-			fal += 1;
-		}
-		else if(personas[i].estado.toUpperCase().indexOf('ASISTIÓ') > -1){
-			ast += 1;
-		}
-		else if(personas[i].estado.toUpperCase().indexOf('TARDE') > -1){
-			tar += 1;
-		}
-	}
-}
-
-
 
 
 
@@ -132,16 +125,31 @@ function CambiarEst(pkh,msj){
 			{
 				sp.classList.add("badge-secondary");
 				sp.innerHTML = 'FALTÓ';
+				for (var i = personaBK.length - 1; i >= 0; i--) {
+					if(personaBK[i].pk == pkh){
+						personaBK[i].estado ='<span id="'+pkh+'" class="badge badge-pill badge-secondary">FALTÓ</span>';
+					}
+				}
 			}
 			else if( msj == 'Asistio')
 			{
 				sp.classList.add("badge-success");
 				sp.innerHTML = 'ASISTIÓ';
+				for (var i = personaBK.length - 1; i >= 0; i--) {
+					if(personaBK[i].pk == pkh){
+						personaBK[i].estado ='<span id="'+pkh+'" class="badge badge-pill badge-success">ASISTIÓ</span>';
+					}
+				}
 			}
 			else if( msj == 'Tarde')
 			{
 				sp.classList.add("badge-info");
 				sp.innerHTML = 'TARDE';
+				for (var i = personaBK.length - 1; i >= 0; i--) {
+					if(personaBK[i].pk == pkh){
+						personaBK[i].estado ='<span id="'+pkh+'" class="badge badge-pill badge-info">TARDE</span>';
+					}
+				}
 			}
 			else{
 				alert("ERR:     >>pkh:"+pkh+"     >> mdj: "+msj);
