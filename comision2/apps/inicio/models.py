@@ -13,7 +13,7 @@ from django.db import models
 # si desea cambiar otros campos.
 
 from django.utils.translation import ugettext as _
-from datetime import datetime
+
 
 class AgendaAsamblea(models.Model):
     id_agenda = models.AutoField(primary_key=True)
@@ -98,7 +98,7 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
-    dni = models.IntegerField(max_length=8)
+    dni = models.IntegerField()
 
 
     class Meta:
@@ -244,7 +244,7 @@ class Destajo(models.Model):
     id_parcela = models.ForeignKey('Parcela', models.DO_NOTHING, db_column='id_parcela', blank=True, null=True)
     tamano = models.FloatField(blank=True, null=True)
     num_orden = models.IntegerField(blank=True, null=True)
-    fecha_registro = models.DateField(blank=True, null=True, default=datetime.date(datetime.now()), editable=False)
+    fecha_registro = models.DateField(blank=True, null=True, editable=False)
     descripcion = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
@@ -499,8 +499,8 @@ class Reparto(models.Model):
     id_reparto = models.AutoField(primary_key=True)
     descripcion = models.CharField(max_length=45, blank=True, null=True)
     tipo = models.CharField(max_length=15, blank=True, null=True, choices=TIPO)
-    fecha_registro = models.DateField(blank=True, null=True, default=datetime.date(datetime.now()), editable=False)
-    fecha_reparto = models.DateTimeField(blank=True, null=True)
+    fecha_registro = models.DateField(blank=True, null=True, editable=False)
+    fecha_reparto = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False

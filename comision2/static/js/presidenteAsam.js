@@ -3,6 +3,59 @@ window.onload = function() {
 	LlenarDiccJS1();
 };
 
+
+
+
+
+
+
+function SelctTipoAsamblea(){
+	var divv =document.getElementById("LstCanales");
+	var t_as =document.getElementById("tip_asamb").value;
+	if(t_as == "Simple"){
+		divv.classList.remove("d-none");
+		divv.classList.remove("rotateOutDownRight");
+		divv.classList.add("bounceInDown");
+	}
+	else{
+		divv.classList.remove("bounceInDown");
+		divv.classList.add("rotateOutDownRight");
+	}
+}
+
+
+var cont_agnd = 99;
+function AgregarAgnd(){
+	var itm_agnd=document.getElementById("txt_itm");
+	var Agnd = document.getElementById("Agnd");
+	var cant_itm = document.getElementById("itm_cant");
+	var txt_agnd = Agnd.innerHTML;
+	cont_agnd +=1;
+	Agnd.innerHTML= txt_agnd +'<p class="alert alert-success alert-dismissable">'+
+						'<button type="button" class="close" data-dismiss="alert">×</button>'+
+						'<strong>'+(cont_agnd-99)+'.- </strong> '+itm_agnd.value+
+						'</p><input name="'+cont_agnd+'" type="hidden" value="'+(cont_agnd-99)+'.- '+itm_agnd.value+'">';
+	cant_itm.value=cont_agnd;
+	itm_agnd.value="";
+}
+
+/*
+'<p name="agnd_itm_'+cont_agnd+'" class="alert alert-success alert-dismissable">'+
+						'<button type="button" class="close" data-dismiss="alert">×</button>'+
+						'<strong>'+cont_agnd+'.- </strong> '+itm_agnd.value+'</p>';
+
+
+						 '<input type="text" name="agnd_itm_'+cont_agnd+'" value="'+itm_agnd.value+'"/>';
+						*/
+
+
+
+
+
+
+
+
+
 var personas = []
 var personaBK =[]
 var primero = true
@@ -159,5 +212,10 @@ function CambiarEst(pkh,msj){
 	xhr.send();
 
  }
+
+
+
+
+
 
 

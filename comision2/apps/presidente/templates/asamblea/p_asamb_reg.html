@@ -7,7 +7,7 @@
 
 
 {% block noticias %}
-	<div class="container border">
+	<div class="container">
 		<br>
 
 		<form method="post">
@@ -20,12 +20,11 @@
 				{% endif %}
 
 
-
-
 			<div class="row">
 				<div class="col-12  col-lg-6 mb-2">
 					<label style="line-height:0.0em;">TIPO</label>
-					<select class="form-control" name="tipo_asamb" required="required">
+					<select class="form-control" id="tip_asamb" name="tipo_asamb" required="required" onchange="SelctTipoAsamblea()">
+						<option value="--">--------------</option>
 						<option value="General">REUNIÓN GENERAL</option>
 						<option value="Simple">REUNIÓN SIMPLE</option>
 					</select>
@@ -42,9 +41,72 @@
 					<label style="line-height:0.0em;">DESCRIPCIÓN</label>
 					<textarea name="descripcion_asamb" class="form-control mb-2" required="required"></textarea>
 				</div>
-				
-			</div>
 
+
+				<div id="acordion" class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<a href="#uno" class="card-link" data-toggle="collapse" data-parent="#acordion" aria-expanded="true">
+							AGREGAR AGENDA<i class="fas fa-plus"></i></a>
+						</div>
+						<div id="uno" class="collapse" style="">
+							<div class="input-group w-100">
+								<textarea id="txt_itm" placeholder="opcional.." class="form-control"></textarea>
+					          	<div class="input-group-append">
+					            	<button class="btn btn-success" type="button" onclick="AgregarAgnd()"><i class="fas fa-plus"></i></button>
+					          	</div>
+					        </div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<style>
+					.form-check{
+						font-style: italic;
+						border-radius: 10px;
+						padding-left: 25px;
+						-webkit-box-shadow: 0px 2px 5px 2px rgba(117,189,139,1);
+						-moz-box-shadow: 0px 2px 5px 2px rgba(117,189,139,1);
+						box-shadow: 0px 2px 5px 2px rgba(117,189,139,1);
+					}
+					i{
+						color: white;
+					}
+				</style>
+
+
+				<div id="LstCanales" class="col-12 m-2 form-check d-none animated bounceInDown">					
+						
+					<label class="form-check-label">
+						<input name="1000" type="checkbox" class="form-check-input">Canal madre
+					</label> <i>_________</i>
+					<label class="form-check-label">
+						<input name="1001" type="checkbox" class="form-check-input" >Ramal 1
+					</label> <i>_________</i>
+					<label class="form-check-label">
+						<input name="1002" type="checkbox" class="form-check-input">Ramal 2
+					</label> <i>_________</i>
+					<label class="form-check-label">
+						<input name="1003" type="checkbox" class="form-check-input" >Ramal 3
+					</label> <i>_________</i>
+					<label class="form-check-label">
+						<input name="1004" type="checkbox" class="form-check-input">Ramal 4
+					</label>  <i>_________</i>
+					<label class="form-check-label" style="font-size: 0.8em;">
+						<input name="1006" type="checkbox" class="form-check-input" >Sub Ramal 4
+					</label><i>_________</i>
+					<label class="form-check-label">
+						<input name="1005" type="checkbox" class="form-check-input" >Ramal 5
+					</label>
+				</div>
+
+				<input id="itm_cant" name="itm_cant" type="hidden" value="0" />
+				 <div id="Agnd" class="col-12 m-2 ">
+				 </div>
+
+			</div><br>
 
 				<button type="submit" class="btn btn-primary form-control mb-2">
 					<i class="far fa-save"></i>   GUARDAR

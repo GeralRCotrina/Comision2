@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.inicio.models import DatosPersonales, Parcela, Canal, Noticia, AuthUser, Caudal, Reparto, OrdenRiego, Asamblea, HojaAsistencia
+from apps.inicio.models import DatosPersonales, Parcela, Canal, Noticia, AuthUser, Caudal, Reparto, OrdenRiego, Asamblea, HojaAsistencia, AgendaAsamblea
 from apps.inicio.forms import PersonaForm
 from apps.presidente.forms import ParcelaForm, CanalForm, NoticiaForm, CaudalForm, AuthForm
 from django.urls import reverse_lazy
@@ -142,20 +142,75 @@ class AsambReg(View):
 		desc =  self.request.POST.get('descripcion_asamb')
 		fec =  self.request.POST.get('fecha_asamb')
 		hor =  self.request.POST.get('hora_asamb')
-		tipo =  self.request.POST.get('tipo_asamb')
-		HorArr = hor.split(':')
+		tipo =  self.request.POST.get('tipo_asamb')	
+		itm_cant =  self.request.POST.get('itm_cant')
+		itm_1 =  self.request.POST.get('agnd_itm_1')
+		itm_2 =  self.request.POST.get('agnd_itm_2')
+		itm_3 =  self.request.POST.get('agnd_itm_3')
+
+		HorArr = hor.split(':')		
 
 		fech = parse_date(fec)
 		dt=datetime.datetime(year=fech.year,month=fech.month,day=fech.day)
 		dt=dt+datetime.timedelta(hours=float(HorArr[0]))
 		dt=dt+datetime.timedelta(minutes=float(HorArr[1]))
+		print("3")
 		dtr =  datetime.datetime.now()
 
 		asamb=Asamblea(tipo=tipo,descripcion=desc,fecha_registro=dtr,fecha_asamblea=dt,estado=1)
 		asamb.save()
+
+		itmc=99
+		for x in range(0,int(itm_cant)-99):
+			itmc +=1
+			ag_as=AgendaAsamblea(id_asamblea=asamb,punto_numero=(int(itm_cant)-99),descripcion=self.request.POST.get(str(itmc)))
+			ag_as.save()
+			
+		# CREAMOS LAS ASISTENCIAS........................
+		hr = time.strftime("%I:%M:%S")
+		hr = "2000-01-01 00:00:01"
+
+		if tipo == "General":
+			parc = Parcela.objects.all()
+			for p in parc :
+				Hasis = HojaAsistencia(id_asamblea=asamb,id_auth_user=p.id_auth_user,estado="0" ,hora=hr)
+				Hasis.save()
+			print("se creó la asamblea y su hoja de asistencia.")
+		else:
+			rc=999
+			diccc={}
+			for x in range(0,6):
+				rc+=1
+				if str(self.request.POST.get(str(rc))) == "on":
+					parc = Parcela.objects.filter(id_canal=(x+1))
+					for p in parc :
+						Hasis = HojaAsistencia(id_asamblea=asamb,id_auth_user=p.id_auth_user,estado="0" ,hora=hr)
+						Hasis.save()
+			print(">>se creó la asamblea simple y sus asistencias.")
+
 		return render(request,'asamblea/p_asamb_reg.html',{'msj':'Se guardó correctamente.'})
 
 
+
+
+"""
+		r_m =  self.request.POST.get('r_m')
+		r_1 =  self.request.POST.get('r_1')
+		r_2 =  self.request.POST.get('r_2')
+		r_3 =  self.request.POST.get('r_3')
+		r_4 =  self.request.POST.get('r_4')
+		r_41 =  self.request.POST.get('r_41')
+		r_5 =  self.request.POST.get('r_5')
+
+		print("4")
+		print("    >> ___________SE GUARGARÁ ASAMBLEA________________{")
+		print("		>"+desc)
+		print("		>"+fec)
+		print("		>"+str(dtr))
+		print("		>"+tipo)
+		print("		>r_m:"+str(r_m)+" - r_1:"+str(r_1)+" - r_2:"+str(r_2)+" - r_3:"+str(r_3)+" - r_4:"+str(r_4)+" - r_41:"+str(r_41)+" - r_5:"+str(r_5))
+		print("		>---------------------AGENDA----["+str(int(itm_cant)-99)+"]----------")
+"""
 class AsambLis(View):
 	def get(self, request, *args, **kwargs):
 		ListAsamb = Asamblea.objects.all()
@@ -198,8 +253,6 @@ class AsambIni(View):
 			for p in parc :
 				Hasis = HojaAsistencia(id_asamblea=asamb,id_auth_user=p.id_auth_user,estado="0" ,hora=hr)
 				Hasis.save()
-				print("creó la hoja de asistencia")
-
 			lstHAsis = HojaAsistencia.objects.filter(id_asamblea=asamb)
 			return  render(request,'asamblea/p_asamb_asis.html',{'msj':'CREADA 1','lstHAsis':lstHAsis})
 
@@ -216,8 +269,6 @@ class AsambIni(View):
 
 
 class HjaAsisEst(TemplateView):
-	print("     >> hja asis: .")
-
 	def get(self, request, *args, **kwargs):
 		idhje = self.request.GET.get('id_hje')		
 		est = self.request.GET.get('std')
