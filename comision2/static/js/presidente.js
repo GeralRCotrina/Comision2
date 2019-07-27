@@ -10,14 +10,13 @@ function alEscribeJS(){
 	LimpiarJS();
 	Busqueda(val);
 	InsertarTabla();
-	alert('escri..');
 }
 
 function Busqueda(txt){
 	resultado = [];
 	var cont0=0;
 	for (var i = personas.length - 1; i >= 0; i--) {
-		if(personas[i].username.toUpperCase().indexOf(txt.toUpperCase()) > -1 || personas[i].first_name.toUpperCase().indexOf(txt.toUpperCase()) > -1 || personas[i].last_name.toUpperCase().indexOf(txt.toUpperCase()) > -1)
+		if(personas[i].dni.indexOf(txt.toUpperCase()) > -1 || personas[i].username.toUpperCase().indexOf(txt.toUpperCase()) > -1 || personas[i].first_name.toUpperCase().indexOf(txt.toUpperCase()) > -1 || personas[i].last_name.toUpperCase().indexOf(txt.toUpperCase()) > -1)
 		{
 			cont0 += 1;
 			resultado.push(personas[i]);
@@ -31,22 +30,19 @@ function InsertarTabla() {
 	var fila ='<tbody id="cuerpo">';
 	for (var i = resultado.length - 1; i >= 0; i--) 
 	{
-		fila +='<tr><td>'
+		fila +='<tr style="font-size: 0.8em;"><td>'
 		+resultado[i].pk+"</td><td>"
 		+resultado[i].username+"</td><td>"
 		+resultado[i].first_name+"</td><td>"
 		+resultado[i].last_name+"</td><td>"
 		+resultado[i].email+"</td><td>"
 		+resultado[i].last_login+"</td><td>"
-		+'<a class="btn btn-outline-success" href=#><i class="far fa-edit"></i></a>'
-		+'<a class="btn btn-outline-danger" href="#" ><i class="fas fa-trash-alt"></i></a></td><tr>';
+		+resultado[i].dni+"</td><td>"
+		+resultado[i].botones+"</td><tr>";
 	}
 	fila +="</tbody>";
 	$('#dataTable').append(fila);
 }
-
-
-
 function LlenarDiccJS()
 {
 	var tableReg = document.getElementById('dataTable');
@@ -62,8 +58,8 @@ function LlenarDiccJS()
 			personas.push({pk:cellsOfRow[0].innerHTML,username:cellsOfRow[1].innerHTML,
 				first_name:cellsOfRow[2].innerHTML,last_name:cellsOfRow[3].innerHTML,
 				email:cellsOfRow[4].innerHTML,last_login:cellsOfRow[5].innerHTML,
-				botones:'<a class="btn btn-outline-success" href=#><i class="far fa-edit"></i></a>'+		
-						'<a class="btn btn-outline-danger" href="#" ><i class="fas fa-trash-alt"></i></a>'});
+				dni:cellsOfRow[6].innerHTML,
+				botones:cellsOfRow[7].innerHTML,});
 		}
 		personaBK=personas;
 		primero = false;

@@ -42,7 +42,7 @@
 {% endblock noticias1 %}
 
 
-
+ 
 
 {% block titulo_tabla %} Lista de  Auth {% endblock titulo_tabla %}
 
@@ -55,6 +55,7 @@
 			<td>Apellidos</td>
 			<td>Email</td>
 			<td>Ultima vez</td>
+			<td>DNI</td>
 			<td></td>
 		{% endblock td1_tabla %}
 
@@ -65,6 +66,7 @@
 			<td>Apellidos</td>
 			<td>Email</td>
 			<td>Ultima vez</td>
+			<td>DNI</td>
 			<td></td>
 		{% endblock td2_tabla %}
  
@@ -73,17 +75,23 @@
 	{% csrf_token %}
 			{% if object_list %}
 				{% for p in object_list %}
-					<tr>
-						<td data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ p.pk }}</td>
+					<tr style="font-size: 0.8em;">
+						<td>{{ p.pk }}</td>
 						<td>{{ p.username }}</td>			
 						<td>{{ p.first_name }}</td>		
 						<td>{{ p.last_name }}</td>		
 						<td>{{ p.email }}</td>
-						<td> {{ p.last_login }} </td>				
+						<td > {{ p.last_login }} </td>	
+						<td> {{ p.dni }} </td>				
 						<td>
-							<a class="btn btn-outline-success" href="#"><i class="far fa-edit"></i></a>		
-							<a class="btn btn-outline-danger" href="#" ><i class="fas fa-trash-alt"></i></a>
+							<div class="btn-group">
+								<a class="btn btn-outline-success" href="{% url 'p_usuario1_upd' p.pk %}"><i class="far fa-edit"></i></a>		
+								<a class="btn btn-outline-danger" href="{% url 'p_usuario1_del' p.pk %}" ><i class="fas fa-trash-alt"></i></a>
+							</div>
 						</td>
+
+
+
 					</tr>
 				{% endfor %}	
 			{% endif %}

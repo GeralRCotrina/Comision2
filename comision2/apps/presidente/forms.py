@@ -57,13 +57,7 @@ class RegistroForm(UserCreationForm):
 
 	class Meta:
 		model = User
-		fields=[
-			'id',
-			'username',
-			'first_name',
-			'last_name',
-			'email',
-		]
+		fields=['id', 'username', 'first_name', 'last_name', 'email', ]
 
 		labels={
 			'id':'Referencia',
@@ -159,28 +153,21 @@ class AuthForm(forms.ModelForm):
 	class Meta:
 		model = AuthUser
 
-		fields = ['username',
-			'password',
-			'is_superuser',
-			'last_login',
-			'first_name',
-			'last_name',
-			'email',
-			'is_staff',
-			'is_active',
-			'date_joined',
-			'dni']	
+		fields = ['username','first_name','last_name','email','dni']
+
+		labels = {
+			'first_name':'Nombres',
+			'last_name':'Apellidos',
+			'username':'Nombre de acceso',
+			'dni':'N° de DNI',
+			'email':'Correo @',
+			}
 
 		widgets={	
 			    'username':forms.TextInput(attrs={'class':'form-control'}),
-			    'password':forms.TextInput(attrs={'class':'form-control'}),
-			    'is_superuser':forms.TextInput(attrs={'class':'form-control'}),
-			    'last_login':forms.TextInput(attrs={'class':'form-control'}),
 			    'first_name':forms.TextInput(attrs={'class':'form-control'}),
 			    'last_name':forms.TextInput(attrs={'class':'form-control'}),
-			    'is_staff':forms.TextInput(attrs={'class':'form-control'}),
-			    'is_active':forms.TextInput(attrs={'class':'form-control'}),
-			    'date_joined':forms.TextInput(attrs={'class':'form-control'}),
-			    'dni':forms.TextInput(attrs={'class':'form-control','type':'number'}),
+			    'email':forms.TextInput(attrs={'class':'form-control'}),
+			    'dni':forms.TextInput(attrs={'class':'form-control','type':'number','min':'00000000','max':'99999999'}),
 		    }
 

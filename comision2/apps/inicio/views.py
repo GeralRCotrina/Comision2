@@ -67,7 +67,7 @@ class RegistrarUsuario(CreateView):
 	form_class = RegistroForm
 	success_url=reverse_lazy('p_auth_lis')
 
- 
+  
 def index(request):
 	return render(request,'index.html')
 """

@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block txt_titulo %} est_base {% endblock txt_titulo %}</title>
+    <title>{% block txt_titulo %} crNH {% endblock txt_titulo %}</title>
 
 
     <!-- Bootstrap core CSS-->
@@ -41,7 +41,7 @@
 
     <nav class="navbar navbar-expand  static-top" style="background: #317631">
 
-      <a class="navbar-brand mr-1 text-white" href="index.html"> {% block txt_cabecera %} PRESIDENTE {% endblock txt_cabecera %} </a>
+      <a class="navbar-brand mr-1 text-white"> {% block txt_cabecera %} PRESIDENTE {% endblock txt_cabecera %} </a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
@@ -112,10 +112,6 @@
             <a class="dropdown-item" href="{% url 'usuario' %}"><i class="fas fa-user"></i></i> Usuario</a>
             <a class="dropdown-item" href="{% url 'canalero' %}"><i class="fas fa-user-tie"></i> Canalero</a>
             <a class="dropdown-item" href="{% url 'presidente' %}"><i class="fas fa-user-graduate"></i></i> Presidente</a>
-            <a class="dropdown-item" href="{% url 'presidente' %}">Cambiar contraseña</a>
-            <a class="dropdown-item" href="{% url 'p_act_usu' %}">p_act_usu </a>
-            <a class="dropdown-item" href="{% url 'presidente' %}">Cambiar</a>
-            <a class="dropdown-item" href="{% url 'presidente' %}">Cambiar</a>
           </div>
         </li>
 
@@ -125,10 +121,12 @@
             <span>USUARIOS</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">            
-            <a class="dropdown-item" href="{% url 'RegistrarUsuario' %}">Registrar User</a>
-            <a class="dropdown-item" href="{% url 'p_usuario_reg' %}">Registrar Datos</a>
-            <a class="dropdown-item" href="{% url 'p_usuario_lis' %}">Listar Datos</a>
-            <a class="dropdown-item" href="{% url 'p_auth_lis' %}">Listar Auth</a>
+            <!--a class="dropdown-item" href="{% url 'RegistrarUsuario' %}">Registrar User</a-->
+            <a class="dropdown-item" href="{% url 'p_usuario1_reg' %}"><i class="fas fa-plus"></i> REGISTRAR</a>
+            <a class="dropdown-item" href="{% url 'p_usuario_reg' %}"><i class="fas fa-plus"></i> DATOS</a>
+            <!--a class="dropdown-item" href="{% url 'p_usuario_lis' %}">Listar Datos</a-->
+            <a class="dropdown-item" href="{% url 'p_auth_lis' %}"><i class="fas fa-list-ol"></i> LISTAR</a>
+            <a class="dropdown-item" href="{% url 'p_act_usu' %}"><i class="fas fa-key"></i> CONTRASEÑA</a>
           </div>
         </li>
 
@@ -138,8 +136,8 @@
             <span>ASAMBLEA</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">            
-            <a class="dropdown-item" href="{% url 'p_asamb_reg' %}">REGISTRAR</a>
-            <a class="dropdown-item" href="{% url 'p_asamb_lis' %}">LISTAR</a>
+            <a class="dropdown-item" href="{% url 'p_asamb_reg' %}"><i class="fas fa-plus"></i> REGISTRAR</a>
+            <a class="dropdown-item" href="{% url 'p_asamb_lis' %}"><i class="fas fa-list-ol"></i> LISTAR</a>
           </div>
         </li>
 
@@ -149,8 +147,8 @@
             <span>NOTICIA</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="{% url 'p_noticia_reg' %}">Registrar</a>
-            <a class="dropdown-item" href="{% url 'p_noticia_lis' %}">Listar</a>
+            <a class="dropdown-item" href="{% url 'p_noticia_reg' %}"><i class="fas fa-plus"></i>  REGISTRAR</a>
+            <a class="dropdown-item" href="{% url 'p_noticia_lis' %}"><i class="fas fa-list-ol"></i> LISTAR</a>
           </div>
         </li>
 
@@ -160,8 +158,8 @@
             <span>PARCELA</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="{% url 'p_parcela_reg' %}">Registrar</a>
-            <a class="dropdown-item" href="{% url 'p_parcela_lis' %}">Listar</a>
+            <a class="dropdown-item" href="{% url 'p_parcela_reg' %}"><i class="fas fa-plus"></i>  REGISTRAR</a>
+            <a class="dropdown-item" href="{% url 'p_parcela_lis' %}"><i class="fas fa-list-ol"></i> LISTAR</a>
           </div>
         </li>
       

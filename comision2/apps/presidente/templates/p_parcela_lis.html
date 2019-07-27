@@ -46,7 +46,7 @@
 	{% if object_list %}
 		{% for ob in object_list %}
 
-		<tr >
+		<tr style="font-style: 0.8em;">
 			<td>{{ ob.id_canal }}</td>
 			<td data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">({{ ob.id_parcela }}) {{ ob.nombre }}
 			<div class="dropdown-menu w-100 border p-1 bg-warning">
@@ -67,8 +67,10 @@
 			<td>{{ ob.descripcion }}</td>
 			<td>{{ ob.estado }}</td>
 			<td>
+				<div class="btn-group">
 				<a class="btn btn-outline-success" href="{% url 'p_parcela_edi' ob.id_parcela %}"><i class="far fa-edit"></i></a>		
 				<a class="btn btn-outline-danger" href="{% url 'p_parcela_eli' ob.id_parcela %}" ><i class="fas fa-trash-alt"></i></a>
+				</div>
 			</td>
 		</tr>
 

@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
  
 
 urlpatterns = [	 	
+
+
 	re_path(r'^$', login_required(views.presidente),name='presidente'),
 	re_path(r'^listae$', views.ListaE,name='ListaE'),
 
@@ -16,6 +18,12 @@ urlpatterns = [
 	re_path(r'^p_usuario_reg/$',views.DatosCreate.as_view(),name='p_usuario_reg'),
 	re_path(r'^p_usuario_edi/(?P<pk>\d+)/$',login_required(views.DatosUpdate.as_view()),name='p_usuario_edi'),
 	re_path(r'^p_usuario_eli/(?P<pk>\d+)/$',login_required(views.DatosDelete.as_view()),name='p_usuario_eli'),
+
+	re_path(r'^p_usuario1_reg/$',views.UsuarioCreate.as_view(),name='p_usuario1_reg'),
+	re_path(r'^p_usuario1_upd/(?P<pk>\d+)/$',views.UsuarioUpdate.as_view(),name='p_usuario1_upd'),
+	re_path(r'^p_usuario1_del/(?P<pk>\d+)/$',login_required(views.UsuarioDelete.as_view()),name='p_usuario1_del'),
+
+
 
 	re_path(r'^p_auth_lis/$',login_required(views.AuthList.as_view()),name='p_auth_lis'),
 	re_path(r'^p_auth_bus/$',login_required(views.BuscarAuthList.as_view()),name='p_auth_bus'),
@@ -53,5 +61,7 @@ urlpatterns = [
 	re_path(r'^p_asamb_edi/?/$',login_required(views.AsambEdi.as_view()),name='p_asamb_edi'),
 	re_path(r'^p_asamb_ini/?/$',login_required(views.AsambIni.as_view()),name='p_asamb_ini'),
 	re_path(r'^p_hasis_est/?/$',login_required(views.HjaAsisEst.as_view()),name='p_hasis_est'),
+
+	re_path(r'^p_asamb_del/?/$',login_required(views.AsmbDel.as_view()),name='p_asamb_del'),
 
 	] 

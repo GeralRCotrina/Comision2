@@ -217,5 +217,23 @@ function CambiarEst(pkh,msj){
 
 
 
+function EliminarAsamb(pka){
+	var rpta = confirm("¿Está seguro que desea eliminar la asamblea?");
+	if(rpta == true){
+		var xhr = new XMLHttpRequest();
+		var cad = "../p_asamb_del/?pka="+pka;
 
+		xhr.open('GET',cad,true); // sincrono o asincrono
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				console.log("----------------------");
+				
+				alert(" >> "+xhr.response);
+			}
+		}
+		xhr.send();
 
+	}else{
+		console.log("continue");
+	}
+}

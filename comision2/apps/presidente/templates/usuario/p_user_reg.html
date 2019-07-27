@@ -1,0 +1,42 @@
+{% extends "p_base.html" %}
+
+{% block txt_cabecera %}
+	NUEVO USUARIO
+{% endblock txt_cabecera %}
+
+
+{% block noticias %}
+	
+	<div class="row">
+		<div class="container border p-2">
+			{% if form.errors %}
+				<p class="alert alert-danger">{{ form.errors }}</p>
+			{% else %}
+				<p class="alert alert-success"><STRONG>USUARIO</STRONG></p>				
+			{% endif %}
+
+
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{form.as_p}}
+				<button type="submit" class="btn btn-primary btn-block"><i class="far fa-save"></i>    GUARDAR</button><br><br><br><br>						
+			</form>
+		</div>
+	</div>
+
+{% endblock noticias %}
+
+
+
+{% block noticias1 %}
+{% endblock noticias1 %}
+
+
+{% block tabla %}	
+{% endblock tabla %}
+
+
+
+
+{% block graficos %}	
+{% endblock graficos %}

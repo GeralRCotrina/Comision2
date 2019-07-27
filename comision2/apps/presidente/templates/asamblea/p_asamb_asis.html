@@ -4,11 +4,12 @@
 	ASAMBLEA
 {% endblock txt_cabecera %}
 
-
+ 
 
 {% block noticias %}
 	
 {% endblock noticias %}
+
 
 
 {% block noticias1 %}
@@ -39,6 +40,16 @@
 		</form>
 	</div>
 
+	<!--div class="col-5 border">
+		<input type="text" id="ast" value="3"/>
+		<input type="text" id="fal" value="2"/>
+		<input type="text" id="tar" value="1"/>
+		<button type="button" onclick="Pintar()">pintar</button>
+	</div-->
+
+	<!--div id="ccc" class="col-5 border mt-1"></div
+	<input id="ur" type="text" value="#">-->
+
 
 
 	<div class="col-12 col-md-5 col-lg-5 btn-group border">
@@ -46,14 +57,39 @@
 			
 			<div id="container"  style="min-width: 100%; height: 100%; max-width: 100%;"></div>
 
+		</div>
+	</div>
+
+</div>
+
+
+
 
 <script type="text/javascript">
+/*
+function Pintar() {
+	var ast = document.getElementById("ast").value;
+	var fal = document.getElementById("fal").value;
+	var tar = document.getElementById("tar").value;
+	var ur = document.getElementById("ur");
+
+	var cc = document.getElementById("ccc");
+
+	console.log(" >>"+ast);
+	console.log(" >>"+fal);
+	console.log(" >>"+tar);
+
 	
-var ast = 0.1;
-var fal = 0.1;
-var tar = 0.1;
+	cc.load("<p>La vida es </p>");
+
+	console.log("t");
 
 
+
+}
+*/
+
+	
 Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
@@ -90,19 +126,15 @@ Highcharts.chart('container', {
         name: 'Runión 03/02/19',
         innerSize: '60%',
         data: [
-            ['Tardanzas', ast],
-           ['Faltó', fal],
-           ['Asistió', tar],
+            ['Tardanzas',3],
+           ['Faltó',2],
+           ['Asistió',1],
         ]
     }]
 });
 
 </script>
 
-		</div>
-	</div>
-
-</div>
 
 
 

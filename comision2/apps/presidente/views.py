@@ -29,7 +29,40 @@ def presidente(request):
 	return render(request,'presidente.html')
 
 
- 
+
+
+class UsuarioCreate(CreateView):
+	model=AuthUser
+	form_class=AuthForm
+	template_name='usuario/p_user_reg.html'
+	success_url=reverse_lazy('p_auth_lis')
+
+class UsuarioUpdate(UpdateView):
+	model=AuthUser
+	form_class=AuthForm
+	template_name='usuario/p_user_reg.html'
+	success_url=reverse_lazy('p_auth_lis')
+
+class UsuarioDelete(DeleteView):
+	model=AuthUser
+	form_class=AuthForm
+	template_name='usuario/p_user_del.html'
+	success_url=reverse_lazy('p_auth_lis')
+
+"""
+class NoticiaList(ListView):
+	model=Noticia
+	template_name='p_noticia_lis.html'
+	paginate_by=9
+"""
+
+
+
+
+
+
+
+
 
 class ActUsuario(View):
 
@@ -193,24 +226,14 @@ class AsambReg(View):
 
 
 
-"""
-		r_m =  self.request.POST.get('r_m')
-		r_1 =  self.request.POST.get('r_1')
-		r_2 =  self.request.POST.get('r_2')
-		r_3 =  self.request.POST.get('r_3')
-		r_4 =  self.request.POST.get('r_4')
-		r_41 =  self.request.POST.get('r_41')
-		r_5 =  self.request.POST.get('r_5')
 
-		print("4")
-		print("    >> ___________SE GUARGARÁ ASAMBLEA________________{")
-		print("		>"+desc)
-		print("		>"+fec)
-		print("		>"+str(dtr))
-		print("		>"+tipo)
-		print("		>r_m:"+str(r_m)+" - r_1:"+str(r_1)+" - r_2:"+str(r_2)+" - r_3:"+str(r_3)+" - r_4:"+str(r_4)+" - r_41:"+str(r_41)+" - r_5:"+str(r_5))
-		print("		>---------------------AGENDA----["+str(int(itm_cant)-99)+"]----------")
-"""
+class TraerAgenda(View):
+	def get(self, request, *args, **kwargs):
+		pka = self.request.GET.get('id_asamb')
+		asamb = Asamblea.objects.get(pk=pka)
+		return render(request,'asamblea/p_asamb_edi.html',{'msj':'editando asamblea.','asamb':asamb})
+		
+
 class AsambLis(View):
 	def get(self, request, *args, **kwargs):
 		ListAsamb = Asamblea.objects.all()
@@ -252,7 +275,7 @@ class AsambIni(View):
 			hr = "2000-01-01 00:00:01"
 			for p in parc :
 				Hasis = HojaAsistencia(id_asamblea=asamb,id_auth_user=p.id_auth_user,estado="0" ,hora=hr)
-				Hasis.save()
+				#Hasis.save()
 			lstHAsis = HojaAsistencia.objects.filter(id_asamblea=asamb)
 			return  render(request,'asamblea/p_asamb_asis.html',{'msj':'CREADA 1','lstHAsis':lstHAsis})
 
@@ -286,6 +309,43 @@ class HjaAsisEst(TemplateView):
 		dicc={}
 		dicc['msj1']="OK"
 		return HttpResponse(dicc)
+
+
+class AsmbDel(View):
+	
+	def get(self, request, *args, **kwargs):
+		asmb = self.request.GET.get('pka')
+		msj = "{'color':'rojo','tamaño':'grande'}"
+		print("  >> "+str(asmb))
+		dicc ={}
+		dicc[msj]="s"
+
+
+
+
+		return HttpResponse(dicc)
+
+
+
+
+
+"""
+
+		if AgendaAsamblea.objects.filter(id_asamblea=asmb).exists():
+			AgendaAsamblea.objects.filter(id_asamblea=asmb).delete()
+			print("  >> Eliminó agenda.")
+		if HojaAsistencia.objects.filter(id_asamblea=asmb).exists():
+			HojaAsistencia.objects.filter(id_asamblea=asmb).delete()
+			print("  >> Eliminó la hoja de asistencias.")
+		if Asamblea.objects.get(id_asamblea=asmb):
+			Asamblea.objects.get(id_asamblea=asmb).delete()
+			print("  >> Eliminó la asamblea.")
+		else:
+			print("  >> No existe esa Asamblea.")
+			
+"""
+
+
 
 
 
@@ -361,7 +421,7 @@ class CaudalCreate(TemplateView):
 		dicc['mensaje']='Registro de caudal hecho correctamente'
 		return render(request,'p_caudal_reg.html',dicc)
 
-
+ 
 def ListaE(request):
 	auth = AuthUser.objects.all()
 	datos = DatosPersonales.objects.all()
@@ -497,6 +557,7 @@ class DatosList(ListView):
 class AuthList(ListView):
 	model=AuthUser
 	template_name='p_auth_lis.html'
+	paginate_by=50
 
 
 
